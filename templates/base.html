@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Recruitment Management</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,700,800|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+</head>
+<body>
+    {% include '_header.html' %}
+    {% block content %}{% endblock %}
+
+    <!-- =============== Start of Footer 1 =============== -->
+    <footer class="footer1">
+        <!-- ===== Start of Footer Copyright Section ===== -->
+        <div class="copyright ptb40">
+            <div class="container">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <span>Copyright &copy; <a href="{% url 'home' %}">Recruitment Mgt</a>.</span>
+                </div>
+            </div>
+        </div>
+        <!-- ===== End of Footer Copyright Section ===== -->
+
+    </footer>
+    <!-- =============== End of Footer 1 =============== -->
+
+    <!-- ===== Start of Back to Top Button ===== -->
+    <a href="#" class="back-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- ===== End of Back to Top Button ===== -->
+
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.js' %}"></script>
+    <script src="{% static 'js/jquery.countTo.js' %}"></script>
+    <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easypiechart.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/isotope.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+</html>
