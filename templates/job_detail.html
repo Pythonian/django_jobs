@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+
+{% block title %}{{ job.title }}{% endblock %} 
+
+{% block content %} 
+
+<!-- Page header -->
+    <header class="page-header bg-img size-md">
+      <div class="container">
+        <div class="header-detail">
+          <img class="logo" src="https://via.placeholder.com/50x50" alt="">
+          <div class="hgroup">
+            <h1>{{ job.title }}</h1>
+            <h3><a href="{% url 'company_detail' job.company.id %}">{{ job.company.name }}</a></h3>
+          </div>
+          <time datetime="2016-03-03 20:00">2 days ago</time>
+          <hr>
+
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{ job.state }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-briefcase"></i>
+              <span>{{ job.get_job_type_display }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-money"></i>
+              <span>{{ job.salary }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-users"></i>
+              <span>Vacancy: {{ job.vacancy }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-flask"></i>
+              <span>{{ job.years_of_experience }} years experience</span>
+            </li>
+
+            <li>
+              <i class="fa fa-clock-o"></i>
+              <span>Deadline: {{ job.application_deadline }}</span>
+            </li>
+          </ul>
+
+          <div class="button-group">
+            <div class="action-buttons">
+              <a class="btn btn-primary" href="#">Edit Job</a>
+              <a class="btn btn-success" href="">Apply now</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+    <!-- END Page header -->
+
+
+    <!-- Main container -->
+    <main>
+
+      	<!-- Job detail -->
+		<section>
+		<div class="container">
+		  <h4>Job Description</h4>
+		  <p>{{ job.description }}</p>
+		</div>
+		</section>
+      	<!-- END Job detail -->
+
+      	<section>
+	        <div class="container">
+				<header class="section-header">
+					<h2>Applied Candidates</h2>
+				</header>
+
+	          	<div class="row">
+      				{% for applicant in applicants %}
+		            <div class="col-xs-12">
+		              <div class="item-block">
+		                <header>
+		                  <a href=""><img class="resume-avatar" src="https://via.placeholder.com/50x50" alt=""></a>
+		                  <div class="hgroup">
+		                    <h4><a href="">{{ applicant }}</a></h4>
+		                    <h5>Java developer</h5>
+		                  </div>
+		                  <div class="header-meta">
+		                    <span class="location">Fairfield, IA</span>
+		                    <span class="rate">$60 per hour</span>
+		                  </div>
+		                </header>
+
+		                <footer>
+		                  <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
+
+		                  <div class="action-btn">
+		                    <a class="btn btn-xs btn-gray" href="#">Download CV</a>
+		                    <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
+		                    <a class="btn btn-xs btn-danger" href="#">Delete</a>
+		                  </div>
+		                </footer>
+		              </div>
+		            </div>
+            		{% endfor %}
+      			</div>
+      		</div>
+      	</section>
+
+    </main>
+    <!-- END Main container -->
+
+{% endblock %}

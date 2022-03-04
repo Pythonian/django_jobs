@@ -194,7 +194,7 @@ class AcquiredSkill(models.Model):
 
 class Application(models.Model):
     job = models.ForeignKey(
-        Job, related_name='apply_job', on_delete=models.CASCADE)
+        Job, related_name='applications', on_delete=models.CASCADE)
     applicant = models.ForeignKey(
         User, related_name='job_applicant', on_delete=models.CASCADE)
     note = models.TextField(max_length=500)

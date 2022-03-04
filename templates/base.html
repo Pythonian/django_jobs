@@ -36,13 +36,13 @@
             <!-- Navigation menu -->
             <ul class="nav-menu">
                 <li>
-                    <a class="active" href="">Home</a>
+                    <a class="{% url 'home' as home_url %} {% if request.get_full_path == home_url %}active{% endif %}" href="{% url 'home' %}">Home</a>
                 </li>
                 <li>
-                    <a href="#">Jobs</a>
+                    <a class="{% url 'job_list' as job_list_url %} {% if request.get_full_path == job_list_url %}active{% endif %}" href="{% url 'job_list' %}">Jobs</a>
                 </li>
                 <li>
-                    <a href="#">Companies</a>
+                    <a class="{% url 'companies' as companies_url %} {% if request.get_full_path == companies_url %}active{% endif %}" href="{% url 'companies' %}">Companies</a>
                 </li>
                 <li>
                     <a href="#">Job Seekers</a>

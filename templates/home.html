@@ -49,7 +49,7 @@
 
             {% for job in jobs %}
             <div class="col-xs-12">
-              <a class="item-block" href="">
+              <a class="item-block" href="{% url 'job_detail' job.id %}">
                 <header>
                   <img src="" alt="">
                   <div class="hgroup">
@@ -68,7 +68,7 @@
           </div>
 
           <br><br>
-          <p class="text-center"><a class="btn btn-info" href="">Browse all jobs</a></p>
+          <p class="text-center"><a class="btn btn-info" href="{% url 'job_list' %}">Browse all jobs</a></p>
         </div>
       </section>
       <!-- END Recent jobs -->
@@ -77,14 +77,13 @@
       <section class="bg-alt">
         <div class="container">
           <header class="section-header">
-            <span>Categories</span>
             <h2>Job categories</h2>
             <p>Find job by work categories</p>
           </header>
 
           <div class="category-grid">
             {% for category in categories %}
-            <a href="">
+            <a href="{% url 'category_detail' category.slug %}">
               <i class="fa fa-briefcase"></i>
               <h6>{{ category.name }}</h6>
               <p>{{ category.description }}</p>
@@ -109,7 +108,7 @@
             {% for company in companies %}
             <!-- Company detail -->
             <div class="col-xs-12">
-              <a class="item-block" href="company-detail.html">
+              <a class="item-block" href="{% url 'company_detail' company.id %}">
                 <header>
                   <img src="https://via.placeholder.com/150x150" alt="">
                   <div class="hgroup">
@@ -130,7 +129,7 @@
           </div>
 
           <br><br>
-          <p class="text-center"><a class="btn btn-info" href="">Browse all companies</a></p>
+          <p class="text-center"><a class="btn btn-info" href="{% url 'companies' %}">Browse all companies</a></p>
         </div>
       </section>
       <!-- END Companies -->

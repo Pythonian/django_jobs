@@ -1,0 +1,125 @@
+{% extends "base.html" %} 
+
+{% block title %}{{ company.name }}{% endblock %} 
+
+{% block content %} 
+
+<!-- Page header -->
+    <header class="page-header bg-img size-md">
+      <div class="container">
+        <div class="header-detail">
+          <img class="logo" src="https://via.placeholder.com/50x50" alt="">
+          <div class="hgroup">
+            <h1>{{ company.name }}</h1>
+            <h3>{{ company.category }}</h3>
+          </div>
+          <hr>
+          <p class="lead">{{ company.about }}</p>
+
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{ company.state }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-globe"></i>
+              <a href="{{ company.website }}">Visit our website</a>
+            </li>
+
+            <li>
+              <i class="fa fa-briefcase"></i>
+              <span>{{ company.category }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-birthday-cake"></i>
+              <span>Established {{ company.established|date:"Y" }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-phone"></i>
+              <span>{{ company.phone_number }}</span>
+            </li>
+
+            <li>
+              <i class="fa fa-envelope"></i>
+              <a href="#">{{ company.company_email }}</a>
+            </li>
+          </ul>
+
+          <div class="button-group">
+            <div class="action-buttons">
+              <a class="btn btn-gray" href="#">Favorite</a>
+              <a class="btn btn-success" href="#">Contact</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+    <!-- END Page header -->
+
+
+    <!-- Main container -->
+    <main>
+
+      <!-- Open positions -->
+      <section id="open-positions" class="bg-alt">
+        <div class="container">
+          <header class="section-header">
+            <span>vacancies</span>
+            <h2>Open positions</h2>
+          </header>
+          
+          <div class="row">
+
+            {% for job in jobs %}
+            <div class="col-xs-12">
+              <a class="item-block" href="{% url 'job_detail' job.id %}">
+                <header>
+                  <img src="assets/img/logo-google.jpg" alt="">
+                  <div class="hgroup">
+                    <h4>{{ job.title }}</h4>
+                    <h5>{{ job.company }} <span class="label label-success">{{ job.get_job_type_display }}</span></h5>
+                  </div>
+                  <time>{{ job.created|date:"j, F" }}</time>
+                </header>
+
+                <div class="item-body">
+                  <p>{{ job.description }}</p>
+                </div>
+
+                <footer>
+                  <ul class="details cols-3">
+                    <li>
+                      <i class="fa fa-map-marker"></i>
+                      <span>{{ job.state }}</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-money"></i>
+                      <span>{{ job.salary }}</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-calendar"></i>
+                      <span>Deadline: {{ job.application_deadline }}</span>
+                    </li>
+                  </ul>
+                </footer>
+              </a>
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </section>
+      <!-- END Open positions -->
+
+
+    </main>
+    <!-- END Main container -->
+
+{% endblock %}
