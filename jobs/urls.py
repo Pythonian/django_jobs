@@ -7,6 +7,7 @@ urlpatterns = [
     path('companies/', views.companies, name='companies'),
     path('company/<int:id>/', views.company_detail, name='company_detail'),
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
+    path('resumes/', views.resumes, name='resumes'),
     # path('create-job/', views.job_create, name='create_job'),
     path('', views.home, name='home'),
 ]

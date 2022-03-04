@@ -88,5 +88,7 @@ def job_create(request):
     return render(request, 'job_create.html', {'form': form})
 
 
-# def job_applications(request):
-#     pass
+def resumes(request):
+    applicants = Applicant.objects.all()
+    return render(
+        request, 'resumes.html', {'applicants': applicants})

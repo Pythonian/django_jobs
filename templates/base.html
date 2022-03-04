@@ -29,9 +29,27 @@
             </div>
             <!-- END Logo -->
             <!-- User account -->
+            {% if request.user.is_authenticated %}
+            <div class="pull-right">
+
+              <div class="dropdown user-account">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <img src="https://via.placeholder.com/50x50" alt="avatar">
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="">My Resume</a></li>
+                  <li><a href="">Job applications</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </div>
+
+            </div>
+            {% else %}
             <div class="pull-right user-login">
                 <a class="btn btn-sm btn-primary" href="">Login</a> or <a href="">register</a>
             </div>
+            {% endif %}
             <!-- END User account -->
             <!-- Navigation menu -->
             <ul class="nav-menu">
@@ -45,7 +63,7 @@
                     <a class="{% url 'companies' as companies_url %} {% if request.get_full_path == companies_url %}active{% endif %}" href="{% url 'companies' %}">Companies</a>
                 </li>
                 <li>
-                    <a href="#">Job Seekers</a>
+                    <a class="{% url 'resumes' as resumes_url %} {% if request.get_full_path == resumes_url %}active{% endif %}" href="{% url 'resumes' %}">Resumes</a>
                 </li>
             </ul>
             <!-- END Navigation menu -->
