@@ -105,7 +105,7 @@ class Job(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
     company = models.ForeignKey(
-        Company, related_name='companies', on_delete=models.CASCADE)
+        Company, related_name='jobs', on_delete=models.CASCADE)
     job_type = models.CharField(max_length=2, choices=JOB_TYPE)
     description = models.TextField(max_length=1000)
     salary = models.CharField(max_length=25)

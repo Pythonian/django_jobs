@@ -5,198 +5,137 @@
 
 {% block content %} 
 
-    <!-- ===== Start of Main Search Section ===== -->
-    <section class="main3 ptb120 overlay-gradient">
-
-        <!-- Start of Wrapper -->
-        <div class="container wrapper">
-
-
-            <div class="col-md-6 col-xs-12 mb60 text-center">
-                <div class="section-title">
-                    <h2 class="text-white">your career start now!</h2>
-                </div>
-
-                <p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy t ext ever since the 1500s..</p>
-                <a href="register.html" class="btn btn-purple btn-effect mt80">signup now!</a>
-
+    <!-- Site header -->
+    <header class="site-header size-md text-center">
+      <div class="container">
+        <div class="col-xs-12">
+          <br><br>
+          <h2>There are <mark>{{ jobs.count }}</mark> job vacancies right now!</h2>
+          <h5 class="font-alt">Find your desired one in a minute</h5>
+          <br><br><br>
+          <form class="header-job-search">
+            <div class="input-keyword">
+              <input type="text" class="form-control" placeholder="Job title, skills, or company">
             </div>
 
-
-            <div class="col-md-4 col-md-offset-2 col-xs-12">
-                <!-- Start of Form -->
-                <form class="job-search-form row" action="#" method="get">
-
-                    <!-- Start of Form Title -->
-                    <div class="col-md-12 form-title">
-                        <h4>search job</h4>
-                    </div>
-
-                    <!-- Start of keywords input -->
-                    <div class="col-md-12 search-keywords">
-                        <label for="search-keywords">Keywords</label>
-                        <input type="text" name="search-keywords" id="search-keywords" placeholder="Keywords">
-                    </div>
-
-                    <!-- Start of category input -->
-                    <div class="col-md-12 search-categories mt15">
-                        <label for="search-categories">Category</label>
-                        <select name="search-categories" class="selectpicker" id="search-categories" data-live-search="true" title="Any Category" data-size="5" data-container="body">
-                            <option value="1">Accountance</option>
-                            <option value="2">Banking</option>
-                            <option value="3">Design & Art</option>
-                            <option value="4">Developement</option>
-                            <option value="5">Insurance</option>
-                            <option value="6">IT Engineer</option>
-                            <option value="7">Healthcare</option>
-                            <option value="8">Marketing</option>
-                            <option value="9">Management</option>
-                        </select>
-                    </div>
-
-                    <!-- Start of location input -->
-                    <div class="col-md-12 search-location mt15">
-                        <label for="search-location">Location</label>
-                        <input type="text" name="search-location" id="search-location" placeholder="Location">
-                    </div>
-
-                    <!-- Start of submit input -->
-                    <div class="col-md-12 search-submit mt15 mb30">
-                        <button type="submit" class="btn btn-blue btn-effect btn-large"><i class="fa fa-search"></i>search</button>
-                    </div>
-
-                </form>
-                <!-- End of Form -->
+            <div class="input-location">
+              <input type="text" class="form-control" placeholder="City, state or zip">
             </div>
 
+            <div class="btn-search">
+              <button class="btn btn-primary" type="submit">Find jobs</button>
+              <a href="job-list.html">Advanced Job Search</a>
+            </div>
+          </form>
         </div>
-        <!-- End of Wrapper -->
 
-    </section>
-    <!-- ===== End of Main Search Section ===== -->
+      </div>
+    </header>
+    <!-- END Site header -->
 
-    <!-- ===== Start of Job Categories Section ===== -->
-    <section class="ptb80" id="categories">
+
+    <!-- Main container -->
+    <main>
+
+      <!-- Recent jobs -->
+      <section>
         <div class="container">
+          <header class="section-header">
+            <span>Latest</span>
+            <h2>Recent jobs</h2>
+          </header>
 
-            <div class="section-title">
-                <h2>job categories</h2>
+          <div class="row item-blocks-connected">
+
+            {% for job in jobs %}
+            <div class="col-xs-12">
+              <a class="item-block" href="">
+                <header>
+                  <img src="" alt="">
+                  <div class="hgroup">
+                    <h4>{{ job.title }}</h4>
+                    <h5>{{ job.company.name }}</h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location">{{ job.state }}</span>
+                    <span class="label label-success">{{ job.get_job_type_display }}</span>
+                  </div>
+                </header>
+              </a>
             </div>
+            {% endfor %}
 
-            <div class="row nomargin">
-                <!-- Start of Category div -->
-                {% for category in categories %}
-                <div class="col-md-3 col-sm-6 col-xs-12 cat-wrapper">
-                    <div class="category ptb30">
+          </div>
 
-                        <!-- Icon -->
-                        <div class="category-icon">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-
-                        <!-- Category Info - Title -->
-                        <div class="category-info pt30">
-                            <a href="#">{{ category.name }}</a>
-                            <p>({{ category.count }} open positions)</p>
-                        </div>
-
-                        <!-- Category Description -->
-                        <div class="category-descr">
-                            <span>{{ category.description }}</span>
-                        </div>
-
-                    </div>
-                </div>
-                {% endfor %}
-                <!-- End of Category div -->
-            </div>
+          <br><br>
+          <p class="text-center"><a class="btn btn-info" href="">Browse all jobs</a></p>
         </div>
-    </section>
-    <!-- ===== End of Job Categories Section ===== -->
+      </section>
+      <!-- END Recent jobs -->
 
-    <!-- ===== Start of Job Post Section ===== -->
-    <section class="search-jobs ptb80">
+      <!-- Categories -->
+      <section class="bg-alt">
         <div class="container">
+          <header class="section-header">
+            <span>Categories</span>
+            <h2>Job categories</h2>
+            <p>Find job by work categories</p>
+          </header>
 
-            <div class="section-title">
-                <h2>latest jobs</h2>
-            </div>
-
-            <!-- Start of Row -->
-            <div class="row">
-
-                <!-- Start of Job Post Main -->
-                <div class="col-md-12 job-post-main">
-
-                    <!-- Start of Job Post Wrapper -->
-                    <div class="job-post-wrapper">
-
-                        <!-- ===== Start of Single Job Post ===== -->
-                        {% for job in jobs %}
-                        <div class="single-job-post row nomargin">
-                            <!-- Job Company -->
-                            <div class="col-md-2 col-xs-3">
-                                <div class="job-company">
-                                    <a href="company-page-1.html">
-                                        <img src="{{ job.company." alt="">
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- Job Title & Info -->
-                            <div class="col-md-8 col-xs-6 ptb20">
-                                <div class="job-title">
-                                    <a href="job-page.html">{{ job.title }}</a>
-                                </div>
-
-                                <div class="job-info">
-                                    <span class="company"><i class="fa fa-building-o"></i>envato</span>
-                                    <span class="location"><i class="fa fa-map-marker"></i>Melbourn, Australia</span>
-                                </div>
-                            </div>
-
-                            <!-- Job Category -->
-                            <div class="col-md-2 col-xs-3 ptb30">
-                                <div class="job-category">
-                                    <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">full time</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <!-- ===== End of Single Job Post ===== -->
-
-                    </div>
-                    <!-- End of Job Post Wrapper -->
-
-                </div>
-                <!-- End of Job Post Main -->
-
-            </div>
-            <!-- End of Row -->
+          <div class="category-grid">
+            {% for category in categories %}
+            <a href="">
+              <i class="fa fa-briefcase"></i>
+              <h6>{{ category.name }}</h6>
+              <p>{{ category.description }}</p>
+            </a> 
+            {% endfor %}
+          </div>
 
         </div>
-    </section>
-    <!-- ===== End of Job Post Section ===== -->
-    
-    <!-- ===== Start of Get Started Section ===== -->
-    <section class="get-started ptb40">
+      </section>
+      <!-- END Categories -->
+
+      <!-- Companies -->
+      <section>
         <div class="container">
-            <div class="row ">
+          <header class="section-header">
+            <span>Hiring</span>
+            <h2>Companies</h2>
+          </header>
 
-                <!-- Column -->
-                <div class="col-md-10 col-sm-9 col-xs-12">
-                    <h3 class="text-white">20,000+ People trust Cariera! Be one of them today.</h3>
+          <div class="row">
+
+            {% for company in companies %}
+            <!-- Company detail -->
+            <div class="col-xs-12">
+              <a class="item-block" href="company-detail.html">
+                <header>
+                  <img src="https://via.placeholder.com/150x150" alt="">
+                  <div class="hgroup">
+                    <h4>{{ company.name }}</h4>
+                    <h5>{{ company.category }}</h5>
+                  </div>
+                  <span class="open-position">{{ company.jobs.count }} open position</span>
+                </header>
+
+                <div class="item-body">
+                  <p>{{ company.about }}</p>
                 </div>
-
-                <!-- Column -->
-                <div class="col-md-2 col-sm-3 col-xs-12">
-                    <a href="#" class="btn btn-blue btn-effect">get start now</a>
-                </div>
-
+              </a>
             </div>
-        </div>
-    </section>
-    <!-- ===== End of Get Started Section ===== -->
+            <!-- END Company detail -->
+            {% endfor %}
 
+          </div>
+
+          <br><br>
+          <p class="text-center"><a class="btn btn-info" href="">Browse all companies</a></p>
+        </div>
+      </section>
+      <!-- END Companies -->
+
+    </main>
+    <!-- END Main container -->
 
 {% endblock %}

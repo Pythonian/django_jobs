@@ -1,18 +1,22 @@
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.contrib import messages
-# from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-# from .models import Job, Apply, Category
-# from .forms import ApplyForm, JobForm
+from .models import Job, Company, Category, Applicant
+from .forms import ApplicationForm, JobForm
 
 
-# def home(request):
-#     jobs = Job.objects.all()
-#     categories = Category.objects.all()
+def home(request):
+    jobs = Job.objects.all()
+    categories = Category.objects.all()
+    companies = Company.objects.all()
+    job_seekers = Applicant.objects.all()
 
-#     return render(
-#         request, 'home.html', {'jobs': jobs,
-#                                'categories': categories})
+    return render(
+        request, 'home.html', {'jobs': jobs,
+                               'categories': categories,
+                               'companies': companies,
+                               'job_seekers': job_seekers})
 
 
 # def job_list(request):
@@ -26,7 +30,7 @@
 #     job = get_object_or_404(Job, slug=slug)
 
 #     if request.method == 'POST':
-#         form = ApplyForm(request.POST)
+#         form = ApplicationForm(request.POST)
 #         if form.is_valid():
 #             apply = form.save(commit=False)
 #             apply.job = job
@@ -36,7 +40,7 @@
 #                 request, "Your application request was sent.")
 #             return redirect('job_detail', job.slug)
 #     else:
-#         form = ApplyForm()
+#         form = ApplicationForm()
 
 #     return render(
 #         request, 'job_detail.html',

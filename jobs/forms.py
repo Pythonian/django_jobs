@@ -1,16 +1,15 @@
 from django import forms
 
-from .models import Apply, Job
+from .models import Application, Job
 
 
-class ApplyForm(forms.ModelForm):
+class ApplicationForm(forms.ModelForm):
     class Meta:
-        model = Apply
+        model = Application
         fields = ['note']
 
 
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['title', 'category', 'job_type', 'description',
-                  'salary', 'experience', 'location']
+        fields = ['title', 'job_type', 'description', 'salary']
