@@ -84,23 +84,25 @@
 		            <div class="col-xs-12">
 		              <div class="item-block">
 		                <header>
-		                  <a href=""><img class="resume-avatar" src="https://via.placeholder.com/50x50" alt=""></a>
+		                  <a href="{% url 'resume_detail' applicant.applicant.user.username %}"><img class="resume-avatar" src="https://via.placeholder.com/50x50" alt=""></a>
 		                  <div class="hgroup">
-		                    <h4><a href="">{{ applicant }}</a></h4>
+		                    <h4><a href="{% url 'resume_detail' applicant.applicant.user.username %}">{{ applicant.applicant.user.username|title }}</a></h4>
 		                    <h5>Java developer</h5>
 		                  </div>
 		                  <div class="header-meta">
-		                    <span class="location">Fairfield, IA</span>
-		                    <span class="rate">$60 per hour</span>
+		                    <span class="location">{{ applicant.applicant.state }}</span>
 		                  </div>
 		                </header>
+                    <div class="item-body">
+                      <p>Application note:</p>
+                      {{ applicant.note }}
+                    </div>
 
 		                <footer>
-		                  <div class="status"><strong>Applied on:</strong> July 16, 2016</div>
+		                  <div class="status"><strong>Applied on:</strong> {{ applicant.created|date:'F j, Y' }}</div>
 
 		                  <div class="action-btn">
-		                    <a class="btn btn-xs btn-gray" href="#">Download CV</a>
-		                    <a class="btn btn-xs btn-gray" data-toggle="modal" data-target="#modal-contact" href="#">Contact</a>
+		                    <a class="btn btn-xs btn-gray" href="{{ applicant.applicant.cv.url }}">Download CV</a>
 		                    <a class="btn btn-xs btn-danger" href="#">Delete</a>
 		                  </div>
 		                </footer>

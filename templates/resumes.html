@@ -1,0 +1,67 @@
+{% extends "base.html" %} 
+
+{% block title %}Resumes{% endblock %} 
+
+{% block content %} 
+
+<!-- Page header -->
+    <header class="page-header bg-img">
+      <div class="container page-name">
+        <h1 class="text-center">Browse Resumes</h1>
+        <p class="lead text-center">Resumes of job seekers who are available for job offering by hiring companies</p>
+      </div>
+    </header>
+    <!-- END Page header -->
+
+    <!-- Main container -->
+    <main>
+      <section class="no-padding-top bg-alt">
+        <div class="container">
+          <div class="row">
+
+            {% for applicant in applicants %}
+            <div class="col-md-6">
+              <a class="item-block" href="{% url 'resume_detail' applicant.user.username %}">
+                <header>
+                  <img class="resume-avatar" src="https://via.placeholder.com/50x50" alt="">
+                  <div class="hgroup">
+                    <h4>{{ applicant.user }}</h4>
+                    <h5>{{ applicant.get_gender_display }}</h5>
+                  </div>
+                </header>
+
+                <div class="item-body">
+                  <p>{{ applicant.about }}</p>
+                  <div class="tag-list">
+                    <span>{{ applicant.category }}</span>
+                  </div>
+                </div>
+
+                <footer>
+                  <ul class="details cols-3">
+                    <li>
+                      <i class="fa fa-map-marker"></i>
+                      <span>Location: {{ applicant.state }}</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-certificate"></i>
+                      <span>{{ applicant.get_education_level_display }}</span>
+                    </li>
+
+                    <li>
+                      <i class="fa fa-calendar"></i>
+                      <span>{{ applicant.phone_number }}</span>
+                    </li>
+                  </ul>
+                </footer>
+              </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+</main>
+
+
+{% endblock %} 

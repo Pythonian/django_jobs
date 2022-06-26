@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 from .models import Job, Company, Category, Applicant
 from .forms import ApplicationForm, JobForm
 
@@ -81,6 +81,7 @@ def job_create(request):
             job = form.save(commit=False)
             job.company = request.user
             job.save()
+            messages.success(request, "Job details saved.")
             return redirect('job_detail', job.id)
     else:
         form = JobForm()
@@ -92,3 +93,10 @@ def resumes(request):
     applicants = Applicant.objects.all()
     return render(
         request, 'resumes.html', {'applicants': applicants})
+
+
+def resume_detail(request, username):
+    user = get_object_or_404(User, username=username)
+    resume = get_object_or_404(Applicant, user=user)
+    return render(
+        request, 'job_seeker.html', {'resume': resume, 'user': user})

@@ -1,81 +1,63 @@
 {% extends "base.html" %} 
 
-{% block title %}{{ job.title }}{% endblock %} 
+{% block title %}{{ user.username }}{% endblock %} 
 
 {% block content %} 
 
 <!-- Page header -->
-    <header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg)">
+    <header class="page-header bg-img">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-4">
-            <img src="assets/img/avatar.jpg" alt="">
+            <img src="https://via.placeholder.com/100x100" alt="">
           </div>
 
           <div class="col-xs-12 col-sm-8 header-detail">
             <div class="hgroup">
-              <h1>John Doe</h1>
-              <h3>Front-end developer</h3>
+              <h1>{{ user.username }}</h1>
             </div>
             <hr>
-            <p class="lead">The front end  is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with. This includes the design, images, colours, buttons, forms, typography, animations and content. It’s basically everything that you as a user of the website can see.</p>
+            <p class="lead">{{ user.applicant.about }}</p>
 
             <ul class="details cols-2">
               <li>
                 <i class="fa fa-map-marker"></i>
-                <span>Mountain view, CA</span>
-              </li>
-
-              <li>
-                <i class="fa fa-globe"></i>
-                <a href="#">mywebsite.me</a>
-              </li>
-
-              <li>
-                <i class="fa fa-money"></i>
-                <span>$85 / hour</span>
-              </li>
-
-              <li>
-                <i class="fa fa-birthday-cake"></i>
-                <span>27 years-old</span>
+                <span>{{ user.applicant.state }}</span>
               </li>
 
               <li>
                 <i class="fa fa-phone"></i>
-                <span>(+1) 123 456 7890</span>
+                <span>{{ user.applicant.phone_number }}</span>
               </li>
 
               <li>
-                <i class="fa fa-envelope"></i>
-                <a href="#">hi@mywebsite.me</a>
+                <i class="fa fa-certificate"></i>
+                <span>{{ user.applicant.get_education_level_display }}</span>
+              </li>
+
+              <li>
+                <i class="fa fa-birthday-cake"></i>
+                <span>{{ user.applicant.date_of_birth }}</span>
+              </li>
+
+              <li>
+                <i class="fa fa-user"></i>
+                <span>{{ user.applicant.get_gender_display }}</span>
+              </li>
+
+              <li>
+                <i class="fa fa-briefcase"></i>
+                {{ user.applicant.category }}
               </li>
             </ul>
-
-            <div class="tag-list">
-              <span>HTML5</span>
-              <span>CSS3</span>
-              <span>Bootstrap</span>
-              <span>ReactJS</span>
-              <span>SASS / LESS</span>
-              <span>Grunt / Gulp</span>
-              <span>Wordpress</span>
-            </div>
           </div>
         </div>
 
         <div class="button-group">
-          <ul class="social-icons">
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-          </ul>
 
           <div class="action-buttons">
-            <a class="btn btn-gray" href="#">Download CV</a>
-            <a class="btn btn-success" data-toggle="modal" data-target="#modal-contact" href="#">Contact me</a>
+            <a class="btn btn-success" href="{{ user.applicant.cv.url }}" target="_blank">Download Resume</a>
+            <a class="btn btn-primary" href="#">Edit Resume</a>
           </div>
         </div>
       </div>
@@ -85,7 +67,6 @@
 
     <!-- Main container -->
     <main>
-
 
       <!-- Education -->
       <section>
@@ -146,81 +127,24 @@
           <div class="row">
 
             <!-- Work item -->
+            {% for experience in user.applicant.experiences.all %}
             <div class="col-xs-12">
               <div class="item-block">
                 <header>
-                  <img src="assets/img/logo-google.jpg" alt="">
+                  <img src="https://via.placeholder.com/50x50" alt="">
                   <div class="hgroup">
-                    <h4>Google</h4>
-                    <h5>Senior front-end developer</h5>
+                    <h4>{{ experience.company_name }}</h4>
+                    <h5>{{ experience.job_title }}</h5>
                   </div>
-                  <h6 class="time">Jan 2016 - Present</h6>
+                  <h6 class="time">{{ experience.year|date:"F, Y" }}</h6>
                 </header>
                 <div class="item-body">
-                  <p>Responsibilities:</p>
-                  <ul>
-                    <li>Developed front-end for world-class online social viewing video and chat platform using xHTML, CSS, ActionScript 2-3, Javascript, and XML.</li>
-                    <li>Developed built-in chat application into Flash video player in ActionScript 3.</li>
-                    <li>Built and developed sites for ABC Family properties such as Gilmore Girls, The Middleman, Secret Life of an American Teenager, Greek, and Kyle XY. </li>
-                    <li>Translate designs into responsive web interfaces </li>
-                    <li>Collaboration with the graphic designer on the front-end aspect of development. </li>
-                    <li>Cross-platform cross-browser development. </li>
-                    <li>Some back-end development in collaboration with senior developer.</li>
-                  </ul>
+                  <p>Task description:</p>
+                  {{ experience.task_description }}
                 </div>
               </div>
             </div>
-            <!-- END Work item -->
-
-
-            <!-- Work item -->
-            <div class="col-xs-12">
-              <div class="item-block">
-                <header>
-                  <img src="assets/img/logo-facebook.png" alt="">
-                  <div class="hgroup">
-                    <h4>Facebook</h4>
-                    <h5>Interface developer</h5>
-                  </div>
-                  <h6 class="time">Aug 2014 - Jan 2016</h6>
-                </header>
-                <div class="item-body">
-                  <p>Responsibilities:</p>
-                  <ul>
-                    <li>Work as a part of a large team on a major corporate project</li>
-                    <li>Responsible for all aspects of presentation layer development including developing templates using HTML, DHTML, Javascript, XML, and XSL.</li>
-                    <li>Rapid-prototyping for usability studies and new business development.</li>
-                    <li>Collaboration with the graphic designer on the front-end aspect of development.</li>
-                    <li>Some back-end development in collaboration with senior developer.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <!-- END Work item -->
-
-
-            <!-- Work item -->
-            <div class="col-xs-12">
-              <div class="item-block">
-                <header>
-                  <img src="assets/img/logo-envato.png" alt="">
-                  <div class="hgroup">
-                    <h4>Envato</h4>
-                    <h5>Quality assurance engineer</h5>
-                  </div>
-                  <h6 class="time">Mar 2012 - Jun 2014</h6>
-                </header>
-                <div class="item-body">
-                  <p>Responsibilities:</p>
-                  <ul>
-                    <li>Software testing in a Web Applications/Mobile environment.</li>
-                    <li>Software Test Plans from Business Requirement Specifications for test engineering group.</li>
-                    <li>Run production tests as part of software implementation; Create, deliver and support test plans for testing group to execute.</li>
-                    <li>Software testing in a Web Applications environment.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
             <!-- END Work item -->
 
           </div>

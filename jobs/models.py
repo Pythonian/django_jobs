@@ -72,7 +72,8 @@ class Applicant(models.Model):
         (POLYTECHNIC, 'Polytechnic'),
         (UNIVERSITY, 'University'))
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='applicant')
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=13, blank=True)
@@ -93,12 +94,10 @@ class Applicant(models.Model):
 class Job(models.Model):
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
-    FREELANCER = 'FL'
     INTERNSHIP = 'IT'
     JOB_TYPE = (
         (FULL_TIME, 'Full Time'),
         (PART_TIME, 'Part Time'),
-        (FREELANCER, 'Freelancer'),
         (INTERNSHIP, 'Internship'),
     )
 
@@ -112,7 +111,7 @@ class Job(models.Model):
     years_of_experience = models.IntegerField()
     vacancy = models.IntegerField(default=1)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
-    application_deadline = models.DateField()
+    application_deadline = models.DateField()  # remove
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -137,6 +136,7 @@ class Experience(models.Model):
         max_length=50, blank=True, null=True)
     supervisor_email = models.EmailField(blank=True, null=True)
     task_description = models.TextField()
+    year = models.DateField()
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -196,7 +196,7 @@ class Application(models.Model):
     job = models.ForeignKey(
         Job, related_name='applications', on_delete=models.CASCADE)
     applicant = models.ForeignKey(
-        User, related_name='job_applicant', on_delete=models.CASCADE)
+        Applicant, related_name='job_applicant', on_delete=models.CASCADE)
     note = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
