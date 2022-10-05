@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-88v!5jxeu7e(ok@qtc#n0e*xd99%zipyyl4uh0=92h=y8h+*-i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    # 'account.apps.AccountConfig',
     'jobs.apps.JobsConfig',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda u: reverse_lazy('resume_detail', args=[u.username])
-}
+# ABSOLUTE_URL_OVERRIDES = {
+#     'auth.user': lambda u: reverse_lazy('resume_detail', args=[u.username])
+# }
+
+LOGOUT_REDIRECT_URL = 'home'
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGIN_URL = 'login'

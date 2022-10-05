@@ -1,125 +1,151 @@
-from django.db import models
-from django.utils.text import slugify
 from django.conf import settings
+from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
-User = settings.AUTH_USER_MODEL
+from .managers import ActiveJobManager
+from .utils import image_path
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
-    slug = models.SlugField()
-    description = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    name = models.CharField(_('Name'), unique=True, max_length=25)
+    slug = models.SlugField(_('Slug'), unique=True, max_length=25)
+    description = models.TextField(_('Description'), blank=True, null=True)
+    image = models.ImageField(_('Image'), upload_to=image_path, blank=True, null=True)
+    category_order = models.PositiveIntegerField(_('Category order'),
+                                                    unique=True, blank=True)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+        ordering = ['category_order']
 
     def __str__(self):
         return self.name
+
+    def get_total_jobs(self):
+        return Job.active.filter(category=self).count()
+
+    def get_absolute_url(self):
+        return reverse('jobs:category', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        if not self.category_order:
+            try:
+                self.category_order = Category.objects.\
+                                    latest('category_order').category_order + 1
+            except Category.DoesNotExist:
+                self.category_order = 0
+        super().save(*args, **kwargs)
+
+
+class JobType(models.Model):
+    name = models.CharField(_('Name'), unique=True, max_length=15)
+    slug = models.SlugField(_('Slug'), unique=True, max_length=15)
+
+    class Meta:
+        verbose_name = _('Job Type')
+        verbose_name_plural = _('Job Types')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    def get_total_jobs(self):
+        return Job.active.filter(jobtype=self).count()
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class State(models.Model):
-    name = models.CharField(max_length=25)
-    slug = models.SlugField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Company(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25)
-    slug = models.SlugField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    about = models.TextField(max_length=5000)
-    logo = models.ImageField(upload_to='logos', blank=True)
-    company_email = models.EmailField()
-    established = models.DateField(blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
-    phone_number = models.CharField(max_length=13,
-                                    blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    name = models.CharField(_('Name'), unique=True, max_length=25)
+    slug = models.SlugField(_('Slug'), unique=True, max_length=25)
 
     class Meta:
-        verbose_name_plural = 'Companies'
+        verbose_name = _('State')
+        verbose_name_plural = _('States')
+        ordering = ['name']
 
     def __str__(self):
         return self.name
 
+    def get_total_jobs(self):
+        return Job.active.filter(state=self).count()
 
-class Applicant(models.Model):
-    MALE = 'M'
-    FEMALE = 'F'
-    GENDER_CHOICES = (
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-    )
-
-    PRIMARY_SCHOOL = 'PS'
-    SECONDARY_SCHOOL = 'SS'
-    COLLEGE_EDUCATION = 'CE'
-    POLYTECHNIC = 'PO'
-    UNIVERSITY = 'UI'
-    EDUCATION_LEVEL_CHOICES = (
-        (PRIMARY_SCHOOL, 'Primary School'),
-        (SECONDARY_SCHOOL, 'Secondary School'),
-        (COLLEGE_EDUCATION, 'College of Education'),
-        (POLYTECHNIC, 'Polytechnic'),
-        (UNIVERSITY, 'University'))
-
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='applicant')
-    date_of_birth = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    phone_number = models.CharField(max_length=13, blank=True)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    about = models.TextField()
-    education_level = models.CharField(
-        max_length=2, choices=EDUCATION_LEVEL_CHOICES)
-    cv = models.FileField('Upload CV', upload_to='cvs', blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='applicants', blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.user.username
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class Job(models.Model):
-    FULL_TIME = 'FT'
-    PART_TIME = 'PT'
-    INTERNSHIP = 'IT'
-    JOB_TYPE = (
-        (FULL_TIME, 'Full Time'),
-        (PART_TIME, 'Part Time'),
-        (INTERNSHIP, 'Internship'),
-    )
 
-    title = models.CharField(max_length=100)
-    slug = models.SlugField()
-    company = models.ForeignKey(
-        Company, related_name='jobs', on_delete=models.CASCADE)
-    job_type = models.CharField(max_length=2, choices=JOB_TYPE)
-    description = models.TextField(max_length=1000)
-    salary = models.CharField(max_length=25)
-    years_of_experience = models.IntegerField()
-    vacancy = models.IntegerField(default=1)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    application_deadline = models.DateField()  # remove
+    class JobStatus(models.TextChoices):
+        ACTIVE = 'A', _('Active')
+        INACTIVE = 'I', _('Inactive')
+
+    class SalarySchedule(models.TextChoices):
+        HOURLY = 'H', _('Hourly')
+        DAILY = 'D', _('Daily')
+        WEEKLY = 'W', _('Weekly')
+        MONTHLY = 'M', _('Monthly')
+        YEARLY = 'Y', _('Yearly')
+
+    title = models.CharField(verbose_name=_('Title'), max_length=255)
+    slug = models.SlugField(verbose_name=_('Slug'), max_length=255, unique=True)
+    description = models.TextField(_('Description')) # use RichTextEditor
+    salary_mode = models.CharField(
+        _('Salary Mode'), max_length=1, choices=SalarySchedule.choices)
+    salary_amount = models.PositiveIntegerField()
+    experience = models.PositiveIntegerField(_('Years of experience'),
+                                             blank=True, null=True)
+    vacancy = models.PositiveIntegerField(blank=True, null=True)
+    application_deadline = models.DateField(blank=True, null=True)
+    status = models.CharField(
+        max_length=1, choices=JobStatus.choices, default=JobStatus.ACTIVE)
+    
+    category = models.ForeignKey(Category, verbose_name=_('Category'), null=True,
+                                 on_delete=models.SET_NULL)
+    jobtype = models.ForeignKey(JobType, verbose_name=_('Job Type'), null=True,
+                                on_delete=models.SET_NULL)
+    company = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Company'),
+                                related_name='companies', on_delete=models.CASCADE)
+    state = models.ForeignKey(State, verbose_name=_('State'), null=True,
+                              on_delete=models.SET_NULL)
+
+    impressions = models.PositiveIntegerField(default=0)
+    sponsored = models.BooleanField(_('Sponsored'), default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    objects = models.Manager()
+    active = ActiveJobManager()
+
     class Meta:
+        verbose_name = _('Job')
+        verbose_name_plural = _('Jobs')
         ordering = ['-created']
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('jobs:detail', kwargs={'slug': self.slug})
+
+    def get_edit_url(self):
+        return reverse('jobs:edit', kwargs={'id': self.id})
+
+    def get_delete_url(self):
+        return reverse('jobs:delete', kwargs={'id': self.id})
+
+    # def get_application_count(self):
+    #     return Applicant.objects.filter(job=self).count()
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -127,82 +153,19 @@ class Job(models.Model):
         super().save(*args, **kwargs)
 
 
-class Experience(models.Model):
-    user = models.ForeignKey(
-        Applicant, on_delete=models.CASCADE, related_name='experiences')
-    company_name = models.CharField(max_length=50)
-    job_title = models.CharField(max_length=50)
-    supervisor_name = models.CharField(
-        max_length=50, blank=True, null=True)
-    supervisor_email = models.EmailField(blank=True, null=True)
-    task_description = models.TextField()
-    year = models.DateField()
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+# class Apply(models.Model):
+#     job = models.ForeignKey(
+#         Job, related_name='job_apply', on_delete=models.CASCADE)
+#     applicant = models.ForeignKey(
+#         Applicant, related_name='job_applicant', on_delete=models.CASCADE)
+#     note = models.TextField(max_length=500)
+#     cv = models.FileField(upload_to='apply/')
+#     cover_letter = models.TextField(max_length=500)
+#     created = models.DateTimeField(auto_now_add=True)
+#     updated = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['-created']
+#     class Meta:
+#         ordering = ['created']
 
-    def __str__(self):
-        return self.job_title
-
-
-class LanguageProficiency(models.Model):
-    ENGLISH = 'E'
-    IGBO = 'I'
-    HAUSA = 'H'
-    YORUBA = 'Y'
-    LANGUAGE_CHOICES = (
-        (ENGLISH, 'English'),
-        (IGBO, 'Igbo'),
-        (HAUSA, 'Hausa'),
-        (YORUBA, 'Yoruba'))
-
-    FAIR = 'F'
-    GOOD = 'G'
-    VERYGOOD = 'V'
-    ABILITY_LEVEL_CHOICES = (
-        (FAIR, 'Fair'),
-        (GOOD, 'Good'),
-        (VERYGOOD, 'Very Good'))
-
-    user = models.ForeignKey(
-        Applicant, on_delete=models.CASCADE, related_name='languages')
-    language = models.CharField(max_length=1, choices=LANGUAGE_CHOICES)
-    ability_level = models.CharField(
-        max_length=1, choices=ABILITY_LEVEL_CHOICES)
-
-
-class AcquiredSkill(models.Model):
-    FAIR = 'F'
-    GOOD = 'G'
-    VERYGOOD = 'V'
-    ABILITY_LEVEL_CHOICES = (
-        (FAIR, 'Fair'),
-        (GOOD, 'Good'),
-        (VERYGOOD, 'Very Good'))
-
-    user = models.ForeignKey(
-        Applicant, on_delete=models.CASCADE, related_name='skills')
-    skill = models.CharField(max_length=50)
-    ability_level = models.CharField(
-        max_length=1, choices=ABILITY_LEVEL_CHOICES)
-    relevant_certificate = models.FileField(
-        upload_to='certificates', blank=True, null=True)
-
-
-class Application(models.Model):
-    job = models.ForeignKey(
-        Job, related_name='applications', on_delete=models.CASCADE)
-    applicant = models.ForeignKey(
-        Applicant, related_name='job_applicant', on_delete=models.CASCADE)
-    note = models.TextField(max_length=500)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['created']
-
-    def __str__(self):
-        return f"{self.applicant} applied for {self.job}"
+#     def __str__(self):
+#         return f"{self.applicant} applied for {self.job}"

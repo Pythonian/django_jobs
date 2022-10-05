@@ -1,139 +1,181 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home{% endblock %} 
+{% block title %}Welcome Home{% endblock %}
 
-{% block content %} 
+{% block content %}
 
-    <!-- Site header -->
-    <header class="site-header size-md text-center">
-      <div class="container">
-        <div class="col-xs-12">
-          <br><br>
-          <h2>There are <mark>{{ jobs.count }}</mark> job vacancies right now!</h2>
-          <h5 class="font-alt">Find your desired one below</h5>
-          <!-- <form class="header-job-search">
-            <div class="input-keyword">
-              <input type="text" class="form-control" placeholder="Job title, skills, or company">
-            </div>
-
-            <div class="input-location">
-              <input type="text" class="form-control" placeholder="City, state or zip">
-            </div>
-
-            <div class="btn-search">
-              <button class="btn btn-primary" type="submit">Find jobs</button>
-              <a href="job-list.html">Advanced Job Search</a>
-            </div>
-          </form> -->
-        </div>
-
-      </div>
-    </header>
-    <!-- END Site header -->
-
-
-    <!-- Main container -->
-    <main>
-
-      <!-- Recent jobs -->
-      <section>
-        <div class="container">
-          <header class="section-header">
-            <span>Latest</span>
-            <h2>Recent jobs</h2>
-          </header>
-
-          <div class="row item-blocks-connected">
-
-            {% for job in jobs %}
-            <div class="col-xs-12">
-              <a class="item-block" href="{% url 'job_detail' job.id %}">
-                <header>
-                  <img src="" alt="">
-                  <div class="hgroup">
-                    <h4>{{ job.title }}</h4>
-                    <h5>{{ job.company.name }}</h5>
-                  </div>
-                  <div class="header-meta">
-                    <span class="location">{{ job.state }}</span>
-                    <span class="label label-success">{{ job.get_job_type_display }}</span>
-                  </div>
-                </header>
-              </a>
-            </div>
-            {% endfor %}
-
-          </div>
-
-          <br><br>
-          <p class="text-center"><a class="btn btn-info" href="{% url 'job_list' %}">Browse all jobs</a></p>
-        </div>
-      </section>
-      <!-- END Recent jobs -->
-
-      <!-- Categories -->
-      <section class="bg-alt">
-        <div class="container">
-          <header class="section-header">
-            <h2>Job categories</h2>
-            <p>Find job by work categories</p>
-          </header>
-
-          <div class="category-grid">
-            {% for category in categories %}
-            <a href="{% url 'category_detail' category.slug %}">
-              <i class="fa fa-briefcase"></i>
-              <h6>{{ category.name }}</h6>
-              <p>{{ category.description }}</p>
-            </a> 
-            {% endfor %}
-          </div>
-
-        </div>
-      </section>
-      <!-- END Categories -->
-
-      <!-- Companies -->
-      <section>
-        <div class="container">
-          <header class="section-header">
-            <span>Hiring</span>
-            <h2>Companies</h2>
-          </header>
-
-          <div class="row">
-
-            {% for company in companies %}
-            <!-- Company detail -->
-            <div class="col-xs-12">
-              <a class="item-block" href="{% url 'company_detail' company.id %}">
-                <header>
-                  <img src="https://via.placeholder.com/150x150" alt="">
-                  <div class="hgroup">
-                    <h4>{{ company.name }}</h4>
-                    <h5>{{ company.category }}</h5>
-                  </div>
-                  <span class="open-position">{{ company.jobs.count }} open position</span>
-                </header>
-
-                <div class="item-body">
-                  <p>{{ company.about }}</p>
+<header class="bg-primary py-lg-5">
+    <div class="container">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="my-5">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Find the latest available<br><u>Blue collar jobs</u> in Nigeria.</h1>
+                    <p class="lead fw-normal text-white-50 mb-4">Find jobs that match your interests with us. Over here, we provide a place for you to find Non-professional Job.</p>
+                    <a class="btn btn-outline-light btn-lg px-4" href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'signup' %}{% endif %}"><i class="fa-solid fa-paper-plane me-2"></i> Get Started</a>
                 </div>
-              </a>
             </div>
-            <!-- END Company detail -->
-            {% endfor %}
-
-          </div>
-
-          <br><br>
-          <p class="text-center"><a class="btn btn-info" href="{% url 'companies' %}">Browse all companies</a></p>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="{% static 'img/resume.svg' %}" class="d-block img-fluid" alt="illustration">
+            </div>
         </div>
-      </section>
-      <!-- END Companies -->
+    </div>
+</header>
 
-    </main>
-    <!-- END Main container -->
+<section class="bg-white py-lg-5">
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h5 class="text-primary">How it Works</h5>
+                <h1 class="mb-5 display-3 fw-bolder">Follow our Steps,<br> we will help you!</h1>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> Trusted &amp; Quality Jobs</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> No Hidden Fees</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> Seamless User Experience</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> Top Nigerian Companies</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <div class="col-sm-6">
+                        <div class="card bg-primary text-light">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mt-5">Register <br>Your Account</h5>
+                                    <i class="fa-solid fa-1 fa-3x text-warning"></i>
+                                </div>
+                                <p class="card-text mb-3">You need to create an account to find the best and preferred job.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card bg-primary text-light">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mt-5">Search <br>Your Job</h5>
+                                    <i class="fa-solid fa-2 fa-3x text-warning"></i>
+                                </div>
+                                <p class="card-text mb-3">You need to create an account to find the best and preferred job.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card bg-primary text-light">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mt-5">Create <br>Your Resume</h5>
+                                    <i class="fa-solid fa-3 fa-3x text-warning"></i>
+                                </div>
+                                <p class="card-text mb-3">You need to create an account to find the best and preferred job.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card bg-primary text-light">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mt-5">Submit <br>For Application</h5>
+                                    <i class="fa-solid fa-4 fa-3x text-warning"></i>
+                                </div>
+                                <p class="card-text mb-3">You need to create an account to find the best and preferred job.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="text-center mb-lg-5">
+                <h5 class="text-primary mb-3">Latest Jobs</h5>
+                <h2>Find Your Career Because You Deserve It</h2>
+            </div>
+            {% for job in jobs %}
+            <div class="col-lg-6">{% include 'partials/_job_grid.html' %}</div>
+            {% empty %}
+            <div class="d-flex justify-content-center mt-5">
+                <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+            </div>
+            {% endfor %}
+        </div>
+        {% if jobs.count > 4 %}
+        <div class="d-flex justify-content-center mt-5">
+            <a href="{% url 'jobs' %}" class="btn btn-primary btn-lg">View All</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="bg-primary py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6 text-center text-white">
+                <i class="fa-solid fa-building fa-3x mb-3"></i>
+                <h1>{{ companies.count }}</h1>
+                <p class="opacity-75">Hiring Companies</p>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center text-white">
+                <i class="fa-solid fa-briefcase fa-3x mb-3"></i>
+                <h1>{{ jobs.count }}</h1>
+                <p class="opacity-75">Available Jobs</p>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center text-white">
+                <i class="fa-solid fa-file-lines fa-3x mb-3"></i>
+                <h1>{{ resumes.count }}</h1>
+                <p class="opacity-75">Candidate Resumes</p>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center text-white">
+                <i class="fa-solid fa-earth-africa fa-3x mb-3"></i>
+                <h1>36</h1>
+                <p class="opacity-75">Active Locations</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="mb-lg-5">
+                <a href="{# 'resumes' %}" class="float-end btn btn-primary btn-lg">All Resumes</a>
+                <h5 class="text-primary mb-3">Resumes</h5>
+                <h2>Featured Resumes</h2>
+            </div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+            <div class="col-lg-4">{% include 'partials/_resume_grid.html' %}</div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="text-center mb-lg-5">
+                <h5 class="text-primary mb-3">Jobs by Company</h5>
+                <h2>Browse Jobs By Desired Company</h2>
+            </div>
+            {% for company in companies %}
+            <div class="col-lg-4 col-md-6">{% include 'partials/_company_grid.html' %}</div>
+            {% empty %}
+            <div class="d-flex justify-content-center mt-5">
+                <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+            </div>
+            {% endfor %}
+        </div>
+        {% if jobs.count > 9 %}
+        <div class="d-flex justify-content-center mt-5">
+            <a href="{% url 'companies' %}" class="btn btn-primary btn-lg">View More</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
 
 {% endblock %}

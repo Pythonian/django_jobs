@@ -1,43 +1,55 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from .models import Job, Company, Category, Applicant
-from .forms import ApplicationForm, JobForm
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import JobForm
+from .models import Job
+from .utils import mk_paginator
 
 
-def home(request):
-    jobs = Job.objects.all()
-    categories = Category.objects.all()
-    companies = Company.objects.all()
-    job_seekers = Applicant.objects.all()
+@login_required
+def job_create(request):
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.company = request.user
+            job.save()
+            messages.success(request, "Job details saved.")
+            return redirect(job)
+    else:
+        form = JobForm()
 
-    return render(
-        request, 'home.html', {'jobs': jobs,
-                               'categories': categories,
-                               'companies': companies,
-                               'job_seekers': job_seekers})
+    template = 'job_create.html'
+    context = {
+        'form': form,
+    }
 
-
-def category_detail(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    jobs = Job.objects.filter(company__category=category)
-
-    return render(
-        request, 'category_detail.html', {'category': category,
-                                          'jobs': jobs})
+    return render(request, template, context)
 
 
 def job_list(request):
-    jobs = Job.objects.all()
+    jobs = Job.active.all()
+    jobs = mk_paginator(request, jobs, 10)
 
-    return render(
-        request, 'job_list.html', {'jobs': jobs})
+    template = 'jobs.html'
+    context = {
+        'jobs': jobs,
+    }
+
+    return render(request, template, context)
 
 
-def job_detail(request, id):
-    job = get_object_or_404(Job, id=id)
-    applicants = job.applications.all()
+def job_detail(request, slug):
+    job = get_object_or_404(Job, slug=slug)
+
+    # Create a session key for a user
+    session_key = 'viewed_job_{}'.format(job.pk)
+    if not request.session.get(session_key, False):
+        job.impressions += 1
+        job.save()
+        request.session[session_key] = True
+    # applicants = job.applications.all()
 
     # if request.method == 'POST':
     #     form = ApplicationForm(request.POST)
@@ -52,51 +64,58 @@ def job_detail(request, id):
     # else:
     #     form = ApplicationForm()
 
-    return render(
-        request, 'job_detail.html',
-        {'job': job, 'applicants': applicants})
+    template = 'job_detail.html'
+    context = {
+        'job': job,
+        # 'applicants': applicants,
+    }
+
+    return render(request, template, context)
 
 
 def companies(request):
-    companies = Company.objects.all()
+    # companies = Company.objects.all()
 
-    return render(
-        request, 'companies.html', {'companies': companies})
+    template = 'companies.html'
+    context = {
+        # 'companies': companies
+    }
+
+    return render(request, template, context)
 
 
 def company_detail(request, id):
-    company = get_object_or_404(Company, id=id)
-    jobs = company.jobs.all()
+    # company = get_object_or_404(Company, id=id)
+    # jobs = company.jobs.all()
 
-    return render(
-        request, 'company_detail.html',
-        {'company': company, 'jobs': jobs})
+    template = 'company_detail.html'
+    context = {
+        # 'company': company,
+        # 'jobs': jobs
+    }
 
-
-@login_required
-def job_create(request):
-    if request.method == 'POST':
-        form = JobForm(request.POST)
-        if form.is_valid():
-            job = form.save(commit=False)
-            job.company = request.user
-            job.save()
-            messages.success(request, "Job details saved.")
-            return redirect('job_detail', job.id)
-    else:
-        form = JobForm()
-
-    return render(request, 'job_create.html', {'form': form})
+    return render(request, template, context)
 
 
 def resumes(request):
-    applicants = Applicant.objects.all()
-    return render(
-        request, 'resumes.html', {'applicants': applicants})
+    # applicants = Applicant.objects.all()
+
+    template = 'resumes.html'
+    context = {
+        # 'applicants': applicants,
+    }
+
+    return render(request, template, context)
 
 
 def resume_detail(request, username):
-    user = get_object_or_404(User, username=username)
-    resume = get_object_or_404(Applicant, user=user)
-    return render(
-        request, 'job_seeker.html', {'resume': resume, 'user': user})
+    # user = get_object_or_404(User, username=username)
+    # resume = get_object_or_404(Applicant, user=user)
+
+    template = 'resume_detail.html'
+    context = {
+        # 'user': user,
+        # 'resume': resume,
+    }
+
+    return render(request, template, context)

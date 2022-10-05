@@ -1,51 +1,90 @@
 {% extends "base.html" %}
 
-{% block title %}Hiring Companies{% endblock %} 
+{% block title %}Browse hiring companies{% endblock %}
 
-{% block content %} 
+{% block content %}
 
-<!-- Page header -->
-    <header class="page-header bg-img">
-      <div class="container page-name">
-        <h1 class="text-center">Browse companies</h1>
-        <p class="lead text-center">Find below recruiting companies who currently have job openings that may match your interest.</p>
-      </div>
-
-    </header>
-    <!-- END Page header -->
-
-
-    <!-- Main container -->
-    <main>
-      <section class="no-padding-top bg-alt">
-        <div class="container">
-          <div class="row">
-
-            {% for company in companies %}
-            <!-- Company detail -->
-            <div class="col-xs-12">
-              <a class="item-block" href="{% url 'company_detail' company.id %}">
-                <header>
-                  <img src="https://via.placeholder.com/150x150" alt="">
-                  <div class="hgroup">
-                    <h4>{{ company.name }}</h4>
-                    <h5>{{ company.category }}</h5>
-                  </div>
-                  <span class="open-position">{{ company.jobs.count }} open position</span>
-                </header>
-
-                <div class="item-body">
-                  <p>{{ company.about }}</p>
-                </div>
-              </a>
-            </div>
-            <!-- END Company detail -->
-            {% endfor %}
-
-          </div>
+<section class="py-3 bg-primary">
+    <div class="container px-5 my-5">
+        <div class="text-white">
+            <h1 class="fw-bolder text-center">Browse hiring companies</h1>
         </div>
-      </section>
-    </main>
-    <!-- END Main container -->
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container my-5">
+        <div class="row">
+            <aside class="col-lg-4 col-sm-6 d-none d-lg-block">
+                <div class="card p-4">
+                    <form action="">
+
+                        <div class="form-group mb-4">
+                            <label for="" class="form-label fs-5 fw-bold">Category</label>
+                            <select class="form-select form-select-lg">
+                                <option selected>Choose category...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="" class="form-label fs-5 fw-bold">Location</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Find location">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="" class="form-label fs-5 fw-bold">Job Type</label>
+                            <div class="form-check mb-3 d-flex justify-content-between">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" value="" id="">
+                                    <label class="form-check-label" for="">Internship</label>
+                                </div>
+                                <span class="text-primary">23</span>
+                            </div>
+                            <div class="form-check mb-3 d-flex justify-content-between">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" value="" id="">
+                                    <label class="form-check-label" for="">Full-time</label>
+                                </div>
+                                <span class="text-primary">15</span>
+                            </div>
+                            <div class="form-check mb-3 d-flex justify-content-between">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" value="" id="">
+                                    <label class="form-check-label" for="">Part time</label>
+                                </div>
+                                <span class="text-primary">09</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg">Filter</button>
+                    </form>
+                </div>
+            </aside>
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        <p class="fw-bold">Showing 1-8 of 10 Results</p>
+                    </div>
+                    <div>
+                        <select class="form-select form-select-sm mb-3">
+                            <option selected>Sort by</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    {% for company in companies %}
+                    <div class="col-lg-6">{% include 'partials/_company_grid.html' %}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

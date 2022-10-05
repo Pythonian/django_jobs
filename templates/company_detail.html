@@ -1,120 +1,116 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% block title %}{{ company.name }}{% endblock %} 
+{% block title %}Company Detail{% endblock %}
 
-{% block content %} 
+{% block content %}
 
-<!-- Page header -->
-    <header class="page-header bg-img size-md">
-      <div class="container">
-        <div class="header-detail">
-          <img class="logo" src="https://via.placeholder.com/50x50" alt="">
-          <div class="hgroup">
-            <h1>{{ company.name }}</h1>
-            <h3>{{ company.category }}</h3>
-          </div>
-          <hr>
-          <p class="lead">{{ company.about }}</p>
-
-          <ul class="details cols-3">
-            <li>
-              <i class="fa fa-map-marker"></i>
-              <span>{{ company.state }}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-globe"></i>
-              <a href="{{ company.website }}">Visit our website</a>
-            </li>
-
-            <li>
-              <i class="fa fa-briefcase"></i>
-              <span>{{ company.category }}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-birthday-cake"></i>
-              <span>Established {{ company.established|date:"Y" }}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-phone"></i>
-              <span>{{ company.phone_number }}</span>
-            </li>
-
-            <li>
-              <i class="fa fa-envelope"></i>
-              <a href="#">{{ company.company_email }}</a>
-            </li>
-          </ul>
-
-          <div class="button-group">
-            <div class="action-buttons">
-              <a class="btn btn-gray" href="#">Edit</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </header>
-    <!-- END Page header -->
-
-
-    <!-- Main container -->
-    <main>
-
-      <!-- Open positions -->
-      <section id="open-positions" class="bg-alt">
-        <div class="container">
-          <header class="section-header">
-            <span>vacancies</span>
-            <h2>Open positions</h2>
-          </header>
-          
-          <div class="row">
-
-            {% for job in jobs %}
-            <div class="col-xs-12">
-              <a class="item-block" href="{% url 'job_detail' job.id %}">
-                <header>
-                  <img src="https://via.placeholder.com/50x50" alt="">
-                  <div class="hgroup">
-                    <h4>{{ job.title }}</h4>
-                    <h5>{{ job.company }} <span class="label label-success">{{ job.get_job_type_display }}</span></h5>
-                  </div>
-                  <time>{{ job.created|date:"j, F" }}</time>
-                </header>
-
-                <div class="item-body">
-                  <p>{{ job.description }}</p>
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card p-4 mb-5">
+                    <img src="https://via.placeholder.com/750x300" class="img-fluid mb-3" alt="">
+                    <h6 class="fw-bold mb-3">Sofooty Inc.</h6>
+                    <div class="mt-4">
+                        <h6 class="fw-bold mb-3">About Us:</h6>
+                        <p class="mb-2">Very well thought out and articulate communication. Clear
+                            milestones, deadlines and fast work. Patience. Infinite patience. No
+                            shortcuts. Even if the client is being careless. Some quick example text to build on the
+                            card title and bulk the card's content Moltin gives you platform.</p>
+                        <p class="mb-0">As a highly skilled and successfull product development and
+                            design specialist with more than 4 Years of My experience lies in successfully
+                            conceptualizing, designing, and modifying consumer products specific to interior design
+                            and home furnishings.</p>
+                    </div>
                 </div>
-
-                <footer>
-                  <ul class="details cols-3">
-                    <li>
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ job.state }}</span>
-                    </li>
-
-                    <li>
-                      <i class="fa fa-money"></i>
-                      <span>{{ job.salary }}</span>
-                    </li>
-
-                    <li>
-                      <i class="fa fa-calendar"></i>
-                      <span>Deadline: {{ job.application_deadline }}</span>
-                    </li>
-                  </ul>
-                </footer>
-              </a>
+                <h5 class="fw-bold mb-3">Job openings</h5>
+                {% for job in jobs %}
+                <div class="col-12 mb-3">{% include 'partials/_job_grid.html' %}</div>
+                {% endfor %}
             </div>
-            {% endfor %}
 
-          </div>
+            <div class="col-lg-4">
+                <div class="card shadow border-0">
 
+                    <div class="p-4">
+                        <h6 class="fw-bold mb-3">Company Information</h6>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Email</h6>
+                                <p class="mb-0">Product Designer</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-eye text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Job openings</h6>
+                                <p class="mb-0">27</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Applicants</h6>
+                                <p class="mb-0">3</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-globe-africa text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Location</h6>
+                                <p class="mb-0">V.I, Lagos</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-sack-dollar text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Offered Salary</h6>
+                                <p class="mb-0">$35k - $45k</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-graduation-cap text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Qualification</h6>
+                                <p class="mb-0">Bachelor Degree</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-venus-mars text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Staff strength</h6>
+                                <p class="mb-0">200+</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-clock text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Date Established</h6>
+                                <p class="mb-0">24th May 1999</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-    </main>
-    
+    </div>
+</section>
+
 {% endblock %}

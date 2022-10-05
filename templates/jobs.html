@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Browse submitted resumes{% endblock %}
+{% block title %}Browse available jobs{% endblock %}
 
 {% block content %}
 
 <section class="py-3 bg-primary">
     <div class="container px-5 my-5">
         <div class="text-white">
-            <h1 class="fw-bolder text-center">Browse submitted resumes</h1>
+            <h1 class="fw-bolder text-center">Browse available jobs</h1>
         </div>
     </div>
 </section>
@@ -18,9 +19,9 @@
             <aside class="col-lg-4 col-sm-6 d-none d-lg-block">
                 <div class="card p-4">
                     <form action="">
-
+                        
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Category</label>
+                            <label for="" class="form-label fs-5 text-muted">Category</label>
                             <select class="form-select form-select-lg">
                                 <option selected>Choose category...</option>
                                 <option value="1">One</option>
@@ -30,12 +31,12 @@
                         </div>
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Location</label>
+                            <label for="" class="form-label fs-5 text-muted">Location</label>
                             <input type="text" class="form-control form-control-lg" placeholder="Find location">
                         </div>
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Job Type</label>
+                            <label for="" class="form-label fs-5 text-muted">Job Type</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
@@ -64,9 +65,10 @@
                 </div>
             </aside>
             <div class="col-lg-8">
+                {% if jobs %}
                 <div class="d-flex justify-content-between mb-3">
                     <div>
-                        <p class="fw-bold">Showing 1-8 of 10 Results</p>
+                        <p class="fw-bold">Showing {{ jobs }} Results</p>
                     </div>
                     <div>
                         <select class="form-select form-select-sm mb-3">
@@ -78,14 +80,16 @@
                     </div>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
-                    <div class="col-lg-6">{% include 'partials/_resume_grid.html' %}</div>
+                    {% for job in jobs %}
+                    <div class="col-12">{% include 'partials/_job_grid.html' %}</div>
+                    {% endfor %}
                 </div>
+                {% include 'partials/_pagination.html' with page_obj=jobs %}
+                {% else %} 
+                <div class="d-flex justify-content-center pt-5 mt-5">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

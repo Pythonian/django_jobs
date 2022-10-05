@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Register for an Account{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-white">
+    <div class="container">
+
+        <div class="row mb-5">
+            <div class="col-lg-4 mx-auto">
+                <div class="card bg-light border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-shrink-0 bg-primary">
+                                <i class="fa-solid fa-lock p-3 text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="m-0">Signup Here</h6>
+                                <small class="text-muted">Your personal data will be used to support your experience
+                                    throughout this website.</small>
+                            </div>
+                        </div>
+                        <form method="post" action="" novalidate>
+                            {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" name="username" class="form-control" id="id_username"
+                                    autocapitalize="none" autocomplete="username" maxlength="150" required>
+                                <label for="id_username">Username</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" name="password" class="form-control" id="id_password"
+                                    autocomplete="current-password" required>
+                                <label for="id_password">Password</label>
+                            </div>
+                            <div class="d-grid my-3">
+                                <input type="submit" class="btn btn-primary rounded-pill" value="Register">
+                            </div>
+                            <div class="d-flex my-3 justify-content-between">
+                                <a href="" class="btn btn-link">Forgot Password?</a>
+                                <a href="" class="btn btn-outline-primary">Login</a>
+                            </div>
+                        </form>
+                        <div class="text-center">
+                            <i class="fas fa-right-to-bracket fa-7x opacity-25 my-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

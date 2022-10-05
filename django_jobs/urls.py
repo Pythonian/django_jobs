@@ -8,9 +8,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+from .views import home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('jobs.urls')),
+    path('account/', include('account.urls')),
+    path('jobs/', include('jobs.urls', namespace='jobs')),
+    path('', home, name='home'),
 ]
 
 if settings.DEBUG:
