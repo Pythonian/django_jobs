@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    # 'account.apps.AccountConfig',
+    'account.apps.AccountConfig',
     'jobs.apps.JobsConfig',
     'django_cleanup',
 ]
@@ -146,3 +146,10 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGIN_URL = 'login'
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "account.backends.EmailAuthenticationBackend",
+]
+
+AUTH_USER_MODEL = 'account.User'

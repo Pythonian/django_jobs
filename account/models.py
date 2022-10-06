@@ -1,19 +1,25 @@
 from django.db import models
-from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    is_company = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
 
 
 class Company(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     about = models.TextField(max_length=5000)
     logo = models.ImageField(upload_to='logos') # crop logo to 80x80
-    feature_image = models.ImageField(upload_to='featuredimages', blank=True)
-    company_email = models.EmailField()
+    company_email = models.EmailField(blank=True, null=True)
     established = models.DateField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-    phone_number = models.CharField(max_length=13,
-                                    blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True)
+    staff_strength = models.CharField(max_length=50, blank=True)
+    phone_number = models.CharField(max_length=13, blank=True)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), auto_now=True)
 
@@ -21,46 +27,46 @@ class Company(models.Model):
         verbose_name_plural = 'Companies'
 
     def __str__(self):
-        return self.name
-
-
-class Applicant(models.Model):
-    MALE = 'M'
-    FEMALE = 'F'
-    GENDER_CHOICES = (
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-    )
-
-    PRIMARY_SCHOOL = 'PS'
-    SECONDARY_SCHOOL = 'SS'
-    COLLEGE_EDUCATION = 'CE'
-    POLYTECHNIC = 'PO'
-    UNIVERSITY = 'UI'
-    EDUCATION_LEVEL_CHOICES = (
-        (PRIMARY_SCHOOL, 'Primary School'),
-        (SECONDARY_SCHOOL, 'Secondary School'),
-        (COLLEGE_EDUCATION, 'College of Education'),
-        (POLYTECHNIC, 'Polytechnic'),
-        (UNIVERSITY, 'University'))
-
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='applicant')
-    date_of_birth = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    phone_number = models.CharField(max_length=13, blank=True)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    about = models.TextField()
-    education_level = models.CharField(
-        max_length=2, choices=EDUCATION_LEVEL_CHOICES)
-    cv = models.FileField('Upload CV', upload_to='cvs', blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='applicants', blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
         return self.user.username
+
+
+# class Employee(models.Model):
+#     MALE = 'M'
+#     FEMALE = 'F'
+#     GENDER_CHOICES = (
+#         (MALE, 'Male'),
+#         (FEMALE, 'Female'),
+#     )
+
+#     PRIMARY_SCHOOL = 'PS'
+#     SECONDARY_SCHOOL = 'SS'
+#     COLLEGE_EDUCATION = 'CE'
+#     POLYTECHNIC = 'PO'
+#     UNIVERSITY = 'UI'
+#     EDUCATION_LEVEL_CHOICES = (
+#         (PRIMARY_SCHOOL, 'Primary School'),
+#         (SECONDARY_SCHOOL, 'Secondary School'),
+#         (COLLEGE_EDUCATION, 'College of Education'),
+#         (POLYTECHNIC, 'Polytechnic'),
+#         (UNIVERSITY, 'University'))
+
+#     user = models.OneToOneField(
+#         User, on_delete=models.CASCADE, related_name='applicant')
+#     date_of_birth = models.DateField(blank=True, null=True)
+#     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+#     phone_number = models.CharField(max_length=13, blank=True)
+#     state = models.ForeignKey(State, on_delete=models.CASCADE)
+#     about = models.TextField()
+#     education_level = models.CharField(
+#         max_length=2, choices=EDUCATION_LEVEL_CHOICES)
+#     cv = models.FileField('Upload CV', upload_to='cvs', blank=True)
+#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+#     image = models.ImageField(upload_to='applicants', blank=True)
+#     created = models.DateTimeField(auto_now_add=True)
+#     updated = models.DateTimeField(auto_now=True)
+
+#     def __str__(self):
+#         return self.user.username
 
 # class Experience(models.Model):
 #     user = models.ForeignKey(

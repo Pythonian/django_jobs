@@ -6,16 +6,25 @@
 {% block content %}
 
 <section class="py-5 bg-light">
-    <div class="container my-3">
+    <div class="container mb-3">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa-solid fa-home text-primary"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Job Category</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.state }}</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.jobtype }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ job.title }}</li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="col-lg-8">
                 <div class="card p-4">
-                    <h4 class="fw-bold mb-3">{{ job.title }}</h4>
+                    <h4 class="mb-3">{{ job.title }}</h4>
                     <div class="row g-2">
                         <div class="col-lg-3">
                             <div class="border p-3">
                                 <p class="text-muted mb-0">Deadline</p>
-                                <p class="fw-bold text-danger mb-0">{{ job.application_deadline }}</p>
+                                <p class="fw-bold text-danger mb-0">{% if job.application_deadline %}{{ job.application_deadline }}{% else %}&infin;{% endif %}</p>
                             </div>
                         </div>
                         <div class="col-lg-3">

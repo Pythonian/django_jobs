@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Create an Employer Account{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="bg-dark text-white py-3 text-center text-uppercase my-3">
+                            <i class="fas fa-user-plus pe-1"></i> Create Application
+                        </h6>
+            
+                        <form method="post" action="" enctype="multipart/form-data" autocomplete="off" novalidate>
+                            {% csrf_token %}
+            
+                            <div class="card border border-dark p-3 mb-3">
+                                <h6 class="bg-secondary text-white py-2 text-center text-uppercase">
+                                    Frontend: FE-22 | Backend: BE-22 | Fullstack: FS-22
+                                </h6>
+                                <div class="row">
+                                    <div class="col-4">{{ form.firstname }}</div>
+                                    <div class="col-4">{{ form.lastname }}</div>
+                                    <div class="col-4">{{ form.job }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">{{ form.birth_date }}</div>
+                                    <div class="col-4">{{ form.email }}</div>
+                                    <div class="col-4">{{ form.phonenumber }}</div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4">{{ form.personality }}</div>
+                                    <div class="col-4">{{ form.salary }}</div>
+                                    <div class="col-2">{{ form.gender }}</div>
+                                    <div class="col-2">{{ form.smoker }}</div>
+                                </div>
+                                <div class="col-12">
+                                    {{ form.experience }}
+                                </div>
+                                <hr>
+                                <div class="col-12">
+                                    {{ form.message }}
+                                    {{ form.file }}
+                                    {{ form.image }}
+                                </div>
+            
+                            </div>
+            
+                            <div class="card border border-dark p-3 mb-3">
+                                <h6 class="bg-secondary text-white py-2 text-center text-uppercase">
+                                    Select your skills
+                                </h6>
+                                <div class="row">
+                                    <div class="col-2">{{ form.frameworks }}</div>
+                                    <div class="col-2">{{ form.languages }}</div>
+                                    <div class="col-2">{{ form.mobile }}</div>
+                                    <div class="col-2">{{ form.databases }}</div>
+                                    <div class="col-2">{{ form.libraries }}</div>
+                                    <div class="col-2">{{ form.others }}</div>
+                                </div>
+                            </div>
+            
+                            <div class="card border border-dark p-3 mb-3">
+                                <h6 class="bg-secondary text-white py-2 text-center text-uppercase">
+                                    Education
+                                </h6>
+                                <div class="row">
+                                    <div class="col-4">{{ form.institution }}</div>
+                                    <div class="col-4">{{ form.course }}</div>
+                                    <div class="col-2">{{ form.started_course }}</div>
+                                    <div class="col-2">{{ form.finished_course }}</div>
+                                    <div class="col-12">{{ form.course_description }}</div>
+                                    <div class="col-3">{{ form.course_status }}</div>
+                                </div>
+                            </div>
+            
+                            <div class="card border border-dark p-3 mb-3">
+                                <h6 class="bg-secondary text-white py-2 text-center text-uppercase">
+                                    Profession
+                                </h6>
+                                <div class="row">
+                                    <div class="col-3">{{ form.company }}</div>
+                                    <div class="col-3">{{ form.position }}</div>
+                                    <div class="col-3">{{ form.started_job }}</div>
+                                    <div class="col-3">{{ form.finished_job }}</div>
+                                    <div class="col-12">{{ form.about_job }}</div>
+                                    <div class="col-4">{{ form.employed }}</div>
+                                    <div class="col-4">{{ form.remote }}</div>
+                                    <div class="col-4">{{ form.travel }}</div>
+                                </div>
+                            </div>
+            
+                            <button class="btn btn-success" type="submit">Send</button>
+                            <button class="btn btn-dark" type="reset">Reset</button>
+                            <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+                        </form>
+                        <center>
+                            <i class="fas fa-user-plus fa-7x opacity-25 my-5"></i>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

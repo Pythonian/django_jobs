@@ -19,7 +19,7 @@
     <div class="p-3 card-footer">
         <div class="d-flex justify-content-between">
             <div class="d-flex align-items-center">
-                Deadline: <span class="text-danger ms-1">{{ job.application_deadline }}</span>
+                Deadline: <span class="text-danger ms-1">{% if job.application_deadline %}{{ job.application_deadline }}{% else %}&infin;{% endif %}</span>
             </div>
             <div>
                 <a href="{{ job.get_absolute_url }}" class="btn btn-primary">Details <i class="fas fa-chevron-right"></i></a>

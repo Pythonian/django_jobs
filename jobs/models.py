@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+from account.models import Company
+
 from .managers import ActiveJobManager
 from .utils import image_path
 
@@ -11,8 +13,8 @@ from .utils import image_path
 class Category(models.Model):
     name = models.CharField(_('Name'), unique=True, max_length=25)
     slug = models.SlugField(_('Slug'), unique=True, max_length=25)
-    description = models.TextField(_('Description'), blank=True, null=True)
-    image = models.ImageField(_('Image'), upload_to=image_path, blank=True, null=True)
+    description = models.TextField(_('Description'), blank=True)
+    image = models.ImageField(_('Image'), upload_to=image_path, blank=True)
     category_order = models.PositiveIntegerField(_('Category order'),
                                                     unique=True, blank=True)
 
@@ -111,11 +113,11 @@ class Job(models.Model):
         max_length=1, choices=JobStatus.choices, default=JobStatus.ACTIVE)
     
     category = models.ForeignKey(Category, verbose_name=_('Category'), null=True,
-                                 on_delete=models.SET_NULL)
+                                 related_name='jobs', on_delete=models.SET_NULL)
     jobtype = models.ForeignKey(JobType, verbose_name=_('Job Type'), null=True,
                                 on_delete=models.SET_NULL)
-    company = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Company'),
-                                related_name='companies', on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, verbose_name=_('Company'),
+                                related_name='jobs', on_delete=models.CASCADE)
     state = models.ForeignKey(State, verbose_name=_('State'), null=True,
                               on_delete=models.SET_NULL)
 
@@ -134,6 +136,10 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
+    # @classmethod
+    # def job_count(cls):
+    #     return cls.objects.filter(status=JobStatus.ACTIVE).count()
 
     def get_absolute_url(self):
         return reverse('jobs:detail', kwargs={'slug': self.slug})

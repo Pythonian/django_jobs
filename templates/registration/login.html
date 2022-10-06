@@ -1,44 +1,56 @@
 {% extends "base.html" %}
-
-{% block title %}Login{% endblock %}
+{% load static %}
+{% block title %}Login to Your Account{% endblock %}
 
 {% block content %}
 
-<section class="py-5 bg-white">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-4 mx-auto">
-                <div class="card bg-light border-0 shadow">
+<section class="py-lg-5 bg-white">
+    <div class="container my-5">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6 d-none d-lg-block"><img src="{% static 'img/login.svg' %}" class="img-fluid" alt="login"></div>
+            <div class="col-lg-4 offset-lg-1">
+                <div class="card border-start-0 border-end-0 border-bottom-0 shadow">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
-                            <div class="flex-shrink-0 bg-primary">
-                                <i class="fa-solid fa-lock p-3 text-white"></i>
+                            <div class="flex-shrink-0">
+                                <span class="fa-stack fa-2x text-primary">
+                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                                    <i class="fa-solid fa-right-to-bracket fa-stack-1x fa-inverse"></i>
+                                </span>
                             </div>
-                            <div class="ms-3">
-                                <h6 class="m-0">Login Here</h6>
+                            <div class="ms-1">
+                                <h6 class="m-0 text-primary">Login and get productive</h6>
                                 <small class="text-muted">Your personal data will be used to support your experience throughout this website.</small>
                             </div>
                         </div>
                         <form method="post" action="" novalidate>
+                            {% include 'partials/_form_errors.html' %}
                             {% csrf_token %}
                             <div class="form-floating mb-3">
-                                <input type="text" name="username" class="form-control" id="id_username" autocapitalize="none" autocomplete="username" maxlength="150" required>
-                                <label for="id_username">Username</label>
+                                <input type="text" name="username" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="id_username" maxlength="150" {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %} required>
+                                <label for="id_username">Email address</label>
+                                {% for error in form.username.errors %}
+                                <div class="invalid-feedback fw-bold">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="form-floating">
-                                <input type="password" name="password" class="form-control" id="id_password" autocomplete="current-password" required>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" id="id_password" autocomplete="current-password" required>
                                 <label for="id_password">Password</label>
+                                {% for error in form.password.errors %}
+                                <div class="invalid-feedback fw-bold">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
                             </div>
+                            <small class="fw-bold"><a href="{# url 'forgot_password' #}" class="text-decoration-none">Forgot Password?</a></small>
                             <div class="d-grid my-3">
-                                <input type="submit" class="btn btn-primary btn-lg rounded-pill" value="Login">
-                            </div>
-                            <div class="d-flex my-3 justify-content-between">
-                                <a href="{# url 'forgot_password' #}" class="btn btn-link">Forgot Password?</a>
-                                <a href="{# url 'signup' #}" class="btn btn-outline-primary">Register</a>
+                                <input type="submit" class="btn btn-primary btn-lg rounded" value="Login">
                             </div>
                         </form>
-                        <div class="text-center">
-                            <i class="fas fa-right-to-bracket fa-7x opacity-25 my-5"></i>
+                        <div class="text-center my-4">
+                            <small><span class="text-muted">Don't have an account?</span> <a href="{% url 'signup_choice' %}">Signup now!</a></small>
                         </div>
                     </div>
                 </div>
