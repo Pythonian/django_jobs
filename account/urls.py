@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path, reverse_lazy
 
-from .views import signup, signup_choice, signup_employer, company_account, company_jobs, company_candidates, CustomPasswordChangeView
+from .views import signup_employee, signup_choice, signup_employer, signup_employee, company_account, company_jobs, company_candidates, CustomPasswordChangeView, employee_account
 from .forms import UserLoginForm
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
                redirect_authenticated_user=True, authentication_form=UserLoginForm), name='login'),
 
      path('signup/choice/', signup_choice, name='signup_choice'),
-     path('signup/seeker/', signup, name='signup'),
+     path('signup/employee/', signup_employee, name='signup_employee'),
      path('signup/employer/', signup_employer, name='signup_employer'),
 
      # password reset with email
@@ -34,6 +34,8 @@ urlpatterns = [
      path('password_change/', CustomPasswordChangeView.as_view(),
           name='password_change'),
 
+     path('employee/profile/', employee_account, name='employee_account'),
+     
      path('company/profile/', company_account, name='company_account'),
      path('company/jobs/', company_jobs, name='company_jobs'),
      path('company/candidates/', company_candidates, name='company_candidates'),

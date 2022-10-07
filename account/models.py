@@ -30,67 +30,78 @@ class Company(models.Model):
         verbose_name_plural = 'Companies'
 
     def __str__(self):
+        return self.name
+
+
+class Employee(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDER_CHOICES = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    )
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='applicant')
+    date_of_birth = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    phone_number = models.CharField(max_length=13, blank=True)
+    location = models.CharField(max_length=50)
+    about = models.TextField()
+    cv = models.FileField('Upload CV', upload_to='cvs', blank=True)
+    image = models.ImageField(upload_to='employees', blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
         return self.user.username
 
+class Experience(models.Model):
+    user = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, related_name='experiences')
+    company_name = models.CharField(max_length=50)
+    job_title = models.CharField(max_length=50)
+    supervisor_name = models.CharField(
+        max_length=50, blank=True, null=True)
+    supervisor_email = models.EmailField(blank=True, null=True)
+    task_description = models.TextField()
+    year = models.PositiveIntegerField()
+    location = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
-# class Employee(models.Model):
-#     MALE = 'M'
-#     FEMALE = 'F'
-#     GENDER_CHOICES = (
-#         (MALE, 'Male'),
-#         (FEMALE, 'Female'),
-#     )
+    class Meta:
+        ordering = ['-created']
 
-#     PRIMARY_SCHOOL = 'PS'
-#     SECONDARY_SCHOOL = 'SS'
-#     COLLEGE_EDUCATION = 'CE'
-#     POLYTECHNIC = 'PO'
-#     UNIVERSITY = 'UI'
-#     EDUCATION_LEVEL_CHOICES = (
-#         (PRIMARY_SCHOOL, 'Primary School'),
-#         (SECONDARY_SCHOOL, 'Secondary School'),
-#         (COLLEGE_EDUCATION, 'College of Education'),
-#         (POLYTECHNIC, 'Polytechnic'),
-#         (UNIVERSITY, 'University'))
+    def __str__(self):
+        return self.job_title
 
-#     user = models.OneToOneField(
-#         User, on_delete=models.CASCADE, related_name='applicant')
-#     date_of_birth = models.DateField(blank=True, null=True)
-#     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-#     phone_number = models.CharField(max_length=13, blank=True)
-#     state = models.ForeignKey(State, on_delete=models.CASCADE)
-#     about = models.TextField()
-#     education_level = models.CharField(
-#         max_length=2, choices=EDUCATION_LEVEL_CHOICES)
-#     cv = models.FileField('Upload CV', upload_to='cvs', blank=True)
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-#     image = models.ImageField(upload_to='applicants', blank=True)
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
 
-#     def __str__(self):
-#         return self.user.username
+class Education(models.Model):
+    PRIMARY_SCHOOL = 'PS'
+    SECONDARY_SCHOOL = 'SS'
+    COLLEGE_EDUCATION = 'CE'
+    POLYTECHNIC = 'PO'
+    UNIVERSITY = 'UI'
+    VOCATIONAL = 'VO'
+    EDUCATION_LEVEL_CHOICES = (
+        (PRIMARY_SCHOOL, 'Primary School'),
+        (SECONDARY_SCHOOL, 'Secondary School'),
+        (VOCATIONAL, 'Vocational School'),
+        (COLLEGE_EDUCATION, 'College of Education'),
+        (POLYTECHNIC, 'Polytechnic'),
+        (UNIVERSITY, 'University'))
 
-# class Experience(models.Model):
-#     user = models.ForeignKey(
-#         Applicant, on_delete=models.CASCADE, related_name='experiences')
-#     company_name = models.CharField(max_length=50)
-#     job_title = models.CharField(max_length=50)
-#     supervisor_name = models.CharField(
-#         max_length=50, blank=True, null=True)
-#     supervisor_email = models.EmailField(blank=True, null=True)
-#     task_description = models.TextField()
-#     year = models.DateField()
-#     state = models.ForeignKey(State, on_delete=models.CASCADE)
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, related_name='education')
+    education_level = models.CharField(
+        max_length=2, choices=EDUCATION_LEVEL_CHOICES)
+    name_of_institution = models.CharField(max_length=50)
+    year_of_graudation = models.PositiveIntegerField()
+    course_of_study = models.CharField(max_length=50)
 
-#     class Meta:
-#         ordering = ['-created']
-
-#     def __str__(self):
-#         return self.job_title
-
+    def __str__(self):
+        return self.name_of_institution
 
 # class LanguageProficiency(models.Model):
 #     ENGLISH = 'E'

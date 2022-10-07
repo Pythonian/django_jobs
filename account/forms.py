@@ -113,21 +113,31 @@ class CompanySignupForm(UserCreationForm):
         return user
 
 
-class SignUpForm(UserCreationForm):
+class EmployeeSignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['username'].widget = forms.widgets.EmailInput(attrs={
-        #         'class': 'form-control'})
-        # self.fields['password'].widget = forms.widgets.PasswordInput(attrs={
-        #         'class': 'form-control'})
         for field in self.visible_fields():
             field.help_text = None
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column(FloatingField('username'), css_class='col-lg-6'),
+                Column(FloatingField('email'), css_class='col-lg-6'),
+                Column(FloatingField('first_name'), css_class='col-lg-6'),
+                Column(FloatingField('last_name'), css_class='col-lg-6'),
+                Column(FloatingField('password1'), css_class='col-lg-12'),
+                Column(FloatingField('password2'), css_class='col-lg-12'),
+            ),
+        )
+        self.helper.add_input(Submit('submit', 'Create Your Account', css_class='btn btn-primary btn-lg rounded w-100'))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -135,3 +145,10 @@ class SignUpForm(UserCreationForm):
             raise forms.ValidationError(
                 "A user with that email already exists.")
         return email
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError(
+                "A user with that username already exists.")
+        return username

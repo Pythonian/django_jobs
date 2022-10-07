@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static i18n crispy_forms_tags %}
+
+{% block title %}Create a Job Seeker Account{% endblock %}
+
+{% block content %}
+
+<section class="py-lg-5 bg-white">
+    <div class="container my-5">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="{% static 'img/fill_form.svg' %}" class="img-fluid" alt="signup">
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="card border-start-0 border-end-0 border-bottom-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4 mt-3">
+                            <div class="flex-shrink-0">
+                                <span class="fa-stack fa-2x text-primary">
+                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                                    <i class="fa-solid fa-user-check fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="ms-1">
+                                <h6 class="m-0 text-primary">{% trans "Create Your Account" %}</h6>
+                                <small
+                                    class="text-muted">{% trans "Your new career is just another step away from blossoming after you signup." %}</small>
+                            </div>
+                        </div>
+                        {% crispy form %}
+                        <div class="text-center my-4">
+                            <small><span class="text-muted">Already have an account?</span> <a
+                                    href="{% url 'login' %}">{% trans "Login!" %}</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
