@@ -12,8 +12,9 @@ from .models import Job
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['title', 'salary_mode', 'description', 'salary_amount', 'experience',
-                  'vacancy', 'application_deadline', 'status', 'category', 'jobtype', 'state']
+        exclude = ['title']
+        # fields = ['title', 'salary_mode', 'description', 'salary_amount', 'experience',
+        #           'vacancy', 'application_deadline', 'status', 'category', 'jobtype', 'state']
 
 
 # class JobForm(forms.ModelForm):

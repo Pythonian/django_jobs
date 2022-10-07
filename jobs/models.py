@@ -1,3 +1,4 @@
+from secrets import choice
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -99,16 +100,23 @@ class Job(models.Model):
         MONTHLY = 'M', _('Monthly')
         YEARLY = 'Y', _('Yearly')
 
+    class GenderStatus(models.TextChoices):
+        MALE = 'M', _('Male')
+        FEMALE = 'F', _('Female')
+
     title = models.CharField(verbose_name=_('Title'), max_length=255)
     slug = models.SlugField(verbose_name=_('Slug'), max_length=255, unique=True)
     description = models.TextField(_('Description')) # use RichTextEditor
     salary_mode = models.CharField(
         _('Salary Mode'), max_length=1, choices=SalarySchedule.choices)
-    salary_amount = models.PositiveIntegerField()
+    base_salary_amount = models.PositiveIntegerField()
+    maximum_salary_amount = models.PositiveIntegerField(blank=True)
     experience = models.PositiveIntegerField(_('Years of experience'),
                                              blank=True, null=True)
     vacancy = models.PositiveIntegerField(blank=True, null=True)
     application_deadline = models.DateField(blank=True, null=True)
+    qualification_title = models.CharField(_('Qualification title'), max_length=50, blank=True)
+    gender = models.CharField(max_length=1, choices=GenderStatus.choices, blank=True)
     status = models.CharField(
         max_length=1, choices=JobStatus.choices, default=JobStatus.ACTIVE)
     
@@ -118,6 +126,7 @@ class Job(models.Model):
                                 on_delete=models.SET_NULL)
     company = models.ForeignKey(Company, verbose_name=_('Company'),
                                 related_name='jobs', on_delete=models.CASCADE)
+    address = models.CharField(max_length=255, blank=True)
     state = models.ForeignKey(State, verbose_name=_('State'), null=True,
                               on_delete=models.SET_NULL)
 

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from django.urls import reverse_lazy
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'account.apps.AccountConfig',
     'jobs.apps.JobsConfig',
-    'django_cleanup',
+
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'django_cleanup.apps.CleanupConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -143,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'company_account'
 
 LOGIN_URL = 'login'
 
@@ -153,3 +158,13 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 AUTH_USER_MODEL = 'account.User'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

@@ -1,0 +1,35 @@
+{% load form_tags widget_tweaks %}
+
+{% for hidden_field in form.hidden_fields %}
+{{ hidden_field }}
+{% endfor %}
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+    <p {% if forloop.last %}class="mb-0" {% endif %}><i class="fa-solid fa-warning me-1"></i> {{ error }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for hidden_field in form.hidden_fields %}
+{% if hidden_field.errors %}
+<div class="alert alert-danger" role="alert">
+    {% for error in hidden_field.errors %}
+    <p {% if forloop.last %}class="mb-0" {% endif %}>(Hidden field {{ hidden_field.name }}) {{ error }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+<div class="form-floating mb-3">
+    {% render_field field class=field|input_class %}
+    {{ field.label_tag }}
+    {% for error in field.errors %}
+    <div class="invalid-feedback fw-bold">
+        {{ error }}
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}

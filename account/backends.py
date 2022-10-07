@@ -9,7 +9,6 @@ class EmailAuthenticationBackend(BaseBackend):
     # https://stackoverflow.com/questions/25316765/log-in-user-using-either-email-address-or-username-in-django
     
     def authenticate(self, request, **kwargs):
-        # If you made email case insensitive add kwargs['username'].lower()
         email = kwargs['username']
         password = kwargs['password']
         try:

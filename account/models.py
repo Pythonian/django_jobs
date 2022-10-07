@@ -6,20 +6,23 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_company = models.BooleanField(default=False)
     is_employee = models.BooleanField(default=False)
+    email_verified = models.BooleanField(default=False)
 
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    name = models.CharField('Company name', max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
     about = models.TextField(max_length=5000)
-    logo = models.ImageField(upload_to='logos') # crop logo to 80x80
-    company_email = models.EmailField(blank=True, null=True)
+    logo = models.ImageField(upload_to='logos', blank=True) # crop logo to 80x80
+    contact_person = models.CharField(max_length=255)
+    position_in_company = models.CharField(max_length=50)
     established = models.DateField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-    location = models.CharField(max_length=50, blank=True)
-    staff_strength = models.CharField(max_length=50, blank=True)
+    address = models.CharField(max_length=50, blank=True)
+    staff_strength = models.CharField('Number of employees', max_length=50, blank=True)
     phone_number = models.CharField(max_length=13, blank=True)
+    # industry
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), auto_now=True)
 
