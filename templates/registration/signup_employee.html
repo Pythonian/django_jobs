@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n crispy_forms_tags %}
+{% load static i18n widget_tweaks form_tags %}
 
 {% block title %}Create a Job Seeker Account{% endblock %}
 
@@ -22,12 +22,42 @@
                                 </span>
                             </div>
                             <div class="ms-1">
-                                <h6 class="m-0 text-primary">{% trans "Create Your Account" %}</h6>
+                                <h6 class="m-0 text-primary">{% trans "Create A Job Seeker Account" %}</h6>
                                 <small
                                     class="text-muted">{% trans "Your new career is just another step away from blossoming after you signup." %}</small>
                             </div>
                         </div>
-                        {% crispy form %}
+                        <form method="post" action="" novalidate>
+                            {% csrf_token %}
+
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in form.non_field_errors %}
+                                <p {% if forloop.last %}class="mb-0" {% endif %}><i class="fa-solid fa-warning me-1"></i> {{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="row g-2">
+                                {% for field in form %}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-1">
+                                        {% render_field field class=field|input_class %}
+                                        {{ field.label_tag }}
+                                        {% for error in field.errors %}
+                                        <div class="invalid-feedback fw-bold">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        
+                            <div class="my-3">
+                                <button type="submit" class="btn btn-primary btn-lg rounded w-100">{% trans "Create Your Account" %}</button>
+                            </div>
+                        </form>
                         <div class="text-center my-4">
                             <small><span class="text-muted">Already have an account?</span> <a
                                     href="{% url 'login' %}">{% trans "Login!" %}</a></small>

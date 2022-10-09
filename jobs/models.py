@@ -110,7 +110,7 @@ class Job(models.Model):
     salary_mode = models.CharField(
         _('Salary Mode'), max_length=1, choices=SalarySchedule.choices)
     base_salary_amount = models.PositiveIntegerField()
-    maximum_salary_amount = models.PositiveIntegerField(blank=True)
+    maximum_salary_amount = models.PositiveIntegerField(blank=True, null=True)
     experience = models.PositiveIntegerField(_('Years of experience'),
                                              blank=True, null=True)
     vacancy = models.PositiveIntegerField(blank=True, null=True)

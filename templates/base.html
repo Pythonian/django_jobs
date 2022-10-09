@@ -21,6 +21,7 @@
         <div class="container">
             <i class="fa-solid fa-warning me-1"></i> {% if request.user.is_authenticated %}Your account doesn't have access to this page. To proceed, please login with an
             account that has access. {% else %} Please login with your correct credentials to access this page.{% endif %}
+            
         </div>
     </div>
     {% endif %}
