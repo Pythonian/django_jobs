@@ -69,7 +69,7 @@ class CompanySignupForm(UserCreationForm):
                 Column('about', css_class='form-group col-12'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Create account')
+            Submit('submit', 'Create account', css_class='btn-lg')
         )
         # self.helper.add_input(Submit('submit', 'Create Your Account', css_class='btn btn-primary btn-lg rounded w-100'))
     

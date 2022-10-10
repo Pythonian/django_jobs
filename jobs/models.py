@@ -114,7 +114,7 @@ class Job(models.Model):
     experience = models.PositiveIntegerField(_('Years of experience'),
                                              blank=True, null=True)
     vacancy = models.PositiveIntegerField(blank=True, null=True)
-    application_deadline = models.DateField(blank=True, null=True)
+    application_deadline = models.DateField()
     qualification_title = models.CharField(_('Qualification title'), max_length=50, blank=True)
     gender = models.CharField(max_length=1, choices=GenderStatus.choices, blank=True)
     status = models.CharField(
@@ -141,7 +141,7 @@ class Job(models.Model):
     class Meta:
         verbose_name = _('Job')
         verbose_name_plural = _('Jobs')
-        ordering = ['-created']
+        ordering = ['application_deadline', '-created']
 
     def __str__(self):
         return self.title

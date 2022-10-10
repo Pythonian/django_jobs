@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import JobForm
 from .models import Job
-from .utils import mk_paginator
+from .utils import mk_paginator, is_valid_query_paramter
 
 
 @login_required
@@ -30,7 +30,7 @@ def job_create(request):
 
 def job_list(request):
     jobs = Job.active.all()
-    jobs = mk_paginator(request, jobs, 10)
+    jobs = mk_paginator(request, jobs, 2)
 
     template = 'jobs.html'
     context = {
@@ -68,30 +68,6 @@ def job_detail(request, slug):
     context = {
         'job': job,
         # 'applicants': applicants,
-    }
-
-    return render(request, template, context)
-
-
-def companies(request):
-    # companies = Company.objects.all()
-
-    template = 'companies.html'
-    context = {
-        # 'companies': companies
-    }
-
-    return render(request, template, context)
-
-
-def company_detail(request, id):
-    # company = get_object_or_404(Company, id=id)
-    # jobs = company.jobs.all()
-
-    template = 'company_detail.html'
-    context = {
-        # 'company': company,
-        # 'jobs': jobs
     }
 
     return render(request, template, context)

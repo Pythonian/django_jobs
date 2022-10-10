@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
@@ -12,7 +14,7 @@ class User(AbstractUser):
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField('Company name', max_length=100, unique=True)
-    # slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, null=True)
     about = models.TextField(max_length=5000)
     logo = models.ImageField(upload_to='logos', blank=True) # crop logo to 80x80
     contact_person = models.CharField(max_length=255)
@@ -22,7 +24,6 @@ class Company(models.Model):
     address = models.CharField(max_length=50, blank=True)
     staff_strength = models.CharField('Number of employees', max_length=50, blank=True)
     phone_number = models.CharField(max_length=13, blank=True)
-    # industry
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), auto_now=True)
 
@@ -31,6 +32,14 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('company_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class Employee(models.Model):
@@ -58,20 +67,30 @@ class Employee(models.Model):
 
 
 class Resume(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE)
-        
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    professional_title = models.CharField(max_length=50)
+    professional_summary_or_objective = models.TextField(max_length=1000)
+    email = models.EmailField()
+    city = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=13, blank=True)
+    website = models.URLField('Personal website or blog')
+
 
 class Experience(models.Model):
-    user = models.ForeignKey(
-        Employee, on_delete=models.CASCADE, related_name='experiences')
+    resume = models.OneToOneField(
+        Resume, on_delete=models.CASCADE, related_name='experiences')
     company_name = models.CharField(max_length=50)
-    job_title = models.CharField(max_length=50)
+    company_description = models.TextField(blank=True)
+    job_title = models.CharField('Job title or Position', max_length=50)
     supervisor_name = models.CharField(
         max_length=50, blank=True, null=True)
     supervisor_email = models.EmailField(blank=True, null=True)
-    task_description = models.TextField()
-    year = models.PositiveIntegerField()
+    task_description = models.TextField('Achievements or Responsibilities')
+    year_started = models.PositiveIntegerField()
+    year_ended = models.PositiveIntegerField()
     location = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -98,11 +117,12 @@ class Education(models.Model):
         (POLYTECHNIC, 'Polytechnic'),
         (UNIVERSITY, 'University'))
 
-    user = models.ForeignKey(
-        Employee, on_delete=models.CASCADE, related_name='education')
+    resume = models.ForeignKey(
+        Resume, on_delete=models.CASCADE, related_name='education')
     education_level = models.CharField(
         max_length=2, choices=EDUCATION_LEVEL_CHOICES)
     name_of_institution = models.CharField(max_length=50)
+    year_of_admission = models.PositiveIntegerField() #MaxLengthValidation
     year_of_graudation = models.PositiveIntegerField()
     course_of_study = models.CharField(max_length=50)
 

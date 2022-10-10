@@ -8,12 +8,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
-from .views import home
+from .views import home, companies, company_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('jobs/', include('jobs.urls', namespace='jobs')),
+    path('companies/', companies, name='companies'),
+    path('company/<slug:slug>/', company_detail, name='company_detail'),
     path('', home, name='home'),
 ]
 

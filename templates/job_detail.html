@@ -9,8 +9,8 @@
     <div class="container mb-3">
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa-solid fa-home text-primary"></i></a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Job Category</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" title="Home"><i class="fa-solid fa-home text-primary"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.category }}</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.state }}</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.jobtype }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ job.title }}</li>
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="card p-4">
-                    <h4 class="mb-3">{{ job.title }}</h4>
+                    <h3 class="mb-4">{{ job.title }}</h3>
                     <div class="row g-2">
                         <div class="col-lg-3">
                             <div class="border p-3">
@@ -36,7 +36,7 @@
                         <div class="col-lg-3">
                             <div class="border p-3">
                                 <p class="text-muted mb-0">Experience</p>
-                                <p class="fw-bold mb-0">{% if job.experience %}{{ job.experience }} year{{ job.experience|pluralize }}{% else %}-{% endif %}</p>
+                                <p class="fw-bold mb-0">{% if job.experience %}{{ job.experience }} year{{ job.experience|pluralize }}{% else %}Not needed{% endif %}</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <h6 class="fw-bold mb-3">Job Description:</h6>
+                        <h5 class="fw-bold mb-3">Job Description:</h5>
                         <p class="mb-2">{{ job.description|linebreaks|safe }}</p>
                     </div>
                 </div>
@@ -57,32 +57,23 @@
                 <div class="card shadow border-0">
                     
                     <div class="p-4">
-                        <h6 class="fw-bold mb-3">Job Information</h6>
+                        <h6 class="fw-bold mb-3">Other Information</h6>
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-user-tie text-primary"></i>
+                                <i class="fa-solid fa-building text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Job Title</h6>
-                                <p class="mb-0">Product Designer</p>
+                                <h6 class="mb-1 text-muted">Hiring Company</h6>
+                                <p class="mb-0">{{ job.company }}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fa-solid fa-eye text-primary"></i>
+                                <i class="fa-solid fa-user-tie text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Views</h6>
-                                <p class="mb-0">{{ job.impressions }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-pen-to-square text-primary"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Applicants</h6>
-                                <p class="mb-0">3</p>
+                                <h6 class="mb-1 text-muted">Qualification Title</h6>
+                                <p class="mb-0">{% if job.qualification_title %}{{ job.qualification_title }}{% else %}Not provided{% endif %}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
@@ -91,16 +82,7 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-1 text-muted">Offered Salary</h6>
-                                <p class="mb-0">$35k - &#8358;{{ job.salary_amount|intcomma }} /{{ job.get_salary_mode_display }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-graduation-cap text-primary"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Qualification</h6>
-                                <p class="mb-0">Bachelor Degree</p>
+                                <p class="mb-0">&#8358;{{ job.base_salary_amount|intcomma }} {% if job.maximum_salary_amount %}- &#8358;{{ job.maximum_salary_amount|intcomma }}{% endif %} {{ job.get_salary_mode_display }}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
@@ -109,7 +91,25 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-1 text-muted">Gender</h6>
-                                <p class="mb-0">Both</p>
+                                <p class="mb-0">{% if gender %}{{ job.gender }}{% else %}Anyone{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-eye text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Views</h6>
+                                <p class="mb-0">{{ job.impressions }} impression{{ job.impressions|pluralize }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Applicants</h6>
+                                <p class="mb-0">3 submitted applications</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
@@ -118,14 +118,23 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-1 text-muted">Date Posted</h6>
-                                <p class="mb-0">Posted {{ job.created|timesince }} ago</p>
+                                <p class="mb-0">{{ job.created|timesince }} ago</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-clock-rotate-left text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Last Updated</h6>
+                                <p class="mb-0">{{ job.updated|timesince }} ago</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-top p-4">
                         <a href="#" class="btn btn-success mb-2 w-100">Apply Now</a>
-                        <a href="#" class="btn btn-info w-100">View Company</a>
+                        <a href="{{ job.company.get_absolute_url }}" class="btn btn-info w-100">View Company Info</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Company Detail{% endblock %}
+{% block title %}{{ company.name }}{% endblock %}
 
 {% block content %}
 
@@ -9,23 +10,25 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="card p-4 mb-5">
-                    <img src="https://via.placeholder.com/750x300" class="img-fluid mb-3" alt="">
-                    <h6 class="fw-bold mb-3">Sofooty Inc.</h6>
-                    <div class="mt-4">
-                        <h6 class="fw-bold mb-3">About Us:</h6>
-                        <p class="mb-2">Very well thought out and articulate communication. Clear
-                            milestones, deadlines and fast work. Patience. Infinite patience. No
-                            shortcuts. Even if the client is being careless. Some quick example text to build on the
-                            card title and bulk the card's content Moltin gives you platform.</p>
-                        <p class="mb-0">As a highly skilled and successfull product development and
-                            design specialist with more than 4 Years of My experience lies in successfully
-                            conceptualizing, designing, and modifying consumer products specific to interior design
-                            and home furnishings.</p>
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            <img src="{% if company.logo %}{{ company.logo.url }}{% else %}https://via.placeholder.com/80{% endif %}" width="80px" height="80px" alt="{{ company.name }}" class="rounded">
+                        </div>
+                        <div class="ms-3">
+                            <h5>{{ company.name }}</h5>
+                            <span class="text-muted">{{ company.address }}</span>
+                        </div>
                     </div>
+                    <h6 class="fw-bold mb-3">About Us:</h6>
+                    {{ company.about|linebreaks|safe }}
                 </div>
                 <h5 class="fw-bold mb-3">Job openings</h5>
                 {% for job in jobs %}
-                <div class="col-12 mb-3">{% include 'partials/_job_grid.html' %}</div>
+                    <div class="col-12 mb-3">{% include 'partials/_job_grid.html' %}</div>
+                {% empty %}
+                    <div class="d-flex justify-content-center pt-5 mt-5">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+                    </div>
                 {% endfor %}
             </div>
 
@@ -36,20 +39,38 @@
                         <h6 class="fw-bold mb-3">Company Information</h6>
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fa-solid fa-envelope text-primary"></i>
+                                <i class="fa-solid fa-user text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Email</h6>
-                                <p class="mb-0">Product Designer</p>
+                                <h6 class="mb-1 text-muted">Contact person</h6>
+                                <p class="mb-0">{{ company.contact_person }} ({{ company.position_in_company }})</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fa-solid fa-eye text-primary"></i>
+                                <i class="fa-solid fa-envelope text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Email</h6>
+                                <p class="mb-0">{{ company.user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-phone text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Phone number</h6>
+                                <p class="mb-0">{{ company.phone_number }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-briefcase text-primary"></i>
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-1 text-muted">Job openings</h6>
-                                <p class="mb-0">27</p>
+                                <p class="mb-0">{{ company.jobs.count }}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
@@ -57,53 +78,55 @@
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Applicants</h6>
-                                <p class="mb-0">3</p>
+                                <h6 class="mb-1 text-muted">Total applicants</h6>
+                                <p class="mb-0">3*</p>
                             </div>
                         </div>
+                        {% if company.website %}
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
                                 <i class="fa-solid fa-globe-africa text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Location</h6>
-                                <p class="mb-0">V.I, Lagos</p>
+                                <h6 class="mb-1 text-muted">Website</h6>
+                                <p class="mb-0"><a href="{{ company.website }}" target="_blank">Visit our website</a></p>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fa-solid fa-sack-dollar text-primary"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Offered Salary</h6>
-                                <p class="mb-0">$35k - $45k</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-graduation-cap text-primary"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Qualification</h6>
-                                <p class="mb-0">Bachelor Degree</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4">
-                            <div class="flex-shrink-0">
-                                <i class="fa-solid fa-venus-mars text-primary"></i>
+                                <i class="fa-solid fa-users text-primary"></i>
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-1 text-muted">Staff strength</h6>
-                                <p class="mb-0">200+</p>
+                                <p class="mb-0">{{ company.staff_strength }}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
                             <div class="flex-shrink-0">
-                                <i class="fa-solid fa-clock text-primary"></i>
+                                <i class="fa-solid fa-calendar text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Date Established</h6>
-                                <p class="mb-0">24th May 1999</p>
+                                <h6 class="mb-1 text-muted">Date established</h6>
+                                <p class="mb-0">{{ company.established }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-business-time text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Last job posted</h6>
+                                <p class="mb-0">2 weeks ago*</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-clock-rotate-left text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Member since</h6>
+                                <p class="mb-0">{{ company.created|timesince }} ago.</p>
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,21 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
-{% block title %}Browse hiring companies{% endblock %}
+{% block title %}{% trans 'Browse hiring companies' %}{% endblock %}
 
 {% block content %}
 
-<section class="py-3 bg-primary">
-    <div class="container px-5 my-5">
-        <div class="text-white">
-            <h1 class="fw-bolder text-center">Browse hiring companies</h1>
+<section class="bg-primary">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-end">
+            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-left.svg' %}" alt="job-left">
+            <div class="text-white text-center">
+                <h1 class="fw-bolder mt-5 mb-4">{# companies.paginator.count #}20 {% trans 'Hiring Companies' %}</h1>
+                <p class="mb-5 lead">
+                    {% trans 'We have curated below job openings by hiring companies on our platform. Use the advanced search filter to narrow down job searches.' %}
+                </p>
+            </div>
+            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}" alt="job-right">
         </div>
     </div>
 </section>
@@ -15,73 +23,82 @@
 <section class="py-5 bg-light">
     <div class="container my-5">
         <div class="row">
-            <aside class="col-lg-4 col-sm-6 d-none d-lg-block">
-                <div class="card p-4">
-                    <form action="">
-
+            <aside class="col-lg-4 d-none d-lg-block">
+                <div class="card p-4 border-0 shadow">
+                    <form action="" method="get">
+            
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Category</label>
-                            <select class="form-select form-select-lg">
-                                <option selected>Choose category...</option>
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list"></i> Category</label>
+                            <select class="form-select">
+                                <option selected>---Choose a category---</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
                         </div>
-
+            
+                        <hr class="text-muted">
+            
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Location</label>
-                            <input type="text" class="form-control form-control-lg" placeholder="Find location">
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot"></i> Location</label>
+                            <select class="form-select">
+                                <option selected>---Select a State---</option>
+                                <option value="1">Adamawa</option>
+                                <option value="2">Enugu</option>
+                                <option value="3">Lagos</option>
+                            </select>
                         </div>
-
+            
+                        <hr class="text-muted">
+            
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fs-5 fw-bold">Job Type</label>
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left"></i> Active</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Internship</label>
+                                    <label class="form-check-label" for="">All</label>
                                 </div>
-                                <span class="text-primary">23</span>
+                                <span class="px-1 text-bg-primary opacity-75 rounded-3">213</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Full-time</label>
+                                    <label class="form-check-label" for="">Last 7 days</label>
                                 </div>
-                                <span class="text-primary">15</span>
+                                <span class="px-1 text-bg-primary opacity-75 rounded-3">115</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Part time</label>
+                                    <label class="form-check-label" for="">Last 30 days</label>
                                 </div>
-                                <span class="text-primary">09</span>
+                                <span class="px-1 text-bg-primary opacity-75 rounded-3">19</span>
                             </div>
                         </div>
-
-                        <button class="btn btn-primary btn-lg">Filter</button>
+            
+                        <hr class="text-muted">
+            
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Filter</button>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
-                <div class="d-flex justify-content-between mb-3">
-                    <div>
-                        <p class="fw-bold">Showing 1-8 of 10 Results</p>
-                    </div>
-                    <div>
-                        <select class="form-select form-select-sm mb-3">
-                            <option selected>Sort by</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
+                {% if companies %}
+                <div class="mb-3 border-bottom">
+                    <p class="text-muted">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span
+                            class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
                 </div>
                 <div class="row g-4">
                     {% for company in companies %}
-                    <div class="col-lg-6">{% include 'partials/_company_grid.html' %}</div>
+                    <div class="col-lg-6 {% if forloop.last %}mb-5{% endif %}">{% include 'partials/_company_grid.html' %}</div>
                     {% endfor %}
                 </div>
+                {% include 'partials/_pagination.html' with page_obj=companies %}
+                {% else %}
+                <div class="d-flex justify-content-center pt-5 mt-5">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
