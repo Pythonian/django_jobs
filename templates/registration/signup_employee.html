@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n widget_tweaks form_tags %}
 
-{% block title %}Create a Job Seeker Account{% endblock %}
+{% block title %}{% trans "Create a Job Seeker Account" %}{% endblock %}
 
 {% block content %}
 
@@ -27,7 +27,7 @@
                                     class="text-muted">{% trans "Your new career is just another step away from blossoming after you signup." %}</small>
                             </div>
                         </div>
-                        <form method="post" action="" novalidate>
+                        <form method="post" action="">
                             {% csrf_token %}
 
                             {% if form.non_field_errors %}
@@ -59,7 +59,7 @@
                             </div>
                         </form>
                         <div class="text-center my-4">
-                            <small><span class="text-muted">Already have an account?</span> <a
+                            <small><span class="text-muted">{% trans "Already have an account?" %}</span> <a
                                     href="{% url 'login' %}">{% trans "Login!" %}</a></small>
                         </div>
                     </div>

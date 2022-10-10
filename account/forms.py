@@ -27,7 +27,7 @@ class CompanySignupForm(UserCreationForm):
     email = forms.EmailField()
     established = forms.DateField(widget=forms.DateInput)
     position_in_company = forms.CharField()
-    about = forms.CharField(label='', widget=forms.Textarea)
+    about = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'About company'}))
     staff_strength = forms.CharField()
     address = forms.CharField()
     website = forms.CharField(required=False)
