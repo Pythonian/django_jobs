@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-between align-items-end">
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-left.svg' %}" alt="job-left">
             <div class="text-white text-center">
-                <h1 class="fw-bolder mt-5 mb-4">{# companies.paginator.count #}20 {% trans 'Hiring Companies' %}</h1>
+                <h1 class="fw-bolder mt-5 mb-4">{{ companies.paginator.count }} {% trans 'Hiring Companies' %}</h1>
                 <p class="mb-5 lead">
                     {% trans 'We have curated below job openings by hiring companies on our platform. Use the advanced search filter to narrow down job searches.' %}
                 </p>
