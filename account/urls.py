@@ -1,12 +1,11 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path, reverse_lazy
 
-from .views import signup_employee, signup_choice, signup_employer, signup_employee, company_account, company_jobs, company_candidates, CustomPasswordChangeView, employee_account
+from .views import signup_employee, signup_choice, signup_employer, signup_employee, company_account, company_jobs, company_candidates, CustomPasswordChangeView, employee_account, CustomLogoutView
 from .forms import UserLoginForm
 
 urlpatterns = [
-     path('logout/',
-          auth_views.LogoutView.as_view(), name='logout'),
+     path('logout/', CustomLogoutView.as_view(), name='logout'),
      path('login/',
           auth_views.LoginView.as_view(
                redirect_authenticated_user=True, authentication_form=UserLoginForm), name='login'),

@@ -7,6 +7,12 @@ from jobs.utils import mk_paginator
 
 
 def home(request):
+    """
+    Returns the Home page.
+
+    Template: ``home.html``
+    """
+
     # TODO: Use template tags to display the listings
     jobs = Job.active.all()[:4]
     companies = Company.objects.all()[:6]
@@ -26,6 +32,15 @@ def home(request):
 
 
 def companies(request):
+    """
+    Returns the page for viewing all companies.
+
+    Template: ``companies/company_list.html``
+    Context:
+        companies
+            A list of registered Company objects
+    """
+
     companies = Company.objects.all()
     companies = mk_paginator(request, companies, 12)
 
@@ -38,6 +53,14 @@ def companies(request):
 
 
 def company_detail(request, slug):
+    """
+    Returns the detail page of a company.
+
+    Template: ``company_detail.html``
+    Context:
+        company
+            A company object instance
+    """
     company = get_object_or_404(Company, slug=slug)
     jobs = company.jobs.all()
 

@@ -144,6 +144,7 @@ class Job(models.Model):
         ordering = ['application_deadline', '-created']
 
     def __str__(self):
+        """Return the string representation of the model"""
         return self.title
 
     # @classmethod

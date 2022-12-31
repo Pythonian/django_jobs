@@ -11,17 +11,17 @@
         <div class="p-4">
             <ul class="list-unstyled">
 
-                {% url 'company_account' as company_account_url %}
-                {% if request.get_full_path == company_account_url %}
+                {% url 'employee_account' as employee_account_url %}
+                {% if request.get_full_path == employee_account_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-cog mx-1"></i> Manage Account
+                        <i class="fa-solid fa-user mx-1"></i> My Resume
                     </span>
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
                     <a class="text-decoration-none stretched-link" href="{% url 'company_account' %}">
-                        <i class="fa-solid fa-cog mx-1"></i> Manage Account
+                        <i class="fa-solid fa-user mx-1"></i> My Resume
                     </a>
                 </li>
                 {% endif %}
@@ -30,13 +30,13 @@
                 {% if request.get_full_path == company_jobs_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-suitcase mx-1"></i> Manage Jobs
+                        <i class="fa-solid fa-suitcase mx-1"></i> My Jobs
                     </span>
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
                     <a class="text-decoration-none stretched-link" href="{% url 'company_jobs' %}">
-                        <i class="fa-solid fa-suitcase mx-1"></i> Manage Jobs
+                        <i class="fa-solid fa-suitcase mx-1"></i> My Jobs
                     </a>
                 </li>
                 {% endif %}
@@ -45,13 +45,13 @@
                 {% if request.get_full_path == company_candidates_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-user mx-1"></i> Manage Candidates
+                        <i class="fa-solid fa-cog mx-1"></i> Account Settings
                     </span>
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
                     <a class="text-decoration-none stretched-link" href="{% url 'company_candidates' %}">
-                        <i class="fa-solid fa-user mx-1"></i> Manage Candidates
+                        <i class="fa-solid fa-cog mx-1"></i> Account Settings
                     </a>
                 </li>
                 {% endif %}

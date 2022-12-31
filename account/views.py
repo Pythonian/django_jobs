@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LogoutView, PasswordChangeView
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordChangeView
+
+from jobs.models import Job
 
 from .forms import CompanySignupForm, EmployeeSignUpForm
 
@@ -91,10 +93,11 @@ def company_account(request):
 
 @login_required
 def company_jobs(request):
-
+    jobs = Job.objects.all()
     template_name = "company_jobs.html"
     context = {
         "user": request.user,
+        "jobs": jobs,
     }
 
     return render(request, template_name, context)
@@ -117,3 +120,10 @@ class CustomPasswordChangeView(PasswordChangeView):
     def form_valid(self, form):
         messages.success(self.request, 'Your password was successfully changed.')
         return super().form_valid(form)
+
+
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.success(request, "You have successfully logged out.")
+        return super().dispatch(request, *args, **kwargs)

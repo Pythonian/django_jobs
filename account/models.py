@@ -28,6 +28,7 @@ class Company(models.Model):
     updated = models.DateTimeField(_('Updated'), auto_now=True)
 
     class Meta:
+        ordering = ['-created']
         verbose_name_plural = 'Companies'
 
     def __str__(self):
