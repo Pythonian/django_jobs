@@ -5,12 +5,12 @@ from ..views import employees
 app_name = 'employees'
 
 urlpatterns = [
-    path('employee/dashboard/', employees.employee_dashboard, name='employee_dashboard'),
-    path('employee/profile/', employees.employee_account, name='employee_account'),
-    path('employee/jobs/', employees.employee_jobs, name='employee_jobs'),
-    path('employee/messages/', employees.employee_messages, name='employee_messages'),
-    path('employee/resume/', employees.employee_resume, name='employee_resume'),
-    path('employee/bookmarks/', employees.employee_bookmarks, name='employee_bookmarks'),
+    path('dashboard/', employees.employee_dashboard, name='dashboard'),
+    path('profile/', employees.employee_account, name='account'),
+    path('jobs/', employees.employee_jobs, name='jobs'),
+    path('messages/', employees.employee_messages, name='messages'),
+    path('resume/', employees.employee_resume, name='resume'),
+    path('bookmarks/', employees.employee_bookmarks, name='bookmarks'),
 
     path('resume/<int:id>/', employees.resume_detail, name='resume_detail'),
 ]

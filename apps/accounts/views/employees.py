@@ -12,7 +12,7 @@ from ..models import Resume
 def employee_jobs(request):
     applications = Application.objects.filter(applicant=request.user.employee)
 
-    template_name = "employee_jobs.html"
+    template_name = "employees/jobs.html"
     context = {
         "user": request.user,
         "applications": applications,
@@ -23,7 +23,7 @@ def employee_jobs(request):
 
 @login_required
 def employee_dashboard(request):
-    template_name = 'employee_dashboard.html'
+    template_name = 'employees/dashboard.html'
     context = {
         'user': request.user,
     }
@@ -33,7 +33,7 @@ def employee_dashboard(request):
 
 @login_required
 def employee_messages(request):
-    template_name = 'employee_messages.html'
+    template_name = 'employees/messages.html'
     context = {
         'user': request.user,
     }
@@ -52,14 +52,14 @@ def employee_account(request):
             employee_form.save()
             messages.success(
                 request, "Your account settings have been updated.")
-            return redirect('employee_account')
+            return redirect('employees:account')
         else:
             messages.warning(request, "An error occured. Please check below.")
     else:
         user_form = UserEmployeeEditForm(instance=request.user)
         employee_form = EmployeeEditForm(instance=request.user.employee)
 
-    template_name = 'employee_account.html'
+    template_name = 'employees/account.html'
     context = {
         'user': request.user,
         'user_form': user_form,
@@ -89,7 +89,7 @@ def employee_resume(request):
     else:
         form = ResumeForm(instance=employee_resume)
 
-    template_name = 'employee_resume.html'
+    template_name = 'employees/resume.html'
     context = {
         'user': request.user,
         'form': form,
@@ -102,7 +102,7 @@ def employee_resume(request):
 def resume_detail(request, id):
     resume = get_object_or_404(Resume, id=id)
 
-    template_name = "resume_detail.html"
+    template_name = "employees/resume_detail.html"
     context = {
         "resume": resume,
     }
@@ -114,7 +114,7 @@ def resume_detail(request, id):
 def employee_bookmarks(request):
     bookmarks = Job.active.filter(bookmarks=request.user.employee)
 
-    template_name = "employee_bookmarks.html"
+    template_name = "employees/bookmarks.html"
     context = {
         "bookmarks": bookmarks,
     }

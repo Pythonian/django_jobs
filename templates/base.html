@@ -31,7 +31,7 @@
     {% endif %}
     <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-lg-3">
         <div class="container">
-            <a href="{% url 'home' %}" class="navbar-brand">
+            <a href="{% url 'core:home' %}" class="navbar-brand">
                 <i class="fa-solid fa-user-tie me-1"></i>
                 <strong>Blue Jobs</strong>
             </a>
@@ -42,20 +42,20 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav me-lg-auto ms-lg-auto mb-3 mb-lg-0">
                     <li class="nav-item me-lg-2">
-                        <a class="nav-link {% url 'home' as home_url %}{% if request.get_full_path == home_url %}active{% endif %}"
-                            href="{% url 'home' %}"><i class="me-1 fa-solid fa-house"></i> Home</a>
+                        <a class="nav-link {% url 'core:home' as home_url %}{% if request.get_full_path == home_url %}active{% endif %}"
+                            href="{% url 'core:home' %}"><i class="me-1 fa-solid fa-house"></i> Home</a>
                     </li>
                     <li class="nav-item me-lg-2">
                         <a class="nav-link {% url 'jobs:list' as jobs_url %}{% if request.get_full_path == jobs_url %}active{% endif %}"
                             href="{% url 'jobs:list' %}"><i class="me-1 fa-solid fa-briefcase"></i> Jobs</a>
                     </li>
                     <li class="nav-item me-lg-2">
-                        <a class="nav-link {% url 'companies' as companies_url %}{% if request.get_full_path == companies_url %}active{% endif %}"
-                            href="{% url 'companies' %}"><i class="me-1 fa-solid fa-building"></i> Employers</a>
+                        <a class="nav-link {% url 'core:companies' as companies_url %}{% if request.get_full_path == companies_url %}active{% endif %}"
+                            href="{% url 'core:companies' %}"><i class="me-1 fa-solid fa-building"></i> Employers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% url 'resumes' as resumes_url %}{% if request.get_full_path == resumes_url %}active{% endif %}"
-                            href="{% url 'resumes' %}"><i class="me-1 fa-solid fa-file-lines"></i> Resumes</a>
+                        <a class="nav-link {% url 'core:resumes' as resumes_url %}{% if request.get_full_path == resumes_url %}active{% endif %}"
+                            href="{% url 'core:resumes' %}"><i class="me-1 fa-solid fa-file-lines"></i> Resumes</a>
                     </li>
                 </ul>
                 <div class="d-flex mb-3 mb-lg-0">
@@ -66,39 +66,39 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             {% if user.is_company %}
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'company_account' %}"><i class="fa-solid fa-user me-1"></i> My Account</a></li>
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'company_jobs' %}"><i class="fa-solid fa-briefcase me-1"></i> Manage Jobs</a></li>
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'company_candidates' %}"><i class="fa-solid fa-users me-1"></i> Manage Candidates</a>
+                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:account' %}"><i class="fa-solid fa-user me-1"></i> My Account</a></li>
+                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:jobs' %}"><i class="fa-solid fa-briefcase me-1"></i> Manage Jobs</a></li>
+                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:candidates' %}"><i class="fa-solid fa-users me-1"></i> Manage Candidates</a>
                             <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'password_change' %}"><i class="fa-solid fa-key me-1"></i> Change Password</a>
                             </li>
                             {% else %}
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_dashboard' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:dashboard' %}">
                                     <i class="fa-solid fa-gauge me-1"></i> My Dashboard
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_resume' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:resume' %}">
                                     <i class="fa-solid fa-file-lines me-1"></i> My Resume
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_jobs' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:jobs' %}">
                                     <i class="fa-solid fa-briefcase me-1"></i> My Applied Jobs
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_messages' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:messages' %}">
                                     <i class="fa-solid fa-inbox me-1"></i> My Messages
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_bookmarks' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:bookmarks' %}">
                                     <i class="fa-solid fa-bookmark me-1"></i> My Bookmarks
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a class="text-primary dropdown-item" href="{% url 'employee_account' %}">
+                                <a class="text-primary dropdown-item" href="{% url 'employees:account' %}">
                                     <i class="fa-solid fa-cog me-1"></i> My Settings
                                 </a>
                             </li>

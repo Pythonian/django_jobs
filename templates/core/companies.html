@@ -12,7 +12,9 @@
             <div class="text-white text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ companies.paginator.count }} {% trans 'Hiring Companies' %}</h1>
                 <p class="mb-5 lead">
+                    {% if companies %}
                     {% trans 'We have curated below job openings by hiring companies on our platform. Use the advanced search filter to narrow down job searches.' %}
+                    {% endif %}
                 </p>
             </div>
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}" alt="job-right">
@@ -23,6 +25,7 @@
 <section class="py-3 bg-light">
     <div class="container my-5">
         <div class="row">
+            {% if companies %}
             <aside class="col-lg-4 d-none d-lg-block">
                 <div class="card p-4 border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
                     <form action="" method="get">
@@ -31,9 +34,9 @@
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i> Keyword</label>
                             <input type="text" name="query" class="form-control" placeholder="Company name" id="id_query">
                         </div>
-                        
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i> Category</label>
                             <select class="form-select">
@@ -43,9 +46,9 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot  me-1"></i> Location</label>
                             <select class="form-select">
@@ -55,9 +58,9 @@
                                 <option value="3">Lagos</option>
                             </select>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Active</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
@@ -82,7 +85,7 @@
                                 <span class="px-1 text-bg-primary opacity-75 rounded-3">19</span>
                             </div>
                         </div>
-            
+
                         <hr class="text-muted">
 
                         <div class="form-group mb-4">
@@ -116,15 +119,14 @@
                                 <span class="px-1 text-bg-primary opacity-75 rounded-3">1</span>
                             </div>
                         </div>
-                        
+
                         <hr class="text-muted">
-            
+
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
-                {% if companies %}
                 <div class="mb-3 border-bottom">
                     <p class="text-muted">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span
                             class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
@@ -135,12 +137,15 @@
                     {% endfor %}
                 </div>
                 {% include 'partials/_pagination.html' with page_obj=companies %}
-                {% else %}
-                <div class="d-flex justify-content-center pt-5 mt-5">
-                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
-                </div>
-                {% endif %}
             </div>
+            {% else %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptycompanies">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

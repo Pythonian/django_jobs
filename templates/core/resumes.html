@@ -11,7 +11,11 @@
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/resume-left.svg' %}" alt="resume-left">
             <div class="text-white text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ resumes.paginator.count }} {% trans 'Resumes Available Now' %}</h1>
-                <p class="mb-5 lead">{% trans 'We have curated below professional resumes from some of the top talents on our platform. Use the advanced search filter to narrow down resume searches.' %}</p>
+                <p class="mb-5 lead px-1">
+                    {% if resumes %}
+                    {% trans 'We have curated below professional resumes from some of the top talents on our platform. Use the advanced search filter to narrow down resume searches.' %}
+                    {% endif %}
+                </p>
             </div>
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/personal_info.svg' %}" alt="resume-right">
         </div>
@@ -21,17 +25,18 @@
 <section class="py-3 bg-light">
     <div class="container my-5">
         <div class="row">
+            {% if resumes %}
             <aside class="col-lg-4 d-none d-lg-block">
                 <div class="card p-4 border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
                     <form action="" method="get">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i> Keyword</label>
                             <input type="text" name="query" class="form-control" placeholder="Job Title or Keyword" id="id_query">
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i> Category</label>
                             <select class="form-select">
@@ -41,9 +46,9 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i>
                                 Location</label>
@@ -54,9 +59,9 @@
                                 <option value="3">Lagos</option>
                             </select>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-venus-mars me-1"></i> Gender</label>
                             <select class="form-select">
@@ -65,9 +70,9 @@
                                 <option value="2">Female</option>
                             </select>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-briefcase me-1"></i> Job
                                 Type</label>
@@ -107,9 +112,9 @@
                                 <span class="px-1 text-bg-primary opacity-75 rounded-3">09</span>
                             </div>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Job
                                 Posted</label>
@@ -142,9 +147,9 @@
                                 <span class="px-1 text-bg-primary opacity-75 rounded-3">19</span>
                             </div>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-filter-circle-dollar me-1"></i>
                                 Salary Mode</label>
@@ -184,15 +189,14 @@
                                 <span class="px-1 text-bg-primary opacity-75 rounded-3">9</span>
                             </div>
                         </div>
-            
+
                         <hr class="text-muted">
-            
+
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
-                {% if resumes %}
                 <div class="d-flex justify-content-between mb-3 border-bottom">
                     <div>
                         <p class="text-muted">Showing <span class="fw-bold">{{ resumes.start_index }}-{{ resumes.end_index }}</span> of <span class="fw-bold">{{ resumes.paginator.count }}</span> resume{{ resumes.paginator.count|pluralize }}</p>
@@ -204,12 +208,15 @@
                     {% endfor %}
                 </div>
                 {% include 'partials/_pagination.html' with page_obj=resumes %}
-                {% else %} 
-                <div class="d-flex justify-content-center pt-5 mt-5">
-                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
-                </div>
-                {% endif %}
             </div>
+            {% else %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptyresume">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-muted">No Resumes Data Created Yet.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

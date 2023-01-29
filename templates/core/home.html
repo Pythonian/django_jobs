@@ -26,8 +26,8 @@
     <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <h5 class="text-primary">{% trans 'How it Works' %}</h5>
-                <h1 class="mb-5 display-3 fw-bold">{% trans 'Follow our Steps' %},<br> {% trans 'we will help you' %}!</h1>
+                <h5 class="text-primary">{% trans 'How It Works' %}</h5>
+                <h1 class="mb-5 display-3">{% trans 'Follow our Steps' %},<br> {% trans 'we will help you' %}!</h1>
                 <ul class="list-unstyled">
                     <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> {% trans 'Trusted and Quality Jobs' %}</li>
                     <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> {% trans 'No Hidden Fees' %}</li>
@@ -113,6 +113,30 @@
     </div>
 </section>
 
+<section class="bg-white py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="mb-lg-2">
+                {# if resumes_count > 4 #}
+                <a href="{# url 'resumes' #}" class="float-end btn btn-primary">{% trans 'All Categories' %}</a>
+                {# endif #}
+                <h5 class="text-primary mb-3">{% trans 'Jobs by Categories' %}</h5>
+                <h2>{% trans 'Choose Your Desired Category' %}</h2>
+            </div>
+            {# for resume in resumes #}
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
+            {# endfor #}
+        </div>
+    </div>
+</section>
+
 <section class="bg-primary py-lg-5">
     <div class="container my-5">
         <div class="row g-4">
@@ -178,7 +202,7 @@
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Data Registered Yet.</p>
+                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
                 </div>
             {% endfor %}
         </div>
@@ -187,6 +211,20 @@
             <a href="{% url 'companies' %}" class="btn btn-primary">{% trans 'View More' %}</a>
         </div>
         {% endif %}
+    </div>
+</section>
+
+<section class="bg-light py-lg-5">
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="text-center mb-lg-5">
+                <h5 class="text-primary mb-3">{% trans 'Clients Testimonials' %}</h5>
+                <h2>{% trans 'What Our Customers Say About Us' %}</h2>
+            </div>
+            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
+            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
+            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
+        </div>
     </div>
 </section>
 

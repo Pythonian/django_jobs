@@ -8,14 +8,14 @@ from django.utils.translation import gettext_lazy as _
 from apps.accounts.models import Company, Employee
 
 from .managers import ActiveJobManager
-from .utils import image_path
+from apps.core.utils import image_path
 
 
 class Category(models.Model):
     name = models.CharField(_('Name'), unique=True, max_length=25)
     slug = models.SlugField(_('Slug'), unique=True, max_length=25)
     description = models.TextField(_('Description'), blank=True)
-    image = models.ImageField(_('Image'), upload_to=image_path, blank=True)
+    icon = models.CharField(_('Fontawesome icon'), max_length=20)
     category_order = models.PositiveIntegerField(_('Category order'),
                                                     unique=True, blank=True)
 
@@ -120,7 +120,7 @@ class Job(models.Model):
     gender = models.CharField(max_length=1, choices=GenderStatus.choices, blank=True)
     status = models.CharField(
         max_length=1, choices=JobStatus.choices, default=JobStatus.ACTIVE)
-    
+
     category = models.ForeignKey(Category, verbose_name=_('Category'), null=True,
                                  related_name='jobs', on_delete=models.SET_NULL)
     jobtype = models.ForeignKey(JobType, verbose_name=_('Job Type'), null=True,

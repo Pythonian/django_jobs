@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'apps.accounts',
+    'apps.core',
     'apps.jobs',
 
     'crispy_forms',
@@ -71,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.accounts.middleware.UpdateLastSeenMiddleware',
 ]
 
 
@@ -103,7 +105,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR.parent / 'db.sqlite3',
     }
     # 'default': dj_database_url.config(
     #     default=config(
@@ -160,7 +162,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [BASE_DIR / 'locale']
+LOCALE_PATHS = [
+    BASE_DIR.parent / 'locale'
+]
 
 
 # ==============================================================================
@@ -171,7 +175,7 @@ LOCALE_PATHS = [BASE_DIR / 'locale']
 STATIC_URL = '/static/'
 
 # BASE_DIR.parent.parent / "static"
-STATIC_ROOT = BASE_DIR / 'static_root'
+STATIC_ROOT = BASE_DIR.parent / 'static_root'
 
 STATICFILES_DIRS = [
     BASE_DIR.parent / 'static',
@@ -183,8 +187,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 
-# BASE_DIR.parent.parent / "media"
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR.parent / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -207,15 +210,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # FIRST-PARTY SETTINGS
 # ==============================================================================
 
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'core:home'
 
-LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_REDIRECT_URL = 'core:dashboard'
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'auth:login'
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "accounts.backends.EmailAuthenticationBackend",
+    "apps.accounts.backends.EmailAuthenticationBackend",
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

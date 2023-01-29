@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils import timezone
 
 from ..forms import CompanySignupForm, EmployeeSignUpForm
 from ..tokens import account_activation_token
@@ -16,7 +17,7 @@ User = get_user_model()
 
 def signup_choice(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('core:home')
     return render(request, 'registration/signup_choice.html', {})
 
 
@@ -27,11 +28,11 @@ def signup_employer(request):
         form = CompanySignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user, backend='account.backends.EmailAuthenticationBackend')
+            login(request, user, backend='apps.accounts.backends.EmailAuthenticationBackend')
             messages.success(
                 request, "Signup successful. Please confirm account.")
             # Send welcome email to employer
-            return redirect('company_account')
+            return redirect('employers:account')
         else:
             messages.warning(
                 request, "An error occured. Please check below.")
@@ -48,7 +49,7 @@ def signup_employer(request):
 
 def signup_employee(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("core:home")
     if request.method == "POST":
         form = EmployeeSignUpForm(request.POST)
         if form.is_valid():
@@ -76,10 +77,10 @@ def signup_employee(request):
             })
             user.email_user(subject=subject, message=message)
 
-            login(request, user, backend='account.backends.EmailAuthenticationBackend')
+            login(request, user, backend='apps.accounts.backends.EmailAuthenticationBackend')
             messages.success(
                 request, "Signup successful. Please confirm your email address.")
-            return redirect('employee_account')
+            return redirect('employees:dashboard')
         else:
             messages.warning(
                 request, "An error occured. Please check below.")
@@ -103,10 +104,10 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.email_verified = True
         user.save()
-        login(request, user, backend='account.backends.EmailAuthenticationBackend')
+        login(request, user, backend='apps.accounts.backends.EmailAuthenticationBackend')
         messages.success(
             request, 'Your email address has been successully confirmed.')
-        return redirect('employee_account')
+        return redirect('employees:dashboard')
     else:
         template_name = "registration/activation_invalid.html"
         context = {}
@@ -114,7 +115,7 @@ def activate(request, uidb64, token):
 
 
 class CustomPasswordChangeView(PasswordChangeView): #login_required
-    success_url = reverse_lazy('password_change')
+    success_url = reverse_lazy('auth:password_change')
 
     def form_valid(self, form):
         messages.success(
@@ -127,3 +128,9 @@ class CustomLogoutView(LogoutView):
         if request.user.is_authenticated:
             messages.success(request, "You have successfully logged out.")
         return super().dispatch(request, *args, **kwargs)
+
+
+def update_last_seen(request):
+    if request.user.is_authenticated:
+        request.user.last_seen = timezone.now()
+        request.user.save()

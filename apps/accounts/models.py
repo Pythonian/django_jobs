@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
+from django.utils import timezone
 
 
 def user_directory_path(instance, filename):
@@ -15,6 +16,7 @@ class User(AbstractUser):
     is_company = models.BooleanField(default=False)
     is_employee = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False)
+    last_seen = models.DateTimeField(default=timezone.now)
 
 
 class Company(models.Model):

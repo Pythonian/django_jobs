@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import JobForm, ApplicationForm
 from .models import Job
-from .utils import mk_paginator, is_valid_query_paramter
+from apps.core.utils import mk_paginator, is_valid_query_paramter
 
 
 @login_required
@@ -41,17 +41,17 @@ def job_create(request):
 
 def job_list(request):
     """
-    Returns the page for viewing all leads.
+    Returns the page for viewing all jobs.
 
-    Template: ``leads/lead_list.html``
+    Template: ``jobs/list.html``
     Context:
-        leads
-            A list of active Lead objects
+        jobs
+            A list of active job objects
     """
     jobs = Job.active.all()
     jobs = mk_paginator(request, jobs, 5)
 
-    template = 'jobs.html'
+    template = 'jobs/list.html'
     context = {
         'jobs': jobs,
     }
@@ -80,7 +80,7 @@ def job_detail(request, slug):
 
     applied = bool
     if request.user.is_authenticated:
-        
+
         if job.applicants.filter(id=request.user.employee.id).exists():
             applied = True
 
@@ -126,7 +126,7 @@ def job_update(request, pk):
         form
             JobForm object
         job
-            job object 
+            job object
     """
     job = get_object_or_404(job, pk=pk)
     if request.method == 'POST':
