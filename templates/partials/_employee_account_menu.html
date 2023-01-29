@@ -1,72 +1,94 @@
+{% load static %}
 <div class="col-lg-4">
-    <div class="card shadow border-0">
+    <div class="card border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
         <div class="p-4">
             <div class="text-center">
-                <img src="https://via.placeholder.com/150" width="150px" height="150px" alt="" class="rounded-circle">
-                <h4 class="fw-bold my-2 text-primary">{{ user.get_full_name }}</h4>
-                <p class="text-muted mb-0">{{ user.email }}</p>
+                <img src="{% if user.employee.image %}{{ user.employee.image.url }}{% else %}{% static 'img/avatar.svg' %}{% endif %}" width="150px" height="150px" alt="" class="rounded-circle">
+                <h4 class="fw-bold mt-2 text-primary">{{ user.get_full_name }}</h4>
+                <small class="text-muted">Joined {{ user.date_joined|date:"F j, Y" }}</small>
             </div>
         </div>
 
-        <div class="p-4">
+        <div class="p-4 pt-0">
             <ul class="list-unstyled">
+
+                {% url 'employee_dashboard' as employee_dashboard_url %}
+                {% if request.get_full_path == employee_dashboard_url %}
+                <li class="mb-2 p-2 bg-primary rounded">
+                    <span class="text-white text-decoration-none">
+                        <i class="fa-solid fa-gauge mx-1"></i> My Dashboard
+                    </span>
+                </li>
+                {% else %}
+                <li class="mb-2 p-2 position-relative">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employee_dashboard' %}">
+                        <i class="fa-solid fa-gauge mx-1"></i> My Dashboard
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% url 'employee_resume' as employee_resume_url %}
+                {% if request.get_full_path == employee_resume_url %}
+                <li class="mb-2 p-2 bg-primary rounded">
+                    <span class="text-white text-decoration-none">
+                        <i class="fa-solid fa-file-lines mx-1"></i> My Resume
+                    </span>
+                </li>
+                {% else %}
+                <li class="mb-2 p-2 position-relative">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employee_resume' %}">
+                        <i class="fa-solid fa-file-lines mx-1"></i> My Resume
+                    </a>
+                </li>
+                {% endif %}
+
+                {% url 'employee_jobs' as employee_jobs_url %}
+                {% if request.get_full_path == employee_jobs_url %}
+                <li class="mb-2 p-2 bg-primary rounded">
+                    <span class="text-white text-decoration-none">
+                        <i class="fa-solid fa-suitcase mx-1"></i> My Applied Jobs
+                    </span>
+                </li>
+                {% else %}
+                <li class="mb-2 p-2 position-relative">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employee_jobs' %}">
+                        <i class="fa-solid fa-suitcase mx-1"></i> My Applied Jobs
+                    </a>
+                </li>
+                {% endif %}
+
+                {% url 'employee_messages' as employee_messages_url %}
+                {% if request.get_full_path == employee_messages_url %}
+                <li class="mb-2 p-2 bg-primary rounded">
+                    <span class="text-white text-decoration-none">
+                        <i class="fa-solid fa-inbox mx-1"></i> My Messages
+                    </span>
+                </li>
+                {% else %}
+                <li class="mb-2 p-2 position-relative">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employee_messages' %}">
+                        <i class="fa-solid fa-inbox mx-1"></i> My Messages
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="mb-2 p-2 position-relative">
+                    <a class="text-decoration-none stretched-link" href="{# url 'employee_candidates' #}">
+                        <i class="fa-solid fa-bookmark mx-1"></i> My Bookmarks
+                    </a>
+                </li>
 
                 {% url 'employee_account' as employee_account_url %}
                 {% if request.get_full_path == employee_account_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-user mx-1"></i> My Resume
+                        <i class="fa-solid fa-cog mx-1"></i> My Settings
                     </span>
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'company_account' %}">
-                        <i class="fa-solid fa-user mx-1"></i> My Resume
-                    </a>
-                </li>
-                {% endif %}
-
-                {% url 'company_jobs' as company_jobs_url %}
-                {% if request.get_full_path == company_jobs_url %}
-                <li class="mb-2 p-2 bg-primary rounded">
-                    <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-suitcase mx-1"></i> My Jobs
-                    </span>
-                </li>
-                {% else %}
-                <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'company_jobs' %}">
-                        <i class="fa-solid fa-suitcase mx-1"></i> My Jobs
-                    </a>
-                </li>
-                {% endif %}
-
-                {% url 'company_candidates' as company_candidates_url %}
-                {% if request.get_full_path == company_candidates_url %}
-                <li class="mb-2 p-2 bg-primary rounded">
-                    <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-cog mx-1"></i> Account Settings
-                    </span>
-                </li>
-                {% else %}
-                <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'company_candidates' %}">
-                        <i class="fa-solid fa-cog mx-1"></i> Account Settings
-                    </a>
-                </li>
-                {% endif %}
-
-                {% url 'password_change' as password_change_url %}
-                {% if request.get_full_path == password_change_url %}
-                <li class="mb-2 p-2 bg-primary rounded">
-                    <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-key mx-1"></i> Change Password
-                    </span>
-                </li>
-                {% else %}
-                <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'password_change' %}">
-                        <i class="fa-solid fa-key mx-1"></i> Change Password
+                    <a class="text-decoration-none stretched-link" href="{% url 'employee_account' %}">
+                        <i class="fa-solid fa-cog mx-1"></i> My Settings
                     </a>
                 </li>
                 {% endif %}

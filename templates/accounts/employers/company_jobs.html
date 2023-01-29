@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Manage Jobs{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_company_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="mb-lg-5">
+                    <a href="{% url 'jobs:create' %}" class="float-end btn btn-primary"><i class="fa-solid fa-briefcase me-1"></i> Post new Job</a>
+                    <h4>All Posted Jobs</h4>
+                </div>
+                <div class="row g-4">
+                    {% if jobs %}
+                    {% for job in jobs %}
+                    <div class="col-12 mb-3">{% include 'partials/_job_grid.html' %}</div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="text-center pt-5">
+                        <div class="d-block mb-3">
+                            <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
+                        </div>
+                        <p class="text-muted">You have not created any job.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

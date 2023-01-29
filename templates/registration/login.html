@@ -12,7 +12,7 @@
                 <img src="{% static 'img/login.svg' %}" class="img-fluid" alt="login">
             </div>
             <div class="col-lg-4 offset-lg-1">
-                <div class="card border-start-0 border-end-0 border-bottom-0 shadow">
+                <div class="card border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4 mt-3">
                             <div class="flex-shrink-0">
@@ -29,7 +29,26 @@
                         <form method="post" action="">
                             {% csrf_token %}
 
-                            {% include 'partials/_form_inputs.html' with form=form %}
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa-solid fa-warning me-1"></i> Incorrect login credentials provided. Please try again.
+                            </div>
+                            {% endif %}
+
+                            <div class="row g-2">
+                                <div class="col-lg-12">
+                                    <div class="form-floating mb-1">
+                                        {% render_field form.username class=form.username|input_class %}
+                                        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-floating mb-1">
+                                        {% render_field form.password class=form.password|input_class %}
+                                        <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                                    </div>
+                                </div>
+                            </div>
                             
                             <small class="fw-bold"><a href="{% url 'password_reset' %}" class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
                             <div class="my-3">

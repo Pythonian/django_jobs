@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ resume.employee.user.get_full_name }}{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            <div class="">
+                <div class="d-flex justify-content-between">
+                    <h6>{{ resume.employee.user.get_full_name }}</h6>
+                    
+                    <a href="{# resume.file.url #}"
+                        class="d-print-none btn {% if candidate.gender == 'F' %}btn-danger{% else %}btn-primary{% endif %} btn-sm">Download CV</a>
+                </div>
+                <hr>
+                <div class="float-end">
+                    <img src="{% if resume.employee.image %}{{ resume.employee.image.url }}{% else %}{% static 'img/avatar.svg' %}{% endif %}" class="img-fluid img-thumbnail" width="150px" alt="">
+                    {% if resume.employee.age %}<div class="text-center mt-2 text-sm">{{ resume.employee.age }} years old.</div>{% endif %}
+                </div>
+            
+                <h6 class="{% if resume.employee.gender == 'F' %}text-danger{% else %}text-primary{% endif %} my-4">PERSONAL INFORMATION</h6>
+            
+                <p><strong>Gender:</strong> {{ resume.employee.get_gender_display }}</p>
+                <p><strong>Phone:</strong> {{ resume.phone_number }}</p>
+                <p><strong>Email:</strong> {{ resume.employee.user.email }}</p>
+                <p><strong>Birth date:</strong> {{ resume.employee.date_of_birth }}</p>
+                <p><strong>Language(s):</strong> {{ resume.language_spoken }}</p>
+                <p><strong>Professional summary:</strong> {{ resume.professional_summary_or_objective }}</p>
+            
+                <hr>
+                <h6 class="{% if resume.employee.gender == 'F' %}text-danger{% else %}text-primary{% endif %} my-4">LAST SCHOOL ATTENDED</h6>
+                <p><strong>Institution:</strong> {{ resume.name_of_institution }}</p>
+                <p><strong>Education Level:</strong> {{ resume.get_education_level_display }}</p>
+                <p><strong>Course:</strong> {{ resume.course_of_study }}</p>
+                <p><strong>Year of admission:</strong> {{ resume.year_of_admission }}</p>
+                <p><strong>Year of graduation:</strong> {{ resume.year_of_graudation }}</p>
+            
+                <hr>
+                <h6 class="{% if resume.employee.gender == 'F' %}text-danger{% else %}text-primary{% endif %} my-4">LAST COMPANY EXPERIENCE</h6>
+                <p><strong>Company:</strong> {{ resume.company_name }}</p>
+                <p><strong>About Company:</strong> {{ resume.company_description }}</p>
+                <p><strong>Job Position:</strong> {{ resume.job_title }}</p>
+                <p><strong>Description of Task:</strong> {{ resume.task_description }}</p>
+                <p><strong>My Supervisor:</strong> {{ resume.supervisor_name }}</p>
+                <p><strong>Location of work:</strong> {{ resume.location }}</p>
+                <p><strong>Year started:</strong> {{ resume.year_started }}</p>
+                <p><strong>Year ended:</strong> {{ resume.year_ended }}</p>
+            
+                <hr>
+                <a href="{% url 'resumes' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

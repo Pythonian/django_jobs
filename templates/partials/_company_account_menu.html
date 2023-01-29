@@ -1,8 +1,9 @@
+{% load static %}
 <div class="col-lg-4">
-    <div class="card shadow border-0">
+    <div class="card border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
         <div class="p-4">
             <div class="text-center">
-                <img src="{% if user.company.logo %}{{ user.company.logo.url }}{% else %}https://via.placeholder.com/80{% endif %}" width="150px" height="150px" alt="" class="rounded-circle">
+                <img src="{% if user.company.logo %}{{ user.company.logo.url }}{% else %}{% static 'img/avatar.svg' %}{% endif %}" width="150px" height="150px" alt="" class="rounded-circle">
                 <h4 class="fw-bold my-2 text-primary">{{ user.company.contact_person }}</h4>
                 <p class="text-muted mb-0">{{ user.company.position_in_company }}</p>
             </div>
@@ -45,13 +46,13 @@
                 {% if request.get_full_path == company_candidates_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
-                        <i class="fa-solid fa-user mx-1"></i> Manage Candidates
+                        <i class="fa-solid fa-users mx-1"></i> Manage Candidates
                     </span>
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
                     <a class="text-decoration-none stretched-link" href="{% url 'company_candidates' %}">
-                        <i class="fa-solid fa-user mx-1"></i> Manage Candidates
+                        <i class="fa-solid fa-users mx-1"></i> Manage Candidates
                     </a>
                 </li>
                 {% endif %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks form_tags %}
+
+{% block title %}Manage Resume{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_employee_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="mb-lg-5">
+                    <a href="{{ resume.get_absolute_url }}" class="float-end btn btn-primary"><i class="fa-solid fa-eye me-1"></i> Preview</a>
+                    <h6 class="text-primary">Manage Resume</h6>
+                    <h4>Update your resume</h4>
+                </div>
+                <div class="card p-4 mb-5">
+                    <div class="">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                {% for field in form %}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-1">
+                                        {% render_field field class=field|input_class %}
+                                        {{ field.label_tag }}
+                                        {% for error in field.errors %}
+                                        <div class="invalid-feedback fw-bold">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="my-3">
+                                <button type="submit" class="btn btn-primary btn-lg rounded w-100">Save Resume</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

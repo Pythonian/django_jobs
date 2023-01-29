@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+
+<section class="py-4 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_employee_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="row mb-4 g-2">
+                    <div class="col-lg-4 col-6 mb-2">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-paper-plane fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">99+</h3>
+                                    <p class="mb-0">TOTAL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2 ">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-envelope-open fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">9</h3>
+                                    <p class="mb-0">UNREAD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-bell fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">2</h3>
+                                    <p class="mb-0">TODAY</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" method="GET">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search..." name="q" value="">
+                                <button class="btn btn-primary" title="Search"><i class="fas fa-search"></i></button>
+                                <a href="/inbox/" class="btn btn-dark ms-1" title="Refresh"><i class="fas fa-sync-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+
+                    <div class="list-group list-group-flush mb-4">
+                        <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                    <strong>Elon Mosque</strong>
+                                </div>
+                                <div class="col-lg-8">
+                                    <strong>Application received</strong> - Hey Seyi, we just want to let you know that ...
+                                </div>
+                                <div class="col-lg-1">
+                                    <span class="small fw-bold">6:38am</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="list-group-item list-group-item-action mb-1 py-3 bg-transparent">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <i class="fa-solid fa-paper-plane text-primary me-1"></i>
+                                    <strong>Fikayo Tomori</strong>
+                                </div>
+                                <div class="col-lg-8">
+                                    <strong>I have something important to tell you</strong> - Please here me out okay ...
+                                </div>
+                                <div class="col-lg-1">
+                                    <span class="small fw-bold">8:00am</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="list-group-item list-group-item-action mb-1 py-3 bg-transparent">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <i class="fa-solid fa-envelope text-primary me-1"></i>
+                                    <strong>Eze Ebuka</strong>
+                                </div>
+                                <div class="col-lg-8">
+                                    <strong>I have something important to tell you</strong> - Please here me out okay ...
+                                </div>
+                                <div class="col-lg-1">
+                                    <span class="small fw-bold">2:31pm</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

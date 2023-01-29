@@ -12,7 +12,7 @@
                 <img src="{% static 'img/fill_form.svg' %}" class="img-fluid" alt="signup">
             </div>
             <div class="col-lg-5 offset-lg-1">
-                <div class="card border-start-0 border-end-0 border-bottom-0 shadow">
+                <div class="card border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4 mt-3">
                             <div class="flex-shrink-0">
@@ -58,9 +58,14 @@
                                 <button type="submit" class="btn btn-primary btn-lg rounded w-100">{% trans "Create Your Account" %}</button>
                             </div>
                         </form>
-                        <div class="text-center my-4">
-                            <small><span class="text-muted">{% trans "Already have an account?" %}</span> <a
-                                    href="{% url 'login' %}">{% trans "Login!" %}</a></small>
+                        <hr>
+                        <div class="text-center text-muted small">
+                            <p>
+                                {% trans "By signing up for an account, you agree to our Site's" %} <a href="">{% trans 'Terms of Service' %}</a> {% trans "and consent to our" %} <a href="">{% trans 'Cookie Policy' %}</a> {% trans "and" %} <a href="">{% trans 'Privacy Policy' %}</a>.
+                            </p>
+                            <p class="my-4">
+                                {% trans "Already have an account?" %}</span> <a href="{% url 'login' %}">{% trans "Login!" %}</a>
+                            </p>
                         </div>
                     </div>
                 </div>

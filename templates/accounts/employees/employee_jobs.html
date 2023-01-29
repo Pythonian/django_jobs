@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Applied Jobs{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_employee_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="mb-lg-5">
+                    <a href="{% url 'jobs:list' %}" class="float-end btn btn-primary"><i class="fa-solid fa-search me-1"></i> Find Jobs</a>
+                    <!-- <h6 class="text-primary">Jobs I applied for</h6> -->
+                    <h4>Jobs I applied for</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-6 mb-2 ps-lg-0">
+                        <div class="card p-3">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-paper-plane fa-4x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">99+</h3>
+                                    <p class="mb-0">TOTAL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2 ">
+                        <div class="card p-3">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-inbox fa-4x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">14</h3>
+                                    <p class="mb-0">PENDING</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2 pe-lg-0">
+                        <div class="card p-3">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-bell fa-4x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">7</h3>
+                                    <p class="mb-0">REJECTED</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    {% for application in applications %}
+                    <div class="col-12">
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="row g-0">
+                                    <div class="col-lg-2 d-none d-lg-block">
+                                        <img src="{% if application.job.company.logo %}{{ application.job.company.logo.url }}{% else %}{% static 'img/avatar.svg' %}{% endif %}"
+                                            width="80px" height="80px" alt="{{ application.job.company.name }}" class="img-fluid rounded-3">
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <div class="mt-3 mt-lg-0">
+                                            <span class="badge bg-success opacity-75 float-end"><i class="fa-solid fa-briefcase me-1"></i>
+                                                {{ application.job.jobtype }}</span>
+                                            <h5 class="mb-1">{{ application.job.title }}</h5>
+                                            <p class="text-muted mb-0">{{ application.job.company.name }}</p>
+                                            <div class="mt-2 text-muted">
+                                                <i class="fas fa-location-dot"></i> {{ application.job.state }} State
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        Deadline: <span
+                                            class="text-danger ms-1">{% if application.job.application_deadline %}{{ application.job.application_deadline }}{% else %}&infin;{% endif %}</span>
+                                    </div>
+                                    <div>
+                                        <a href="{{ application.job.get_absolute_url }}" class="btn btn-primary">Details <i
+                                                class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="d-flex justify-content-center mt-5">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
+                        You have not applied for any jobs yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

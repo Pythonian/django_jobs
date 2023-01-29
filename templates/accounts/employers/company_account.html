@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks form_tags %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_company_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="mb-4 d-flex justify-content-between align-items-end">
+                    <h4>Manage Account</h4>
+                    <a href="{{ user.company.get_absolute_url }}" class="btn btn-primary"><i class="fa-solid fa-eye me-1"></i> Public Profile</a>
+                </div>
+                <div class="card p-4 mb-5">
+                    <div class="">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                {% for field in form %}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-1">
+                                        {% render_field field class=field|input_class %}
+                                        {{ field.label_tag }}
+                                        {% for error in field.errors %}
+                                        <div class="invalid-feedback fw-bold">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="my-3">
+                                <button type="submit" class="btn btn-primary btn-lg rounded w-100">Update Your Account</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

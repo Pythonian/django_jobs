@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<section class="py-4 bg-light">
+    <div class="container my-3">
+        <div class="row">
+            {% include 'partials/_employee_account_menu.html' %}
+            <div class="col-lg-8">
+                <div class="row mb-4 g-2">
+                    <div class="col-lg-4 col-6 mb-2">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-paper-plane fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">5</h3>
+                                    <p class="mb-0">APPLICATIONS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2 ">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-inbox fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">9+</h3>
+                                    <p class="mb-0">MESSAGES</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 mb-2">
+                        <div class="card p-3 border-left-primary">
+                            <div class="d-flex justify-content-between text-primary">
+                                <div class="align-self-center">
+                                    <i class="fa-solid fa-bell fa-3x"></i>
+                                </div>
+                                <div class="float-end">
+                                    <h3 class="text-end">0</h3>
+                                    <p class="mb-0">JOB ALERTS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mb-3 border-bottom pb-3 ps-3"><i class="fa-solid fa-newspaper me-1"></i> Recent Activities</h6>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-envelope text-primary me-1"></i> Elon Mosque has sent you private message.
+                        </div>
+                        <span class="fst-italic small text-muted">few seconds ago.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-thumbs-up text-success me-1"></i> Your job application for Product Designer has been approved.
+                        </div>
+                        <span class="fst-italic small text-muted">3 minutes ago.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-bookmark text-info me-1"></i> You bookmarked the job <strong>Remote opportunity for intern product designers.</strong>
+                        </div>
+                        <span class="fst-italic small text-muted">1 hour ago.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-eye text-dark me-1"></i> Seyi Pythonian viewed your profile.
+                        </div>
+                        <span class="fst-italic small text-muted">2 hours ago.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-bell text-warning me-1"></i> You have new job alert for UI/UX Developer & Designer.
+                        </div>
+                        <span class="fst-italic small text-muted">a week ago.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent mb-1 py-3">
+                        <div>
+                            <i class="fa-solid fa-face-frown text-danger me-1"></i> Your job application for <strong>Home dry-cleaning service</strong> was declined.
+                        </div>
+                        <span class="fst-italic small text-muted">2 months ago.</span>
+                    </li>
+                </ul>
+
+                <h6 class="mb-3 border-bottom pb-3 ps-3"><i class="fa-solid fa-envelope-open me-1"></i> Unread Messages</h6>
+                <div class="list-group list-group-flush mb-4">
+                    <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                <strong>Elon Mosque</strong>
+                            </div>
+                            <div class="col-lg-8">
+                                <strong>Application received</strong> - Hey Seyi, we just want to let you know that ...
+                            </div>
+                            <div class="col-lg-1">
+                                <span class="small fw-bold">6:38am</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                <strong>Fikayo Tomori</strong>
+                            </div>
+                            <div class="col-lg-8">
+                                <strong>I have something important to tell you</strong> - Please here me out okay ...
+                            </div>
+                            <div class="col-lg-1">
+                                <span class="small fw-bold">8:00am</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                <strong>Eze Ebuka</strong>
+                            </div>
+                            <div class="col-lg-8">
+                                <strong>I have something important to tell you</strong> - Please here me out okay ...
+                            </div>
+                            <div class="col-lg-1">
+                                <span class="small fw-bold">2:31pm</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                <strong>Seyi Pythonian</strong>
+                            </div>
+                            <div class="col-lg-8">
+                                <strong>This is Urgent!!!</strong> - Apply for the ongoing Zuri Developer Internship ...
+                            </div>
+                            <div class="col-lg-1">
+                                <span class="small fw-bold">Jan 14</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="" class="list-group-item list-group-item-action mb-1 py-3">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa-solid fa-envelope-open text-primary me-1"></i>
+                                <strong>Dennis Internship</strong>
+                            </div>
+                            <div class="col-lg-8">
+                                <strong>Something hooge is coming</strong> - Congratulations dear subscriber ...
+                            </div>
+                            <div class="col-lg-1">
+                                <span class="small fw-bold">Jan 16</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

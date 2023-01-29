@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="modal fade" id="applyModal{{ job.id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa-solid fa-briefcase pe-1"></i> Apply for Job</h5>
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p>You are about to apply for {{ job.title }}.</p>
+                    
+                    {% include 'partials/_form_inputs.html' with form=form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal"
+                        aria-label="Close">Cancel</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm">Send Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
