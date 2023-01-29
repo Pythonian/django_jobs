@@ -2,22 +2,21 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, reverse_lazy
 
 from ..forms import UserLoginForm
-from apps.accounts.views.auth import (CustomLogoutView, CustomPasswordChangeView,
-                    signup_choice, signup_employee, signup_employer, activate)
+from ..views import auth
 
 app_name = 'auth'
 
 urlpatterns = [
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('logout/', auth.CustomLogoutView.as_view(), name='logout'),
     path('login/',
          auth_views.LoginView.as_view(
              redirect_authenticated_user=True, authentication_form=UserLoginForm), name='login'),
 
-    path('signup/choice/', signup_choice, name='signup_choice'),
-    path('signup/employee/', signup_employee, name='signup_employee'),
-    path('signup/employer/', signup_employer, name='signup_employer'),
+    path('signup/choice/', auth.signup_choice, name='signup_choice'),
+    path('signup/employee/', auth.signup_employee, name='signup_employee'),
+    path('signup/employer/', auth.signup_employer, name='signup_employer'),
 
-    path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
+    path('activate/<slug:uidb64>/<slug:token>/', auth.activate, name='activate'),
 
     # password reset with email
     path('password_reset/',
@@ -35,7 +34,7 @@ urlpatterns = [
          name='password_reset_complete'),
 
     # password change
-    path('password_change/', CustomPasswordChangeView.as_view(),
+    path('password_change/', auth.CustomPasswordChangeView.as_view(),
          name='password_change'),
 
 ]

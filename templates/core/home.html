@@ -12,7 +12,7 @@
                 <div class="my-5">
                     <h1 class="display-5 fw-bolder text-white mb-2">{% trans 'Find the latest available' %}<br><u>Blue collar jobs</u> {% trans 'in Nigeria.' %}</h1>
                     <p class="lead fw-normal text-white mb-4">{% trans 'Find jobs that match your interests with us. Over here, we provide a place for you to find non-professional jobs.' %}</p>
-                    <a class="btn btn-outline-light btn-lg px-4" href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'signup_choice' %}{% endif %}"><i class="fa-solid fa-paper-plane me-2"></i> {% trans 'Get Started' %}</a>
+                    <a class="btn btn-outline-light btn-lg px-4" href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'auth:signup_choice' %}{% endif %}"><i class="fa-solid fa-paper-plane me-2"></i> {% trans 'Get Started' %}</a>
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
@@ -97,9 +97,12 @@
             {% for job in jobs %}
             <div class="col-lg-6">{% include 'partials/_job_grid.html' %}</div>
             {% empty %}
-            <div class="d-flex justify-content-center mt-5">
-                <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
-            </div>
+                <div class="text-center pt-5">
+                    <div class="d-block">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
+                    </div>
+                    <p class="d-flex justify-content-center mt-5 text-muted">No Job Opening Created Yet.</p>
+                </div>
             {% endfor %}
         </div>
         {% if jobs_count > 4 %}
@@ -141,16 +144,21 @@
     <div class="container my-5">
         <div class="row g-4">
             <div class="mb-lg-2">
-                <a href="{% url 'resumes' %}" class="float-end btn btn-primary">{% trans 'All Resumes' %}</a>
+                {% if resumes_count > 4 %}
+                    <a href="{% url 'resumes' %}" class="float-end btn btn-primary">{% trans 'All Resumes' %}</a>
+                {% endif %}
                 <h5 class="text-primary mb-3">{% trans 'Resumes' %}</h5>
                 <h2>{% trans 'Featured Resumes' %}</h2>
             </div>
             {% for resume in resumes %}
-            <div class="col-lg-4 col-md-6">{% include 'partials/_resume_grid.html' %}</div>
+                <div class="col-lg-4 col-md-6">{% include 'partials/_resume_grid.html' %}</div>
             {% empty %}
-            <div class="d-flex justify-content-center mt-5">
-                <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyresume">
-            </div>
+                <div class="text-center pt-5">
+                    <div class="d-block">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyresume">
+                    </div>
+                    <p class="d-flex justify-content-center mt-5 text-muted">No Resumes Data Created Yet.</p>
+                </div>
             {% endfor %}
         </div>
     </div>
@@ -166,9 +174,12 @@
             {% for company in companies %}
             <div class="col-lg-4 col-md-6">{% include 'partials/_company_grid.html' %}</div>
             {% empty %}
-            <div class="d-flex justify-content-center mt-5">
-                <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
-            </div>
+                <div class="text-center pt-5">
+                    <div class="d-block">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
+                    </div>
+                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Data Registered Yet.</p>
+                </div>
             {% endfor %}
         </div>
         {% if companies_count > 6 %}

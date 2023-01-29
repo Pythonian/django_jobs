@@ -14,7 +14,7 @@ To activate your account, please click the following link, or copy and paste it
 into your web browser:
 {% endblocktrans %}
 
-{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{{ protocol }}://{{ domain }}{% url 'auth:activate' uidb64=uid token=token %}
 
 {% blocktrans %}Best regards{% endblocktrans %},
 

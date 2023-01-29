@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from jobs.models import Application, Job
+from apps.jobs.models import Application, Job
 
 from ..forms import CompanyEditForm
 

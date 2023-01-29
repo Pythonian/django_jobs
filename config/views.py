@@ -10,7 +10,7 @@ def home(request):
     """
     Returns the Home page.
 
-    Template: ``home.html``
+    Template: ``core/home.html``
     """
 
     # TODO: Use template tags to display the listings
@@ -18,7 +18,7 @@ def home(request):
     companies = Company.objects.all()[:6]
     resumes = Resume.objects.all()
 
-    template = 'home.html'
+    template = 'core/home.html'
     context = {
         'jobs': jobs,
         'jobs_count': Job.active.all().count(),

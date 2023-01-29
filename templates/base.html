@@ -25,7 +25,7 @@
         <div class="container">
             <i class="fa-solid fa-warning me-1"></i> {% if request.user.is_authenticated %}Your account doesn't have access to the page. To proceed, please login with an
             account that has access. {% else %} Please login with your correct credentials to access the page.{% endif %}
-            
+
         </div>
     </div>
     {% endif %}
@@ -114,8 +114,8 @@
                         </ul>
                     </div>
                     {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-light me-2"><i class="fa-solid fa-right-to-bracket me-1"></i> Login</a>
-                    <a href="{% url 'signup_choice' %}" class="btn btn-primary"><i class="fa-solid fa-user-plus me-1"></i> Register</a>
+                    <a href="{% url 'auth:login' %}" class="btn {% url 'auth:login' as login_url %}{% if request.get_full_path == login_url %}btn-light{% else %}btn-outline-light{% endif %} me-2"><i class="fa-solid fa-right-to-bracket me-1"></i> Login</a>
+                    <a href="{% url 'auth:signup_choice' %}" class="btn btn-primary"><i class="fa-solid fa-user-plus me-1"></i> Register</a>
                     {% endif %}
                 </div>
             </div>

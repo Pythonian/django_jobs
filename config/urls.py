@@ -13,7 +13,9 @@ from .views import home, companies, company_detail, dashboard, resumes
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('apps.accounts.urls.auth', namespace='auth')),
-    path('account/', include('apps.accounts.urls')),
+    path('employees/', include('apps.accounts.urls.employees', namespace='employees')),
+    path('employers/', include('apps.accounts.urls.employers', namespace='employers')),
+    # path('account/', include('apps.accounts.urls')),
     path('jobs/', include('apps.jobs.urls', namespace='jobs')),
     path('companies/', companies, name='companies'),
     path('resumes/', resumes, name='resumes'),
@@ -27,6 +29,11 @@ if settings.DEBUG:
         settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
 
 admin.site.site_header = 'Blue Jobs Admin'
 admin.site.index_title = 'Blue Collar Jobs Admin'

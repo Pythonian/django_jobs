@@ -1,18 +1,16 @@
 from django.urls import path
 
-from ..views import (employee_account, employee_jobs, employee_resume,
-                    signup_employee, employee_bookmarks, employee_dashboard,
-                    employee_messages, resume_detail)
+from ..views import employees
+
+app_name = 'employees'
 
 urlpatterns = [
-    path('signup/employee/', signup_employee, name='signup_employee'),
+    path('employee/dashboard/', employees.employee_dashboard, name='employee_dashboard'),
+    path('employee/profile/', employees.employee_account, name='employee_account'),
+    path('employee/jobs/', employees.employee_jobs, name='employee_jobs'),
+    path('employee/messages/', employees.employee_messages, name='employee_messages'),
+    path('employee/resume/', employees.employee_resume, name='employee_resume'),
+    path('employee/bookmarks/', employees.employee_bookmarks, name='employee_bookmarks'),
 
-    path('employee/dashboard/', employee_dashboard, name='employee_dashboard'),
-    path('employee/profile/', employee_account, name='employee_account'),
-    path('employee/jobs/', employee_jobs, name='employee_jobs'),
-    path('employee/messages/', employee_messages, name='employee_messages'),
-    path('employee/resume/', employee_resume, name='employee_resume'),
-    path('employee/bookmarks/', employee_bookmarks, name='employee_bookmarks'),
-
-    path('resume/<int:id>/', resume_detail, name='resume_detail'),
+    path('resume/<int:id>/', employees.resume_detail, name='resume_detail'),
 ]

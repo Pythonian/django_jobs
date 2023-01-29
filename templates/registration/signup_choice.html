@@ -22,7 +22,7 @@
                     <h3>{% trans 'Job Seeker' %}</h3>
                     <p class="text-muted">{% trans 'Are you looking for your dream job?' %} <br>{% trans 'Create a unique career profile with' %} Blue Jobs.</p>
                     <div class="d-flex justify-content-center">
-                        <a href="{% url 'signup_employee' %}" class="btn btn-primary">{% trans 'Signup as Seeker' %}</a>
+                        <a href="{% url 'auth:signup_employee' %}" class="btn btn-primary">{% trans 'Signup as Seeker' %}</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <h3>{% trans 'Employer' %}</h3>
                     <p class="text-muted">{% trans 'Are you looking for quality candidates? <br>Advertise and search with' %} Blue Jobs.</p>
                     <div class="d-flex justify-content-center">
-                        <a href="{% url 'signup_employer' %}" class="btn btn-primary">{% trans 'Signup as Employer' %}</a>
+                        <a href="{% url 'auth:signup_employer' %}" class="btn btn-primary">{% trans 'Signup as Employer' %}</a>
                     </div>
                 </div>
             </div>

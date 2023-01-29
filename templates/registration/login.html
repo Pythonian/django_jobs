@@ -49,14 +49,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <small class="fw-bold"><a href="{% url 'password_reset' %}" class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
+
+                            <small class="fw-bold"><a href="{% url 'auth:password_reset' %}" class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
                             <div class="my-3">
                                 <button type="submit" class="btn btn-primary btn-lg rounded w-100">{% trans 'Login' %}</button>
                             </div>
                         </form>
                         <div class="text-center my-4">
-                            <small><span class="text-muted">Don't have an account?</span> <a href="{% url 'signup_choice' %}">{% trans 'Signup now!' %}</a></small>
+                            <small><span class="text-muted">Don't have an account?</span> <a href="{% url 'auth:signup_choice' %}">{% trans 'Signup now!' %}</a></small>
                         </div>
                     </div>
                 </div>
