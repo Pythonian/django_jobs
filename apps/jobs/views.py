@@ -13,7 +13,7 @@ def job_create(request):
     """
     Returns the form page for creating a Job.
 
-    Template: ``jobs/job_form.html``
+    Template: ``jobs/form.html``
     Context:
         form
             JobForm object
@@ -31,7 +31,7 @@ def job_create(request):
     else:
         form = JobForm()
 
-    template = 'job_create.html'
+    template = 'jobs/form.html'
     context = {
         'form': form,
     }
@@ -61,12 +61,12 @@ def job_list(request):
 
 def job_detail(request, slug):
     """
-    Returns the detail page of a Lead.
+    Returns the detail page of a Job.
 
-    Template: ``leads/lead_detail.html``
+    Template: ``jobs/detail.html``
     Context:
-        lead
-            A Lead object instance
+        job
+            A Job object instance
     """
     job = get_object_or_404(Job, slug=slug)
 
@@ -104,7 +104,7 @@ def job_detail(request, slug):
     else:
         form = ApplicationForm()
 
-    template = 'job_detail.html'
+    template = 'jobs/detail.html'
     context = {
         'job': job,
         'form': form,
@@ -121,7 +121,7 @@ def job_update(request, pk):
     """
     Returns the form page for updating a job.
 
-    Template: ``jobs/job_form.html``
+    Template: ``jobs/form.html``
     Context:
         form
             JobForm object
@@ -137,7 +137,7 @@ def job_update(request, pk):
     else:
         form = JobForm(instance=job)
 
-    template_name= 'jobs/job_update.html'
+    template_name= 'jobs/form.html'
     context = {
         'form': form,
         'job': job,
@@ -151,7 +151,7 @@ def job_delete(request, pk):
     """
     Returns a job delete confirmation page.
 
-    Templates: ``jobs/job_delete_confirm.html``
+    Templates: ``jobs/delete_confirm.html``
     Context:
         job
             job object
@@ -162,7 +162,7 @@ def job_delete(request, pk):
         job.save()
         return redirect('/')
 
-    template_name= 'jobs/job_delete_confirm.html'
+    template_name= 'jobs/delete_confirm.html'
     context = {
         'job': job,
     }

@@ -123,16 +123,9 @@
                 <h5 class="text-primary mb-3">{% trans 'Jobs by Categories' %}</h5>
                 <h2>{% trans 'Choose Your Desired Category' %}</h2>
             </div>
-            {# for resume in resumes #}
+            {% for category in categories %}
             <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            {# endfor #}
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -52,7 +52,7 @@
 
                             <small class="fw-bold"><a href="{% url 'auth:password_reset' %}" class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
                             <div class="my-3">
-                                <button type="submit" class="btn btn-primary btn-lg rounded w-100">{% trans 'Login' %}</button>
+                                <button id="login" type="submit" class="btn btn-primary btn-lg rounded w-100" disabled>{% trans 'Login' %}</button>
                             </div>
                         </form>
                         <div class="text-center my-4">
@@ -67,3 +67,36 @@
 </section>
 
 {% endblock %}
+
+{% block scripts %}
+<script>
+    let inputs = document.querySelectorAll('input');
+    let loginButton = document.getElementById('login');
+
+    let inputValidator = {
+        "username": false,
+        "password": false
+    }
+
+    inputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            let name = event.target.getAttribute('name');
+            if (event.target.value.length > 0) {
+                inputValidator[name] = true;
+            } else {
+                inputValidator[name] = false;
+            };
+
+            let allTrue = Object.keys(inputValidator).every((item) => {
+                return inputValidator[item] === true
+            });
+
+            if (allTrue) {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        })
+    })
+</script>
+{% endblock scripts %}

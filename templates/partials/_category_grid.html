@@ -1,13 +1,7 @@
 <div class="card bg-white shadow-sm text-light border border-primary border-opacity-10">
     <div class="card-body py-5 text-center">
-        <div class="mb-5">
-            <i class="fa-solid fa-torii-gate fa-4x text-primary"></i>
-        </div>
-        <div>
-            <small
-                class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2">9,185
-                Jobs</small>
-            <a href="" class="d-block stretched-link text-decoration-none">Business Development</a>
-        </div>
+        <div class="mb-5"><i class="fa-solid fa-{{ category.icon }} fa-4x text-primary"></i></div>
+        <p class="small m-0 p-0 d-inline-flex mb-3 px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2">{{ category.get_total_jobs }} Job{{ category.get_total_jobs|pluralize }}</p>
+        <a href="{# category.get_absolute_url #}" class="d-block stretched-link text-decoration-none">{{ category.name }}</a>
     </div>
 </div>

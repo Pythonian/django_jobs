@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.accounts.models import Company, Resume
 from apps.core.utils import mk_paginator
-from apps.jobs.models import Job, State
+from apps.jobs.models import Job, State, Category
 
 
 def home(request):
@@ -13,10 +13,11 @@ def home(request):
     Template: ``core/home.html``
     """
 
-    # TODO: Use template tags to display the listings
+    # TODO: Use template tags to display the listings and randomize them
     jobs = Job.active.all()[:4]
-    companies = Company.objects.all()[:6]
+    companies = Company.objects.filter(jobs__isnull=False).distinct()[:6]
     resumes = Resume.objects.all()
+    categories = Category.objects.all()[:8]
 
     template = 'core/home.html'
     context = {
@@ -27,6 +28,7 @@ def home(request):
         'states_count': State.objects.all().count(),
         'resumes': resumes,
         'resumes_count': Resume.objects.all().count(),
+        'categories': categories,
     }
 
     return render(request, template, context)
@@ -52,7 +54,10 @@ def companies(request):
             A list of registered Company objects
     """
 
-    companies = Company.objects.all()
+    # retrieve only companies with at least one job, and ensure
+    # each company is listed just once even if it has multiple jobs
+    # TODO: filter down by only active jobs
+    companies = Company.objects.filter(jobs__isnull=False).distinct()
     companies = mk_paginator(request, companies, 12)
 
     template = 'core/companies.html'
@@ -75,7 +80,7 @@ def company_detail(request, slug):
     company = get_object_or_404(Company, slug=slug)
     jobs = company.jobs.all()
 
-    template = 'company_detail.html'
+    template = 'employers/detail.html'
     context = {
         'company': company,
         'jobs': jobs,

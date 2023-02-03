@@ -68,6 +68,7 @@ superuser: venv # Create admin superuser
 
 runlocal: venv # Run development server
 	@$(PYTHON) $(ROOT_DIR)/manage.py runserver --settings=config.settings.local
+	#@python manage.py runserver --settings=config.settings.development
 
 rundocker:
 	@docker-compose up --build

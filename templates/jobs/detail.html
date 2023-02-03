@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container mb-3">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" title="Home"><i
+                            class="fa-solid fa-home text-primary"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.category }}</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.state }}</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ job.jobtype }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ job.title }}</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card p-4">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="mb-4">{{ job.title }}</h3>
+                        {% if request.user.is_authenticated %}
+                        <div>
+                            <a href="{% url 'jobs:add_bookmark' job.id %}"
+                                class="btn btn-success btn-sm">{% if not bookmarked %}Add to{% else %}Remove
+                                from{% endif %} Bookmark</a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="row g-2">
+                        <div class="col-lg-3">
+                            <div class="border p-3">
+                                <p class="text-muted mb-0">Deadline</p>
+                                <p class="fw-bold text-danger mb-0">
+                                    {% if job.application_deadline %}{{ job.application_deadline }}{% else %}&infin;{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="border p-3">
+                                <p class="text-muted mb-0">Job type</p>
+                                <p class="fw-bold mb-0">{{ job.jobtype }}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="border p-3">
+                                <p class="text-muted mb-0">Experience</p>
+                                <p class="fw-bold mb-0">{% if job.experience %}{{ job.experience }}
+                                    year{{ job.experience|pluralize }}{% else %}Not needed{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="border p-3">
+                                <p class="text-muted mb-0">Location</p>
+                                <p class="fw-bold mb-0">{{ job.state }} State</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="fw-bold mb-3">Job Description:</h5>
+                        <p class="mb-2">{{ job.description|linebreaks|safe }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
+
+                    <div class="p-4">
+                        <h6 class="fw-bold mb-3">Other Information</h6>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-building text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Hiring Company</h6>
+                                <p class="mb-0">{{ job.company }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-user-tie text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Qualification Title</h6>
+                                <p class="mb-0">
+                                    {% if job.qualification_title %}{{ job.qualification_title }}{% else %}Not
+                                    provided{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-sack-dollar text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Offered Salary</h6>
+                                <p class="mb-0">&#8358;{{ job.base_salary_amount|intcomma }}
+                                    {% if job.maximum_salary_amount %}-
+                                    &#8358;{{ job.maximum_salary_amount|intcomma }}{% endif %}
+                                    {{ job.get_salary_mode_display }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-venus-mars text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Gender</h6>
+                                <p class="mb-0">{% if gender %}{{ job.gender }}{% else %}Anyone{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-eye text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Views</h6>
+                                <p class="mb-0">{{ job.impressions }} impression{{ job.impressions|pluralize }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Applicants</h6>
+                                <p class="mb-0">{{ applicants }} submitted application{{ applicants|pluralize }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <i class="fa-solid fa-clock text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="mb-1 text-muted">Date Posted</h6>
+                                <p class="mb-0">{{ job.created|timesince }} ago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-top p-4">
+                        {% if request.user.is_authenticated %}
+                        {% if user.is_employee %}
+                        {% if job.status == 'A' %}
+                        {% if applied %}
+                        <button class="btn btn-success mb-2 w-100" disabled>Already Applied</button>
+                        {% else %}
+                        <a data-bs-toggle="modal" data-bs-target="#applyModal{{ job.id }}"
+                            class="btn btn-success mb-2 w-100">Apply Now</a>
+                        {% endif %}
+                        {% else %}
+                        <button class="btn btn-secondary mb-2 w-100" disabled>This Job is no longer available</button>
+                        {% endif %}
+                        {% endif %}
+                        {% else %}
+                        <a href="{% url 'login' %}?next={{ job.get_absolute_url }}"
+                            class="btn btn-dark mb-2 w-100">Login to Apply</a>
+                        {% endif %}
+                        <a href="{{ job.company.get_absolute_url }}" class="btn btn-info w-100">View Company Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'modals/apply.html' %}
+{% endblock %}

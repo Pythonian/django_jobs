@@ -69,8 +69,6 @@
                             <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:account' %}"><i class="fa-solid fa-user me-1"></i> My Account</a></li>
                             <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:jobs' %}"><i class="fa-solid fa-briefcase me-1"></i> Manage Jobs</a></li>
                             <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:candidates' %}"><i class="fa-solid fa-users me-1"></i> Manage Candidates</a>
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'password_change' %}"><i class="fa-solid fa-key me-1"></i> Change Password</a>
-                            </li>
                             {% else %}
                             <li class="mb-2">
                                 <a class="text-primary dropdown-item" href="{% url 'employees:dashboard' %}">
@@ -137,6 +135,8 @@
             bsAlert.show();
         }
     </script>
+
+    {% block scripts %}{% endblock scripts %}
 
 </body>
 </html>

@@ -92,7 +92,6 @@ class Job(models.Model):
     class JobStatus(models.TextChoices):
         ACTIVE = 'A', _('Active')
         INACTIVE = 'I', _('Inactive')
-        # ARCHIVED by employer
 
     class SalarySchedule(models.TextChoices):
         HOURLY = 'H', _('Hourly')
@@ -107,7 +106,7 @@ class Job(models.Model):
 
     title = models.CharField(verbose_name=_('Title'), max_length=255)
     slug = models.SlugField(verbose_name=_('Slug'), max_length=255, unique=True)
-    description = models.TextField(_('Description')) # use RichTextEditor
+    description = models.TextField(_('Description'))
     salary_mode = models.CharField(
         _('Salary Mode'), max_length=1, choices=SalarySchedule.choices)
     base_salary_amount = models.PositiveIntegerField()

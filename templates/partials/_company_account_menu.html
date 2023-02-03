@@ -11,23 +11,23 @@
 
         <div class="p-4">
             <ul class="list-unstyled">
-                
-                {% url 'company_account' as company_account_url %}
+
+                {% url 'employers:account' as company_account_url %}
                 {% if request.get_full_path == company_account_url %}
                     <li class="mb-2 p-2 bg-primary rounded">
                         <span class="text-white text-decoration-none">
                             <i class="fa-solid fa-cog mx-1"></i> Manage Account
                         </span>
                     </li>
-                {% else %} 
+                {% else %}
                     <li class="mb-2 p-2 position-relative">
-                        <a class="text-decoration-none stretched-link" href="{% url 'company_account' %}">
+                        <a class="text-decoration-none stretched-link" href="{% url 'employers:account' %}">
                             <i class="fa-solid fa-cog mx-1"></i> Manage Account
                         </a>
                     </li>
                 {% endif %}
 
-                {% url 'company_jobs' as company_jobs_url %}
+                {% url 'employers:jobs' as company_jobs_url %}
                 {% if request.get_full_path == company_jobs_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
@@ -36,13 +36,13 @@
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'company_jobs' %}">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employers:jobs' %}">
                         <i class="fa-solid fa-suitcase mx-1"></i> Manage Jobs
                     </a>
                 </li>
                 {% endif %}
 
-                {% url 'company_candidates' as company_candidates_url %}
+                {% url 'employers:candidates' as company_candidates_url %}
                 {% if request.get_full_path == company_candidates_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
@@ -51,13 +51,13 @@
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'company_candidates' %}">
+                    <a class="text-decoration-none stretched-link" href="{% url 'employers:candidates' %}">
                         <i class="fa-solid fa-users mx-1"></i> Manage Candidates
                     </a>
                 </li>
                 {% endif %}
 
-                {% url 'password_change' as password_change_url %}
+                {% url 'auth:password_change' as password_change_url %}
                 {% if request.get_full_path == password_change_url %}
                 <li class="mb-2 p-2 bg-primary rounded">
                     <span class="text-white text-decoration-none">
@@ -66,7 +66,7 @@
                 </li>
                 {% else %}
                 <li class="mb-2 p-2 position-relative">
-                    <a class="text-decoration-none stretched-link" href="{% url 'password_change' %}">
+                    <a class="text-decoration-none stretched-link" href="{% url 'auth:password_change' %}">
                         <i class="fa-solid fa-key mx-1"></i> Change Password
                     </a>
                 </li>

@@ -13,7 +13,7 @@ from .models import User, Employee, Company, Resume
 
 class UserLoginForm(AuthenticationForm):
     """ Custom Login form that extends Django's Login form. """
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -75,7 +75,7 @@ class CompanySignupForm(UserCreationForm):
             Submit('submit', 'Create account', css_class='btn-lg')
         )
         # self.helper.add_input(Submit('submit', 'Create Your Account', css_class='btn btn-primary btn-lg rounded w-100'))
-    
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['contact_person', 'email', 'password1', 'password2', 'staff_strength',

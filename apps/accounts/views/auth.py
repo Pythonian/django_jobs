@@ -9,21 +9,20 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils import timezone
 
+from ..decorators import anonymous_required
 from ..forms import CompanySignupForm, EmployeeSignUpForm
 from ..tokens import account_activation_token
 
 User = get_user_model()
 
 
+@anonymous_required
 def signup_choice(request):
-    if request.user.is_authenticated:
-        return redirect('core:home')
     return render(request, 'registration/signup_choice.html', {})
 
 
+@anonymous_required
 def signup_employer(request):
-    if request.user.is_authenticated:
-        return redirect('home')
     if request.method == 'POST':
         form = CompanySignupForm(request.POST)
         if form.is_valid():
@@ -47,9 +46,8 @@ def signup_employer(request):
     return render(request, template_name, context)
 
 
+@anonymous_required
 def signup_employee(request):
-    if request.user.is_authenticated:
-        return redirect("core:home")
     if request.method == "POST":
         form = EmployeeSignUpForm(request.POST)
         if form.is_valid():

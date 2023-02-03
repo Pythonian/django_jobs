@@ -1,0 +1,57 @@
+[
+  {
+    "model": "jobs.category",
+    "pk": 1,
+    "fields": {
+      "name": "Aircraft Mechanic",
+      "slug": "aircraft-mechanic",
+      "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+      "icon": "wrench",
+      "category_order": 1
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 2,
+    "fields": {
+      "name": "Chef",
+      "slug": "chef",
+      "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+      "icon": "kitchen-set",
+      "category_order": 2
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 3,
+    "fields": {
+      "name": "Driver",
+      "slug": "driver",
+      "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+      "icon": "car-side",
+      "category_order": 3
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 4,
+    "fields": {
+      "name": "Janitor",
+      "slug": "janitor",
+      "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+      "icon": "broom",
+      "category_order": 4
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 5,
+    "fields": {
+      "name": "Painter",
+      "slug": "painter",
+      "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
+      "icon": "paint-roller",
+      "category_order": 5
+    }
+  }
+]
