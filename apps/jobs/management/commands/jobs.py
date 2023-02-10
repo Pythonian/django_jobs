@@ -13,21 +13,21 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         companies = Company.objects.all()
-        categories = Category.objects.all()
+        employees = Employee.objects.all()
         jobtypes = JobType.objects.all()
         states = State.objects.all()
-        employees = Employee.objects.all()
+        categories = Category.objects.all()
 
-        for _ in range(100):
-            title = fake.job()
+        for _ in range(50):
+            title = fake.unique.job()
             slug = slugify(title)
             description = fake.text()
             salary_mode = random.choice(Job.SalarySchedule.choices)[0]
             base_salary_amount = fake.random_int(min=5000, max=100000, step=1000)
-            maximum_salary_amount = fake.random_int(min=10000, max=200000, step=1000)
+            maximum_salary_amount = fake.random_int(min=100000, max=200000, step=1000)
             experience = fake.random_int(min=1, max=5)
             vacancy = fake.random_int(min=1, max=20)
-            application_deadline = fake.date_this_decade()
+            application_deadline = fake.date_between(start_date='today', end_date='+1y')
             qualification_title = fake.job()
             gender = random.choice(Job.GenderStatus.choices)[0]
             status = random.choice(Job.JobStatus.choices)[0]
@@ -36,12 +36,11 @@ class Command(BaseCommand):
             company = random.choice(companies)
             address = fake.address()
             state = random.choice(states)
-            applicants = random.sample(list(employees), 5)
-            bookmarks = random.sample(list(employees), 5)
+            applicants = random.sample(list(employees), 1)
+            bookmarks = random.sample(list(employees), 1)
             impressions = fake.random_int(min=1, max=1000)
             sponsored = fake.boolean()
-            created = fake.date_time_this_decade()
-            updated = fake.date_time_this_decade()
+            created = fake.date_this_year()
 
             Job.objects.create(
                 title=title,
@@ -63,8 +62,7 @@ class Command(BaseCommand):
                 state=state,
                 impressions=impressions,
                 sponsored=sponsored,
-                created=created,
-                updated=updated
+                created=created
             )
             job = Job.objects.get(slug=slug)
             job.applicants.set(applicants)

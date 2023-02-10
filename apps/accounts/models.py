@@ -12,6 +12,7 @@ from django.utils import timezone
 def user_directory_path(instance, filename):
     return f'users/avatars/{instance.user.id}/{filename}'
 
+
 class User(AbstractUser):
     is_company = models.BooleanField(default=False)
     is_employee = models.BooleanField(default=False)
@@ -31,7 +32,7 @@ class Company(models.Model):
     name = models.CharField('Company name', max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, null=True)
     about = models.TextField(max_length=5000)
-    logo = models.ImageField(upload_to='logos', blank=True, default='img/avatar.svg') # crop logo to 80x80
+    logo = models.ImageField(upload_to='logos', blank=True, default='img/avatar.svg')  # crop logo to 80x80
     contact_person = models.CharField(max_length=255)
     position_in_company = models.CharField(max_length=50)
     established = models.DateField(blank=True, null=True)
@@ -58,6 +59,20 @@ class Company(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def total_applicants(self):
+        from django.db.models import Count, Sum
+        from apps.jobs.models import Job
+
+        jobs = Job.objects.filter(company=self)
+        total_applicants = jobs.annotate(
+            applicants_count=Count('applicants')).aggregate(
+            Sum('applicants_count'))['applicants_count__sum']
+        return total_applicants
+
+    def last_job_date(self):
+        last_job = self.jobs.latest('created')
+        return last_job.created
+
     # def clean(self):
     #     if not self.logo:
     #         raise ValidationError('x')
@@ -83,8 +98,8 @@ class Employee(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=13, blank=True)
     location = models.CharField(max_length=50)
-    about = models.TextField() # remove?
-    image = models.ImageField(upload_to='employees', blank=True)
+    about = models.TextField()  # remove?
+    image = models.ImageField(upload_to='employees', blank=True, default='img/avatar.svg')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -148,7 +163,7 @@ class Resume(models.Model):
         return f'{self.employee.user.username} - {self.professional_title}'
 
     def get_absolute_url(self):
-        return reverse('resume_detail', kwargs={'id': self.id})
+        return reverse('employees:resume_detail', kwargs={'id': self.pk})
 
 
 class Experience(models.Model):
@@ -194,7 +209,7 @@ class Education(models.Model):
     education_level = models.CharField(
         max_length=2, choices=EDUCATION_LEVEL_CHOICES)
     name_of_institution = models.CharField(max_length=50)
-    year_of_admission = models.PositiveIntegerField() #MaxLengthValidation
+    year_of_admission = models.PositiveIntegerField()  # MaxLengthValidation
     year_of_graudation = models.PositiveIntegerField()
     course_of_study = models.CharField(max_length=50)
 

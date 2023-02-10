@@ -2,7 +2,14 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def mk_paginator(request, items, num_items):
-    """Create and return a paginator."""
+    """
+    Function to paginate querysets.
+
+    :param request: The current request object
+    :param items: The queryset to be paginated
+    :param num_items: The number of items to be displayed per page
+    :return: A paginated queryset
+    """
     paginator = Paginator(items, num_items)
     page = request.GET.get('page', 1)
     try:

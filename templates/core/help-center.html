@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Help Center' %}{% endblock %}
+
+{% block content %}
+<section class="bg-primary">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center align-items-end">
+            <!-- <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/help_left.svg' %}" alt="resume-left"> -->
+            <div class="text-white text-center">
+                <h1 class="fw-bolder mt-5 mb-4">{% trans 'Help Center' %}</h1>
+                <p class="mb-5 lead px-1">
+                    {% trans 'We are here to help you better use BlueJobs. First, let us figure out if we have a solution in our documentation.' %}
+                </p>
+            </div>
+            <!-- <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/help_right.svg' %}" alt="resume-right"> -->
+        </div>
+    </div>
+</section>
+
+<section class="bg-white">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="row g-5">
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

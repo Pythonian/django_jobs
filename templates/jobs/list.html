@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n filters %}
 
 {% block title %}{% trans 'Browse available jobs' %}{% endblock %}
 
@@ -27,7 +27,7 @@
         <div class="row">
             {% if jobs %}
             <aside class="col-lg-4 d-none d-lg-block">
-                <div class="card p-4 border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
+                <div class="card p-4 border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <form action="" method="get">
 
                         <div class="form-group mb-4">
@@ -37,33 +37,33 @@
                                 id="id_query">
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1 border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i>
                                 Category</label>
                             <select class="form-select">
                                 <option selected>---Choose a category---</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                {% for category in categories %}
+                                <option value="{{ category.pk }}">{{ category.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i>
                                 Location</label>
-                            <select class="form-select">
+                            <select name="state" class="form-select">
                                 <option selected>---Select a State---</option>
-                                <option value="1">Adamawa</option>
-                                <option value="2">Enugu</option>
-                                <option value="3">Lagos</option>
+                                {% for state in states %}
+                                <option value="{{ state.pk }}">{{ state.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-venus-mars me-1"></i>
@@ -75,49 +75,25 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-briefcase me-1"></i> Job
-                                Type</label>
+                            <label for="" class="form-label fw-bold mb-3">
+                                <i class="fa-solid fa-briefcase me-1"></i> Job Type
+                            </label>
+
+                            {% for job_type in job_types %}
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Internship</label>
+                                    <label class="form-check-label" for="">{{ job_type.name }}</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">23</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ job_type.count }}</span>
                             </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Full-time</label>
-                                </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">15</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Part time</label>
-                                </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">09</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Freelance</label>
-                                </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">09</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Volunteer</label>
-                                </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">09</span>
-                            </div>
+                            {% endfor %}
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i
@@ -127,74 +103,49 @@
                                     <input class="form-check-input" type="checkbox" value="" id="">
                                     <label class="form-check-label" for="">All</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">213</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs.paginator.count }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
                                     <label class="form-check-label" for="">Last 24 hours</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">115</span>
+                                <span
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_24_hours }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
                                     <label class="form-check-label" for="">Last 7 days</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">115</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_7_days }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
                                     <label class="form-check-label" for="">Last 30 days</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">19</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_30_days }}</span>
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i
                                     class="fa-solid fa-filter-circle-dollar me-1"></i> Salary Mode</label>
+                            {% for salary_mode, count in salary_mode_counts.items %}
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Hourly</label>
+                                    <label class="form-check-label" for="">{{ salary_mode|get_salary_mode_display }}</label>
                                 </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">23</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ count }}</span>
                             </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Daily</label>
-                                </div>
-                                <span class="px-1 text-bg-primary bg-opacity-50 rounded-circle">15</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Weekly</label>
-                                </div>
-                                <span class="px-1">12</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Monthly</label>
-                                </div>
-                                <span class="px-1">19</span>
-                            </div>
-                            <div class="form-check mb-3 d-flex justify-content-between">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="">
-                                    <label class="form-check-label" for="">Yearly</label>
-                                </div>
-                                <span class="px-1">09</span>
-                            </div>
+                            {% endfor %}
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced
                             Filter</button>

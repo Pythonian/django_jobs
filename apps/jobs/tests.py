@@ -16,40 +16,40 @@
 
 #         # Creating a set of job categories
 #         self.category_1 = Category.objects.create(name='Genetic Engineering')
-#         self.category_2 = Category.objects.create(name='Eye Design', 
+#         self.category_2 = Category.objects.create(name='Eye Design',
 #                                                             var_name='eyes')
-#         self.category_3 = Category.objects.create(name='Bounty Hunting', 
+#         self.category_3 = Category.objects.create(name='Bounty Hunting',
 #                                                             category_order=4)
 #         self.category_4 = Category.objects.create(name='Origami')
 
 #         # Creating a set of job types
-#         self.job_type_1 = Type.objects.create(name='Full time', 
+#         self.job_type_1 = Type.objects.create(name='Full time',
 #                                                         var_name='fulltime')
 #         self.job_type_2 = Type.objects.create(name='Part time')
 #         self.job_type_3 = Type.objects.create(name='Freelance')
 
 #         # Creating a couple of cities
-#         self.city_1 = City.objects.create(name='Los Angeles', 
+#         self.city_1 = City.objects.create(name='Los Angeles',
 #                                                         ascii_name='la')
 #         self.city_2 = City.objects.create(name='San Francisco')
 
 #         # Creating a job
-#         self.job_1 = Job.objects.create(category=self.category_1, 
-#                 jobtype=self.job_type_1, 
-#                 title='Genetist needed', 
-#                 description='A new job', 
-#                 company='Tyrell Corporation', 
-#                 city=self.city_1, 
+#         self.job_1 = Job.objects.create(category=self.category_1,
+#                 jobtype=self.job_type_1,
+#                 title='Genetist needed',
+#                 description='A new job',
+#                 company='Tyrell Corporation',
+#                 city=self.city_1,
 #                 poster_email='hr@tyrellcorp.com')
 
 #         # Creating a job with outside location
-#         self.job_2 = Job.objects.create(category=self.category_2, 
-#                 jobtype=self.job_type_1, 
-#                 title='WANTED: Eye Designer', 
-#                 description='Must be able to put up with low temperatures.', 
-#                 company='Tyrell Corp.', 
-#                 city=None, 
-#                 outside_location='Las Vegas', 
+#         self.job_2 = Job.objects.create(category=self.category_2,
+#                 jobtype=self.job_type_1,
+#                 title='WANTED: Eye Designer',
+#                 description='Must be able to put up with low temperatures.',
+#                 company='Tyrell Corp.',
+#                 city=None,
+#                 outside_location='Las Vegas',
 #                 poster_email='hr@tyrellcorp.com')
 
 #         # Set up a Client
@@ -88,9 +88,9 @@
 #         self.assertEqual(self.city_2.ascii_name, 'san-francisco')
 
 #         # Test job slugs
-#         self.assertEqual(self.job_1.joburl, 
+#         self.assertEqual(self.job_1.joburl,
 #           'genetist-needed-'+settings.DJOBBERBASE_AT_URL+'-tyrell-corporation')
-#         self.assertEqual(self.job_2.joburl, 
+#         self.assertEqual(self.job_2.joburl,
 #              'wanted-eye-designer-'+settings.DJOBBERBASE_AT_URL+'-tyrell-corp')
 
 #         # Test company slugs
@@ -153,3 +153,18 @@
 #         # Assert that job status has been changed
 #         self.assertEqual(response.context['page_type'], 'deactivate')
 
+from django.test import TestCase
+from django.template import Template, Context
+from .models import Job
+
+
+class FilterTests(TestCase):
+    def test_get_salary_mode_display(self):
+        salary_modes = [mode[0] for mode in Job.SalarySchedule.choices]
+        expected_output = [mode[1] for mode in Job.SalarySchedule.choices]
+
+        for i, salary_mode in enumerate(salary_modes):
+            t = Template(f'{{ salary_mode|get_salary_mode_display }}')
+            c = Context({})
+            output = t.render(c)
+            self.assertEqual(output, expected_output[i])

@@ -1,7 +1,10 @@
+import json
+
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
+
 from ...models import State
-import json
+
 
 class Command(BaseCommand):
     # python manage.py states fixtures/states.json

@@ -31,7 +31,7 @@ class Category(models.Model):
         return Job.active.filter(category=self).count()
 
     def get_absolute_url(self):
-        return reverse('jobs:category', kwargs={'slug': self.slug})
+        return reverse('core:category', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -159,13 +159,10 @@ class Job(models.Model):
         return reverse('jobs:detail', kwargs={'slug': self.slug})
 
     def get_edit_url(self):
-        return reverse('jobs:edit', kwargs={'id': self.id})
+        return reverse('jobs:edit', kwargs={'id': self.pk})
 
     def get_delete_url(self):
-        return reverse('jobs:delete', kwargs={'id': self.id})
-
-    # def get_application_count(self):
-    #     return Applicant.objects.filter(job=self).count()
+        return reverse('jobs:delete', kwargs={'id': self.pk})
 
     def save(self, *args, **kwargs):
         if not self.slug:

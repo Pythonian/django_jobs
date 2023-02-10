@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Help Article' %} | {% trans 'Account' %}{% endblock %}
+
+{% block content %}
+
+<!-- BREADCRUMB -->
+<nav class="bg-light pt-3 pb-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:help_center' %}"
+                                class="text-decoration-none">Help Center</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:help_category' %}" class="text-decoration-none">Account</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">How to create an Employee account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="bg-white">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="flex-shrink-0">
+                        <span class="fa-stack fa-2x text-primary">
+                            <i class="fa-solid fa-circle fa-stack-2x"></i>
+                            <i class="fa-solid fa-file-lines fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="m-0 text-primary">{% trans 'How to create an Employee account' %}</h4>
+                        <h6 class="fw-normal">{% trans 'Account' %}</h6>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <p>
+                    In today's fast-paced job market, finding the right candidates for non-professional jobs can be a challenging task
+                    for
+                    both employers and job seekers. This is where Blue Jobs comes in. We are a recruitment management platform that
+                    connects
+                    employers with job seekers for non-professional jobs in a simple, efficient, and cost-effective manner.
+                </p>
+                <p>
+                    Our mission at Blue Jobs is to revolutionize the way non-professional jobs are recruited and managed. We believe
+                    that
+                    everyone deserves equal access to job opportunities, regardless of their level of experience or education. That's
+                    why we
+                    have created a platform that is accessible to both employers and job seekers, and that provides a hassle-free way to
+                    fill and find non-professional jobs.
+                </p>
+                <p>
+                    Blue Jobs is committed to protecting the privacy of our users. This Privacy Policy outlines the information that we
+                    collect, how we use it, and the steps that we take to ensure that your personal information is kept secure.
+
+                    Information Collection and Use
+
+                    At Blue Jobs, we collect and use personal information to provide you with the best possible user experience. The
+                    information that we collect may include your name, email address, telephone number, employment history, educational
+                    background, and job preferences.
+
+                    We may also collect information about your use of our platform, such as the pages that you visit and the job listings
+                    that you apply for. This information is used to understand how our platform is being used and to improve our services.
+
+                    Information Sharing and Disclosure
+
+                    Blue Jobs does not share or sell your personal information to third parties, except as outlined in this Privacy Policy.
+                    We may share your information with trusted third-party service providers who perform services on our behalf, such as
+                    hosting, payment processing, and data analysis. These third-party service providers are bound by strict confidentiality
+                    agreements and are only allowed to use your information to provide the services that they are contracted to perform.
+
+                    We may also disclose your personal information if required by law or if we believe that it is necessary to protect the
+                    rights, property, or safety of Blue Jobs or its users.
+
+                    Security
+
+                    At Blue Jobs, we take the security of your personal information very seriously. We use industry-standard security
+                    technologies, such as encryption and firewalls, to protect your information from unauthorized access, use, or
+                    disclosure.
+
+                    Despite our best efforts, no security system is 100% secure. If you have reason to believe that your personal
+                    information has been compromised, please contact us immediately.
+
+                    At Blue Jobs, we are committed to protecting the privacy and security of our users' personal information. This Privacy
+                    Policy outlines the types of personal information we collect, how we use it, and the measures we take to protect it.
+
+                    Information Collection
+
+                    We collect personal information from our users when they create an account on our platform, post job listings, or apply
+                    for jobs. This information may include, but is not limited to, names, email addresses, telephone numbers, job
+                    preferences, and work experience.
+
+                    We may also collect information about users' usage of our platform, such as the types of jobs they search for, the pages
+                    they visit, and the actions they take. This information is used to improve our platform and provide better services to
+                    our users.
+
+                    Use of Personal Information
+
+                    We use personal information for the following purposes:
+
+                    1. To provide our users with the services they need to find and fill non-professional jobs.
+
+                    2. To communicate with our users about their accounts, job applications, and other related matters.
+
+                    3. To send users notifications about new job listings, updates, and other relevant information.
+
+                    4. To improve our platform and develop new features that better meet the needs of our users.
+
+                    We will not sell, rent, or share personal information with third parties for their marketing purposes.
+
+                    Data Security
+
+                    We use the latest encryption and security technologies to protect the personal information we collect. Our platform is
+                    designed to meet the highest standards of data security and is regularly audited by independent security experts.
+
+                    Access to Personal Information
+
+                    Users have the right to access and update their personal information at any time. They can do this by logging into their
+                    account and updating their profile information. If a user would like to delete their account, they can contact us and we
+                    will remove all personal information from our systems.
+
+                    Changes to Privacy Policy
+
+                    We may update this Privacy Policy from time to time to reflect changes in our practices or to comply with legal
+                    requirements. We will notify our users of any changes by posting an updated version on our platform.
+
+                    Contact Us
+
+                    If you have any questions or concerns about our Privacy Policy, please contact us by email at privacy@bluejobs.com. We will be happy to assist you.
+
+                </p>
+
+                <hr class="my-5">
+
+                <p class="text-center mb-5">
+                    Was this article helpful?
+                    <a href="" class="ms-2 btn btn-sm btn-outline-primary"><i class="fa-regular fa-thumbs-up"></i></a>
+                    <a href="" class="btn btn-sm btn-outline-primary"><i class="fa-regular fa-thumbs-down"></i></a>
+                </p>
+
+                <h4>Related Articles</h4>
+                <p class="text-muted mb-5">If you did not find what you needed, these could help!</p>
+
+                <div class="row g-5">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <h5>Getting Started</h5>
+                            <div class="border-bottom border-3 mt-3"></div>
+                        </div>
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <h5>User Settings</h5>
+                            <div class="border-bottom border-3 mt-3"></div>
+                        </div>
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="mb-4">
+                            <h5>API Integrations</h5>
+                            <div class="border-bottom border-3 mt-3"></div>
+                        </div>
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

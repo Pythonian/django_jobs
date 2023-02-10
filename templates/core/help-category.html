@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Help Center' %} | {% trans 'Account' %}{% endblock %}
+
+{% block content %}
+
+<!-- BREADCRUMB -->
+<nav class="bg-light pt-3 pb-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:help_center' %}" class="text-decoration-none">Help Center</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="bg-white">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="flex-shrink-0">
+                        <span class="fa-stack fa-2x text-primary">
+                            <i class="fa-solid fa-circle fa-stack-2x"></i>
+                            <i class="fa-solid fa-user fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="m-0 text-primary">{% trans 'Account' %}</h4>
+                        <h6 class="fw-normal">{% trans 'Let us try and fix your account issues.' %}</h6>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <div class="row g-5 mb-5">
+                    <div class="col-lg-4 col-sm-6">
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <ul class="list-unstyled">
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                            {% include 'partials/_related_article.html' %}
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>Related Help Center Categories</h4>
+                <p class="text-muted mb-5">If you did not find what you needed, these could help!</p>
+
+                <div class="row g-5">
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                    {% include 'partials/_help_card.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

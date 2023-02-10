@@ -1,11 +1,17 @@
-{% load static %}
-<div class="card bg-primary shadow-lg">
+<div class="card text-bg-primary shadow-lg">
     <div class="card-body p-4">
-        <img src="{% if company.logo %}{{ company.logo.url }}{% else %}{% static 'img/avatar.svg' %}{% endif %}" width="80px" height="80px" alt="{{ company.name }}" class="img-fluid rounded-3">
+        <img src="{{ company.logo.url }}" width="80px" height="80px" alt="{{ company.name }}" class="img-fluid rounded-3">
         <div class="mt-4">
             <h5 class="fw-bold mb-2"><a class="stretched-link text-decoration-none text-white" href="{{ company.get_absolute_url }}" title="{{ company.name }}">{{ company.name }}</a></h5>
-            <div class="d-flex justify-content-between text-white opacity-75">
-                <span><i class="fa-solid fa-calendar-day me-1"></i> Est. in {{ company.established|date:"Y" }}</span>
+            <div class="d-flex justify-content-between">
+                <!-- <span><i class="fa-solid fa-calendar-day me-1"></i> Est. in {{ company.established|date:"Y" }}</span> -->
+                <div class="d-flex gap-1">
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star text-warning"></i>
+                    <i class="fa-solid fa-star-half text-warning"></i>
+                </div>
                 <span><i class="fa-solid fa-briefcase me-1"></i> {{ company.jobs.count }} Job{{ company.jobs.count|pluralize }}</span>
             </div>
         </div>
