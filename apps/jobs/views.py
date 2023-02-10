@@ -7,18 +7,19 @@ from django.utils import timezone
 from django.db.models import Count
 from .forms import JobForm, ApplicationForm
 from .models import Job, State, JobType, Category
-from apps.core.utils import mk_paginator, is_valid_query_paramter
-
+from apps.core.utils import mk_paginator
+from apps.accounts.decorators import employer_required
+import random
 
 @login_required
+@employer_required
 def job_create(request):
     """
     Returns the form page for creating a Job.
 
     Template: ``jobs/form.html``
     Context:
-        form
-            JobForm object
+        form (JobForm)
     """
     if request.method == 'POST':
         form = JobForm(request.POST)
@@ -26,10 +27,10 @@ def job_create(request):
             job = form.save(commit=False)
             job.company = request.user.company
             job.save()
-            messages.success(request, "Job details saved.")
+            messages.success(request, "Job details saved successfully.")
             return redirect(job)
         else:
-            messages.warning(request, "An error occured below.")
+            messages.error(request, "Error: Invalid form submission.")
     else:
         form = JobForm()
 
@@ -46,7 +47,6 @@ def job_list(request):
     View that returns the page for viewing all jobs.
 
     :param request: A request object used to generate the HttpResponse
-    :return: HttpResponse
 
     Template: ``jobs/list.html``
     Context:
@@ -168,15 +168,17 @@ def job_detail(request, slug):
 
     applied = bool
     if request.user.is_authenticated and request.user.is_employee:
-
         if job.applicants.filter(id=request.user.employee.id).exists():
             applied = True
 
     bookmarked = bool
     if request.user.is_authenticated and request.user.is_employee:
-
         if job.bookmarks.filter(id=request.user.employee.id).exists():
             bookmarked = True
+
+    similar_jobs_by_category = Job.objects.filter(category=job.category).exclude(id=job.id)[:4]
+    related_jobs_by_company = Job.objects.filter(company=job.company).exclude(id=job.id)[:4]
+    related_jobs_by_job_type = Job.objects.filter(jobtype=job.jobtype).exclude(id=job.id)[:4]
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
@@ -199,6 +201,9 @@ def job_detail(request, slug):
         'applicants': applicants,
         'applied': applied,
         'bookmarked': bookmarked,
+        'similar_jobs_by_category': similar_jobs_by_category,
+        'related_jobs_by_company': related_jobs_by_company,
+        'related_jobs_by_job_type': related_jobs_by_job_type,
     }
 
     return render(request, template, context)

@@ -160,6 +160,58 @@
                 </div>
             </div>
         </div>
+
+        <h4>Related Jobs</h4>
+        <p class="text-muted mb-5">Jobs with similar interests to what you are viewing</p>
+
+        <div class="row g-5">
+            <div class="col-lg-4 col-sm-6">
+                <div class="mb-4">
+                    <h5>By Job Type</h5>
+                    <div class="border-bottom border-3 mt-3"></div>
+                </div>
+                <ul class="list-unstyled">
+                    {% for job in related_jobs_by_job_type %}
+                    <li class="mb-3">
+                        <a href="{{ job.get_absolute_url }}" class="text-decoration-none">
+                            <i class="fa-solid fa-briefcase me-2"></i> {{ job.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="mb-4">
+                    <h5>By Company</h5>
+                    <div class="border-bottom border-3 mt-3"></div>
+                </div>
+                <ul class="list-unstyled">
+                    {% for job in related_jobs_by_company %}
+                    <li class="mb-3">
+                        <a href="{{ job.get_absolute_url }}" class="text-decoration-none">
+                            <i class="fa-solid fa-briefcase me-2"></i> {{ job.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="mb-4">
+                    <h5>By Category</h5>
+                    <div class="border-bottom border-3 mt-3"></div>
+                </div>
+                <ul class="list-unstyled">
+                    {% for job in similar_jobs_by_category %}
+                    <li class="mb-3">
+                        <a href="{{ job.get_absolute_url }}" class="text-decoration-none">
+                            <i class="fa-solid fa-briefcase me-2"></i> {{ job.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
     </div>
 </section>
 {% include 'modals/apply.html' %}

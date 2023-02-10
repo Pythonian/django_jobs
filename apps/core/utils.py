@@ -26,7 +26,3 @@ def mk_paginator(request, items, num_items):
 def image_path(instance, filename):
     imagename, extension = filename.split(".")
     return f"category/{instance.id}.{extension}"
-
-
-def is_valid_query_paramter(param):
-    return param != '' and param is not None
