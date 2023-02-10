@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -42,57 +43,82 @@ def job_create(request):
 
 def job_list(request):
     """
-    Returns the page for viewing all jobs.
+    View that returns the page for viewing all jobs.
+
+    :param request: A request object used to generate the HttpResponse
+    :return: HttpResponse
 
     Template: ``jobs/list.html``
     Context:
-        jobs
-            A list of active job objects
-        jobs_last_24_hours
-            The number of jobs created in the last 24 hours
-        jobs_last_7_days
-            The number of jobs created in the last 7 days
-        jobs_last_30_days
-            The number of jobs created in the last 30 days
-        states
-            A list of all the state objects
+        jobs: A list of active job objects
+        jobs_last_24_hours: The number of jobs created in the last 24 hours
+        jobs_last_7_days: The number of jobs created in the last 7 days
+        jobs_last_30_days: The number of jobs created in the last 30 days
+        states: A list of all the state objects
+        categories: A list of all the category objects
+        job_types: A list of all the job type objects
+        salary_mode_counts: A dictionary containing salary mode as key and job count as value
+        genders: A list of tuples containing all the gender choices for a job
     """
 
-    # Get all active jobs
     jobs = Job.active.all()
-
-    # Paginate the active jobs
-    jobs = mk_paginator(request, jobs, 6)
-
-    # Get jobs created in the last 24 hours
-    last_24_hours = timezone.now() - timezone.timedelta(hours=24)
-    jobs_last_24_hours = Job.active.filter(created__gte=last_24_hours).count()
-
-    # Get jobs created in the last 7 days
-    last_7_days = timezone.now() - timezone.timedelta(days=7)
-    jobs_last_7_days = Job.active.filter(created__gte=last_7_days).count()
-
-    # Get jobs created in the last 30 days
-    last_30_days = timezone.now() - timezone.timedelta(days=30)
-    jobs_last_30_days = Job.active.filter(created__gte=last_30_days).count()
-
-    # Get all the states
-    states = State.objects.all()
-
-    job_types = JobType.objects.annotate(count=Count('job')) # filter only active jobs
-
     categories = Category.objects.all()
+    states = State.objects.all()
+    job_types = JobType.objects.all()
+    genders = Job.GenderStatus.choices
 
+    # create a list of salary modes by extracting the first element of each tuple
+    # in the "choices" attribute of the SalarySchedule field in the Job model
     salary_modes = [mode[0] for mode in Job.SalarySchedule.choices]
-
+    # maps each salary mode to a count of 0 in the dictionary
     salary_mode_counts = {mode: 0 for mode in salary_modes}
+    # counts the number of Job objects for each salary mode
     salary_mode_counts_query = Job.active.values('salary_mode') \
         .annotate(jobs_count=Count('id'))
-
+    # updates the count of the corresponding salary mode in the dictionary
     for smc in salary_mode_counts_query:
         salary_mode_counts[smc.get('salary_mode')] = smc.get('jobs_count')
 
-    # Define the template and context
+    last_24_hours = timezone.now() - timezone.timedelta(hours=24)
+    jobs_last_24_hours = jobs.filter(created__gte=last_24_hours).count()
+
+    last_7_days = timezone.now() - timezone.timedelta(days=7)
+    jobs_last_7_days = jobs.filter(created__gte=last_7_days).count()
+
+    last_30_days = timezone.now() - timezone.timedelta(days=30)
+    jobs_last_30_days = jobs.filter(created__gte=last_30_days).count()
+
+    title = request.GET.get('title', None)
+    category = request.GET.get('category', None)
+    state = request.GET.get('state', None)
+    gender = request.GET.get('gender', None)
+    job_type = request.GET.get('job_type', None)
+    salary_mode = request.GET.get('salary_mode', None)
+    posted = request.GET.get('posted', None)
+
+    if title:
+        jobs = jobs.filter(title__icontains=title)
+    if category:
+        jobs = jobs.filter(category__name=category)
+    if state:
+        jobs = jobs.filter(state__name=state)
+    if gender:
+        jobs = jobs.filter(gender=gender)
+    if job_type:
+        jobs = jobs.filter(jobtype__name=job_type)
+    if salary_mode:
+        jobs = jobs.filter(salary_mode=salary_mode)
+    if posted:
+        if posted == '24h':
+            jobs = jobs.filter(created__gte=timezone.now() - timedelta(hours=24))
+        elif posted == '7d':
+            jobs = jobs.filter(created__gte=timezone.now() - timedelta(days=7))
+        elif posted == '30d':
+            jobs = jobs.filter(created__gte=timezone.now() - timedelta(days=30))
+
+    # Paginate the jobs queryset
+    jobs = mk_paginator(request, jobs, 6)
+
     template = 'jobs/list.html'
     context = {
         'jobs': jobs,
@@ -103,6 +129,7 @@ def job_list(request):
         'job_types': job_types,
         'categories': categories,
         'salary_mode_counts': salary_mode_counts,
+        'genders': genders,
     }
 
     # Render and return the response

@@ -151,9 +151,9 @@ class Job(models.Model):
         """Return the string representation of the model"""
         return self.title
 
-    # @classmethod
-    # def job_count(cls):
-    #     return cls.objects.filter(status=JobStatus.ACTIVE).count()
+    @classmethod
+    def job_count(cls):
+        return cls.objects.filter(status=cls.JobStatus.ACTIVE).count()
 
     def get_absolute_url(self):
         return reverse('jobs:detail', kwargs={'slug': self.slug})
