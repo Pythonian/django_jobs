@@ -8,7 +8,7 @@
 <section class="bg-primary">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-end">
-            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-left.svg' %}" alt="job-left">
+            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-left.svg' %}" alt="company-left">
             <div class="text-white text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ companies.paginator.count }} {% trans 'Hiring Companies' %}</h1>
                 <p class="mb-5 lead">
@@ -17,40 +17,28 @@
                     {% endif %}
                 </p>
             </div>
-            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}" alt="job-right">
+            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}" alt="company-right">
         </div>
     </div>
 </section>
 
-<section class="py-3 bg-light">
+<section class="bg-light">
     <div class="container my-5">
         <div class="row">
-            {% if companies %}
             <aside class="col-lg-4 d-none d-lg-block">
-                <div class="card p-4 border-start-0 border-end-0 border-bottom-0 shadow border-top-primary">
+                <div class="card p-4 border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <form action="" method="get">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i> Keyword</label>
-                            <input type="text" name="query" class="form-control" placeholder="Company name" id="id_query">
+                            <label for="name" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i>
+                                Keyword:</label>
+                            <input type="text" name="name" class="form-control border-1" placeholder="Enter name of company" id="name" value="{{ request.GET.name }}">
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i> Category</label>
-                            <select class="form-select">
-                                <option selected>---Choose a category---</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-
-                        <hr class="text-muted">
-
-                        <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot  me-1"></i> Location</label>
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i> Location</label>
                             <select class="form-select">
                                 <option selected>---Select a State---</option>
                                 <option value="1">Adamawa</option>
@@ -59,7 +47,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Active</label>
@@ -86,7 +74,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-users me-1"></i> Staff Strength</label>
@@ -120,16 +108,16 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-muted border-1">
 
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
+                {% if companies %}
                 <div class="mb-3 border-bottom">
-                    <p class="text-muted">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span
-                            class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
+                    <p class="text-muted">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
                 </div>
                 <div class="row g-4">
                     {% for company in companies %}
@@ -137,15 +125,15 @@
                     {% endfor %}
                 </div>
                 {% include 'partials/_pagination.html' with page_obj=companies %}
-            </div>
-            {% else %}
-            <div class="text-center pt-5">
-                <div class="d-block">
-                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptycompanies">
+                {% else %}
+                <div class="text-center pt-5">
+                    <div class="d-block">
+                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptycompanies">
+                    </div>
+                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
                 </div>
-                <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
 </section>

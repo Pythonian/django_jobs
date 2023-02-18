@@ -1,5 +1,3 @@
-from secrets import choice
-from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -13,9 +11,6 @@ from apps.core.utils import image_path
 
 class Category(models.Model):
     name = models.CharField(_('Name'), unique=True, max_length=25)
-    slug = models.SlugField(_('Slug'), unique=True, max_length=25)
-    description = models.TextField(_('Description'), blank=True)
-    icon = models.CharField(_('Fontawesome icon'), max_length=20)
     category_order = models.PositiveIntegerField(_('Category order'),
                                                     unique=True, blank=True)
 
@@ -30,12 +25,7 @@ class Category(models.Model):
     def get_total_jobs(self):
         return Job.active.filter(category=self).count()
 
-    def get_absolute_url(self):
-        return reverse('core:category', kwargs={'slug': self.slug})
-
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
         if not self.category_order:
             try:
                 self.category_order = Category.objects.\

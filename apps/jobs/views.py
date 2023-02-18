@@ -11,16 +11,20 @@ from apps.core.utils import mk_paginator
 from apps.accounts.decorators import employer_required
 import random
 
+
 @login_required
 @employer_required
 def job_create(request):
     """
     Returns the form page for creating a Job.
 
+    :param request: A request object used to generate the HttpResponse
+
     Template: ``jobs/form.html``
     Context:
         form (JobForm)
     """
+
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
@@ -50,15 +54,24 @@ def job_list(request):
 
     Template: ``jobs/list.html``
     Context:
-        jobs: A list of active job objects
-        jobs_last_24_hours: The number of jobs created in the last 24 hours
-        jobs_last_7_days: The number of jobs created in the last 7 days
-        jobs_last_30_days: The number of jobs created in the last 30 days
-        states: A list of all the state objects
-        categories: A list of all the category objects
-        job_types: A list of all the job type objects
-        salary_mode_counts: A dictionary containing salary mode as key and job count as value
-        genders: A list of tuples containing all the gender choices for a job
+        jobs:
+            A list of active job objects
+        jobs_last_24_hours:
+            The number of jobs created in the last 24 hours
+        jobs_last_7_days:
+            The number of jobs created in the last 7 days
+        jobs_last_30_days:
+            The number of jobs created in the last 30 days
+        states:
+            A list of all the state objects
+        categories:
+            A list of all the category objects
+        job_types:
+            A list of all the job type objects
+        salary_mode_counts:
+            A dictionary containing salary mode as key and job count as value
+        genders:
+            A list of tuples containing all the gender choices for a job
     """
 
     jobs = Job.active.all()
@@ -68,7 +81,7 @@ def job_list(request):
     genders = Job.GenderStatus.choices
 
     # create a list of salary modes by extracting the first element of each tuple
-    # in the "choices" attribute of the SalarySchedule field in the Job model
+    # in the choices attribute of the SalarySchedule field in the Job model
     salary_modes = [mode[0] for mode in Job.SalarySchedule.choices]
     # maps each salary mode to a count of 0 in the dictionary
     salary_mode_counts = {mode: 0 for mode in salary_modes}
@@ -122,17 +135,16 @@ def job_list(request):
     template = 'jobs/list.html'
     context = {
         'jobs': jobs,
-        'jobs_last_24_hours': jobs_last_24_hours,
-        'jobs_last_7_days': jobs_last_7_days,
-        'jobs_last_30_days': jobs_last_30_days,
         'states': states,
         'job_types': job_types,
         'categories': categories,
-        'salary_mode_counts': salary_mode_counts,
         'genders': genders,
+        'jobs_last_24_hours': jobs_last_24_hours,
+        'jobs_last_7_days': jobs_last_7_days,
+        'jobs_last_30_days': jobs_last_30_days,
+        'salary_mode_counts': salary_mode_counts,
     }
 
-    # Render and return the response
     return render(request, template, context)
 
 
@@ -140,11 +152,29 @@ def job_detail(request, slug):
     """
     Returns the detail page of a Job.
 
+    :param request: A request object used to generate the HttpResponse
+    :param slug: Identifies the specific job being requested for
+
     Template: ``jobs/detail.html``
     Context:
-        job
+        job:
             A Job object instance
+        form:
+            An instance of the ApplicationForm
+        applicants:
+            An integer representing the number of applicants for the job
+        applied:
+            A boolean indicating whether the current user has applied for the job
+        bookmarked:
+            A boolean indicating whether the current user has bookmarked the job
+        similar_jobs_by_category:
+            A QuerySet of 4 similar jobs based on category
+        related_jobs_by_company:
+            A QuerySet of 4 related jobs based on company
+        related_jobs_by_job_type:
+            A QuerySet of 4 related jobs based on job type
     """
+
     job = get_object_or_404(Job, slug=slug)
 
     # Create a session key for a user
@@ -153,44 +183,30 @@ def job_detail(request, slug):
         job.impressions += 1
         job.save()
         request.session[session_key] = True
+
+    is_employee = request.user.is_authenticated and request.user.is_employee
+    applied = job.applicants.filter(id=request.user.employee.id).exists() if is_employee else False
+    bookmarked = job.bookmarks.filter(id=request.user.employee.id).exists() if is_employee else False
+
+    similar_jobs_by_category = Job.active.filter(category=job.category).exclude(id=job.id)[:4]
+    related_jobs_by_company = Job.active.filter(company=job.company).exclude(id=job.id)[:4]
+    related_jobs_by_job_type = Job.active.filter(jobtype=job.jobtype).exclude(id=job.id)[:4]
+
     applicants = job.applicants.count()
-
-    # from django.contrib.sessions.models import Session
-    # session_key = request.session.session_key
-    # if not session_key:
-    #     request.session.save()
-    #     session_key = request.session.session_key
-    # session = Session.objects.get(session_key=session_key)
-    # if not session.get('viewed_%d' % job.pk):
-    #     job.impressions += 1
-    #     job.save()
-    #     session['viewed_%d' % job.pk] = True
-
-    applied = bool
-    if request.user.is_authenticated and request.user.is_employee:
-        if job.applicants.filter(id=request.user.employee.id).exists():
-            applied = True
-
-    bookmarked = bool
-    if request.user.is_authenticated and request.user.is_employee:
-        if job.bookmarks.filter(id=request.user.employee.id).exists():
-            bookmarked = True
-
-    similar_jobs_by_category = Job.objects.filter(category=job.category).exclude(id=job.id)[:4]
-    related_jobs_by_company = Job.objects.filter(company=job.company).exclude(id=job.id)[:4]
-    related_jobs_by_job_type = Job.objects.filter(jobtype=job.jobtype).exclude(id=job.id)[:4]
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
         if form.is_valid():
-            application = form.save(commit=False)
-            application.job = job
-            application.applicant = request.user.employee
-            application.save()
-            job.applicants.add(request.user.employee)
-            messages.success(
-                request, "Your application request was sent.")
-            return redirect(job)
+            if is_employee:
+                application = form.save(commit=False)
+                application.job = job
+                application.applicant = request.user.employee
+                application.save()
+                job.applicants.add(request.user.employee)
+                messages.success(request, "Your application request was sent.")
+                return redirect(job)
+            else:
+                messages.error(request, "You must be an employee to apply for this job.")
     else:
         form = ApplicationForm()
 
@@ -223,7 +239,7 @@ def job_update(request, pk):
     """
     job = get_object_or_404(Job, pk=pk)
     if request.method == 'POST':
-        form = JobForm(request.POST, request.FILES, instance=job)
+        form = JobForm(request.POST, instance=job)
         if form.is_valid():
             form.save()
             return redirect(job)

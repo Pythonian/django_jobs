@@ -12,7 +12,6 @@ mark_sponsored.short_description = _('Mark selected jobs as sponsored.')
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'category_order']
-    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(JobType)

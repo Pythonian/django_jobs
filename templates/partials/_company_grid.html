@@ -1,8 +1,8 @@
-<div class="card text-bg-primary shadow-lg">
+<div class="card text-primary shadow">
     <div class="card-body p-4">
-        <img src="{{ company.logo.url }}" width="80px" height="80px" alt="{{ company.name }}" class="img-fluid rounded-3">
+        <img src="{{ company.logo.url }}" width="80px" height="80px" alt="{{ company.name }}" class="img-fluid rounded-3 me-3">
         <div class="mt-4">
-            <h5 class="fw-bold mb-2"><a class="stretched-link text-decoration-none text-white" href="{{ company.get_absolute_url }}" title="{{ company.name }}">{{ company.name }}</a></h5>
+            <h5 class="fw-bold mb-2"><a class="stretched-link text-decoration-none" href="{{ company.get_absolute_url }}" title="{{ company.name }}">{{ company.name }}</a></h5>
             <div class="d-flex justify-content-between">
                 <!-- <span><i class="fa-solid fa-calendar-day me-1"></i> Est. in {{ company.established|date:"Y" }}</span> -->
                 <div class="d-flex gap-1">

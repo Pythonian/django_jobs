@@ -102,39 +102,6 @@ def resumes(request):
     return render(request, template, context)
 
 
-def categories(request):
-
-    categories = Category.objects.all()
-
-    template = 'core/categories.html'
-    context = {
-        'categories': categories,
-    }
-
-    return render(request, template, context)
-
-
-def category_detail(request, slug):
-    """
-    Returns the detail page of a category.
-
-    Template: ``category_detail.html``
-    Context:
-        category
-            A category object instance
-    """
-    category = get_object_or_404(Category, slug=slug)
-    jobs = category.jobs.all()
-
-    template = 'core/category_detail.html'
-    context = {
-        'category': category,
-        'jobs': jobs,
-    }
-
-    return render(request, template, context)
-
-
 def help_center(request):
 
     template = 'core/help-center.html'

@@ -116,23 +116,6 @@
     </div>
 </section>
 
-<section class="bg-white py-lg-5">
-    <div class="container my-5">
-        <div class="row g-4">
-            <div class="mb-lg-2">
-                {# if resumes_count > 4 #}
-                <a href="{# url 'resumes' #}" class="float-end btn btn-primary">{% trans 'All Categories' %}</a>
-                {# endif #}
-                <h5 class="text-primary mb-3">{% trans 'Jobs by Categories' %}</h5>
-                <h2>{% trans 'Choose Your Desired Category' %}</h2>
-            </div>
-            {% for category in categories %}
-            <div class="col-lg-3 col-md-4">{% include 'partials/_category_grid.html' %}</div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 <section class="bg-primary py-lg-5">
     <div class="container my-5">
         <div class="row g-4">
@@ -262,7 +245,7 @@
                 <div class="h-100 d-flex align-items-start">
                     <div class="w-25 text-muted flex-shrink-0 d-flex flex-column text-center">
                         <span class="pb-2 h4 mb-2 border-bottom">Jul</span>
-                        <span class="h4">12 '21</span>
+                        <span class="h4">12, 2021</span>
                     </div>
                     <div class="flex-grow ps-4">
                         <h5 class="mb-3"><a href="#">Free Bootstrap 5 Templates</a></h5>
@@ -276,7 +259,7 @@
                 <div class="h-100 d-flex align-items-start">
                     <div class="w-25 text-muted flex-shrink-0 d-flex flex-column text-center">
                         <span class="pb-2 h4 mb-2 border-bottom">June</span>
-                        <span class="h4">10 '21</span>
+                        <span class="h4">10, 2021</span>
                     </div>
                     <div class="flex-grow ps-4">
                         <h5 class="mb-3"><a href="#">The Flask Mega Tutorial</a></h5>
@@ -290,7 +273,7 @@
                 <div class="h-100 d-flex align-items-start">
                     <div class="w-25 text-muted flex-shrink-0 d-flex flex-column text-center">
                         <span class="pb-2 h4 mb-2 border-bottom">Apr</span>
-                        <span class="h4">01 '21</span>
+                        <span class="h4">01, 2021</span>
                     </div>
                     <div class="flex-grow ps-4">
                         <h5 class="mb-3"><a href="#">Build a Crowdfunding Website in Django</a></h5>

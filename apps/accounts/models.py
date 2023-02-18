@@ -73,16 +73,6 @@ class Company(models.Model):
         last_job = self.jobs.latest('created')
         return last_job.created
 
-    # def clean(self):
-    #     if not self.logo:
-    #         raise ValidationError('x')
-    #     else:
-    #         w, h = get_image_dimensions(self.logo)
-    #         if w != 200:
-    #             raise ValidationError('x')
-    #         if h!= 200:
-    #             raise ValidationError('x')
-
 
 class Employee(models.Model):
     MALE = 'M'

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n core_utils %}
 
 {% block title %}{% trans 'Help Center' %} | {% trans 'Account' %}{% endblock %}
 
@@ -40,34 +40,12 @@
 
                 <hr class="my-5">
 
-                <div class="row g-5 mb-5">
+                <div class="row g-3 mb-5">
+                    {% for article in 12|make_list %}
                     <div class="col-lg-4 col-sm-6">
-                        <ul class="list-unstyled">
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                        </ul>
+                    {% include 'partials/_related_article.html' %}
                     </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <ul class="list-unstyled">
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                        </ul>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <ul class="list-unstyled">
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                            {% include 'partials/_related_article.html' %}
-                        </ul>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <h4>Related Help Center Categories</h4>
