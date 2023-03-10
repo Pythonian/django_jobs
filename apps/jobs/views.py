@@ -246,7 +246,7 @@ def job_update(request, pk):
     else:
         form = JobForm(instance=job)
 
-    template_name= 'jobs/form.html'
+    template_name = 'jobs/form.html'
     context = {
         'form': form,
         'job': job,
@@ -271,7 +271,7 @@ def job_delete(request, pk):
         job.save()
         return redirect('employers:jobs')
 
-    template_name= 'jobs/delete_confirm.html'
+    template_name = 'jobs/delete_confirm.html'
     context = {
         'job': job,
     }

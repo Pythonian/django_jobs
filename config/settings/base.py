@@ -30,7 +30,7 @@ SECRET_KEY = config(
 
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = ['*'] # config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_cleanup.apps.CleanupConfig',
     'widget_tweaks',
+    'django_quill',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
