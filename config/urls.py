@@ -32,3 +32,6 @@ if settings.DEBUG:
 admin.site.site_header = 'Blue Jobs Admin'
 admin.site.index_title = 'Blue Collar Jobs Admin'
 admin.site.site_title = 'Blue Collar Jobs Administration'
+
+handler500 = 'apps.core.views.error_500'
+handler404 = 'apps.core.views.error_404'

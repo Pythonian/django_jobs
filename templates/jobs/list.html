@@ -35,7 +35,7 @@
                             <input type="text" name="title" class="form-control border-1" placeholder="Job Title or Keyword" id="title" value="{{ request.GET.title }}">
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="category" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i>
@@ -48,7 +48,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="state" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i> State</label>
@@ -60,7 +60,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
 
                         <div class="form-group mb-4">
@@ -74,7 +74,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="job_type" class="form-label fw-bold mb-3">
@@ -87,12 +87,12 @@
                                     <input class="form-check-input border-1" name="job_type" type="checkbox" value="{{ job_type.name }}" id="{{ job_type.id }}" {% if request.GET.job_type == job_type.name %}checked{% endif %}>
                                     <label class="form-check-label" for="job_type">{{ job_type.name }}</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ job_type.get_total_jobs }}</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ job_type.get_total_jobs }}</span>
                             </div>
                             {% endfor %}
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i
@@ -103,25 +103,25 @@
                                     <label class="form-check-label" for="">Last 24 hours</label>
                                 </div>
                                 <span
-                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_24_hours }}</span>
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_24_hours }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input border-1" type="checkbox" name="posted" value="7d" {% if request.GET.posted == '7d' %}checked{% endif %}>
                                     <label class="form-check-label" for="">Last 7 days</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_7_days }}</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_7_days }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input border-1" name="posted" type="checkbox" value="30d" {% if request.GET.posted == '30d' %}checked{% endif %}>
                                     <label class="form-check-label" for="">Last 30 days</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ jobs_last_30_days }}</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_30_days }}</span>
                             </div>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="salary_mode" class="form-label fw-bold mb-3"><i
@@ -134,12 +134,12 @@
                                     {% endwith %}
                                     <label class="form-check-label" for="salary_mode">{{ salary_mode|get_salary_mode_display }}</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-1 border-opacity-10 rounded-5">{{ count }}</span>
+                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ count }}</span>
                             </div>
                             {% endfor %}
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <!-- Filter by Deadline -->
 
@@ -152,7 +152,7 @@
             <div class="col-lg-8">
                 {% if jobs %}
                 <div class="mb-3 border-bottom">
-                    <p class="text-muted">Showing <span
+                    <p class="text-body-secondary">Showing <span
                             class="fw-bold">{{ jobs.start_index }}-{{ jobs.end_index }}</span> of <span
                             class="fw-bold">{{ jobs.paginator.count }}</span>
                         job{{ jobs.paginator.count|pluralize }}</p>
@@ -169,7 +169,7 @@
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptyjobs">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Job Opening Found.</p>
+                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Found.</p>
                 </div>
                 {% endif %}
             </div>

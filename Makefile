@@ -1,6 +1,5 @@
 .DEFAULT_GOAL=help
 ROOT_DIR:=./
-SRC_DIR:=./apps
 VENV_BIN_DIR:="venv/bin"
 
 VIRTUALENV:=$(shell which virtualenv)

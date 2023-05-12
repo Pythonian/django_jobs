@@ -1,3 +1,8 @@
+import math
+import re
+
+from django.utils.html import strip_tags
+
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
@@ -26,3 +31,12 @@ def mk_paginator(request, items, num_items):
 def image_path(instance, filename):
     imagename, extension = filename.split(".")
     return f"category/{instance.id}.{extension}"
+
+
+def count_words(html_string):
+    return len(re.findall(r'\w+', strip_tags(html_string)))
+
+
+def get_read_time(html_string):
+    """ round up value to the nearest minute. 200 wpm """
+    return int(math.ceil(count_words(html_string) / 200))

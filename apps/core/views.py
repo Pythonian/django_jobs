@@ -6,6 +6,9 @@ from apps.core.utils import mk_paginator
 from apps.jobs.models import Job, State, Category
 
 
+from .models import Testimonial
+
+
 def home(request):
     """
     Returns the Home page.
@@ -16,8 +19,9 @@ def home(request):
     # TODO: Use template tags to display the listings and randomize them
     jobs = Job.active.all()[:4]
     companies = Company.objects.filter(jobs__isnull=False).distinct()[:6]
-    resumes = Resume.objects.all()
+    resumes = Resume.objects.all()[:5]
     categories = Category.objects.all()[:8]
+    testimonials = Testimonial.objects.all()[:3]
 
     template = 'core/home.html'
     context = {
@@ -29,6 +33,7 @@ def home(request):
         'resumes': resumes,
         'resumes_count': Resume.objects.all().count(),
         'categories': categories,
+        'testimonials': testimonials,
     }
 
     return render(request, template, context)
@@ -160,3 +165,36 @@ def policy(request):
     }
 
     return render(request, template, context)
+
+
+def post(request):
+
+    template = 'core/post.html'
+    context = {
+
+    }
+
+    return render(request, template, context)
+
+
+def contact(request):
+
+    template = '400.html'
+    context = {
+
+    }
+
+    return render(request, template, context)
+
+
+############################################
+#               ERROR PAGES                #
+############################################
+
+
+def error_500(request):
+    return render(request, "500.html")
+
+
+def error_404(request, exception):
+    return render(request, "404.html")

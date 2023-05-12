@@ -5,13 +5,13 @@
 
 {% block content %}
 
-<header class="bg-primary py-lg-5">
+<header class="text-bg-primary py-lg-5">
     <div class="container">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="my-5">
-                    <h1 class="display-5 fw-bolder text-white mb-2">{% trans 'Find the latest available' %}<br><u>Blue collar jobs</u> {% trans 'in Nigeria.' %}</h1>
-                    <p class="lead fw-normal text-white mb-4">{% trans 'Find jobs that match your interests with us. Over here, we provide a place for you to find non-professional jobs.' %}</p>
+                    <h1 class="display-5 fw-bolder mb-2">{% trans 'Find the latest available' %}<br><u>Blue collar jobs</u> {% trans 'in Nigeria.' %}</h1>
+                    <p class="lead fw-normal mb-4">{% trans 'Find jobs that match your interests with us. Over here, we provide a place for you to find non-professional jobs.' %}</p>
                     <a class="btn btn-outline-light btn-lg px-4" href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'auth:signup_choice' %}{% endif %}"><i class="fa-solid fa-paper-plane me-2"></i> {% trans 'Get Started' %}</a>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Job Opening Created Yet.</p>
+                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Created Yet.</p>
                 </div>
             {% endfor %}
         </div>
@@ -120,24 +120,24 @@
     <div class="container my-5">
         <div class="row g-4">
             <div class="col-lg-3 col-sm-6 text-center text-white">
-                <i class="fa-solid fa-building fa-3x mb-3"></i>
-                <h1>{{ companies_count }}</h1>
-                <p class="opacity-75">{% trans 'Hiring Companies' %}</p>
-            </div>
-            <div class="col-lg-3 col-sm-6 text-center text-white">
                 <i class="fa-solid fa-briefcase fa-3x mb-3"></i>
                 <h1>{{ jobs_count }}</h1>
-                <p class="opacity-75">{% trans 'Available Jobs' %}</p>
+                <p class="opacity-75">{% trans 'All Jobs' %}</p>
+            </div>
+            <div class="col-lg-3 col-sm-6 text-center text-white">
+                <i class="fa-solid fa-building fa-3x mb-3"></i>
+                <h1>{{ companies_count }}</h1>
+                <p class="opacity-75">{% trans 'Companies' %}</p>
             </div>
             <div class="col-lg-3 col-sm-6 text-center text-white">
                 <i class="fa-solid fa-file-lines fa-3x mb-3"></i>
                 <h1>{{ resumes_count }}</h1>
-                <p class="opacity-75">{% trans 'Candidate Resumes' %}</p>
+                <p class="opacity-75">{% trans 'Professionals' %}</p>
             </div>
             <div class="col-lg-3 col-sm-6 text-center text-white">
                 <i class="fa-solid fa-earth-africa fa-3x mb-3"></i>
                 <h1>{{ states_count }}</h1>
-                <p class="opacity-75">{% trans 'Active Locations' %}</p>
+                <p class="opacity-75">{% trans 'Locations' %}</p>
             </div>
         </div>
     </div>
@@ -147,20 +147,27 @@
     <div class="container my-5">
         <div class="row g-4">
             <div class="mb-lg-2">
-                {% if resumes_count > 4 %}
-                    <a href="{% url 'resumes' %}" class="float-end btn btn-primary">{% trans 'All Resumes' %}</a>
-                {% endif %}
                 <h5 class="text-primary mb-3">{% trans 'Resumes' %}</h5>
-                <h2>{% trans 'Featured Resumes' %}</h2>
+                <h2 class="text-primary-emphasis">{% trans 'Featured Resumes' %}</h2>
             </div>
             {% for resume in resumes %}
                 <div class="col-lg-4 col-md-6">{% include 'partials/_resume_grid.html' %}</div>
+                {% if forloop.last %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card p-4 border-0 shadow h-100">
+                            <div class="card-body p-4">
+                                <p class="h2 my-5 text-primary-emphasis">Browse The Best Resumes Available Here</p>
+                                <a href="{% url 'core:resumes' %}" class="btn btn-primary">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             {% empty %}
                 <div class="text-center pt-5">
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyresume">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Resumes Data Created Yet.</p>
+                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Resumes Data Created Yet.</p>
                 </div>
             {% endfor %}
         </div>
@@ -181,13 +188,13 @@
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
+                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Company Account Registered Yet.</p>
                 </div>
             {% endfor %}
         </div>
         {% if companies_count > 6 %}
         <div class="d-flex justify-content-center mt-5">
-            <a href="{% url 'companies' %}" class="btn btn-primary">{% trans 'View More' %}</a>
+            <a href="{% url 'core:companies' %}" class="btn btn-primary">{% trans 'View More' %}</a>
         </div>
         {% endif %}
     </div>
@@ -200,10 +207,34 @@
                 <h5 class="text-primary mb-3">{% trans 'Clients Testimonials' %}</h5>
                 <h2>{% trans 'What Our Customers Say About Us' %}</h2>
             </div>
-            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
-            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
-            <div class="col-lg-4 col-md-6">{% include 'partials/_testimonial_grid.html' %}</div>
+            {% for testimonial in testimonials %}
+            <div class="col-lg-4 col-md-6">
+                {% include 'partials/_testimonial_grid.html' %}
+            </div>
+            {% endfor %}
         </div>
+    </div>
+</section>
+
+<section class="bg-primary py-lg-5">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="d-flex justify-content-center align-items-center text-white">
+                    <div>
+                        <img class="img-fluid w-75" src="{% static 'img/interview.svg' %}" alt="interview">
+                    </div>
+                    <div>
+                        <h1 class="mb-3">Need a Personalized Solution?</h1>
+                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eos explicabo
+                            iste ipsam vero!
+                            Aspernatur.</p>
+                        <button class="px-4 py-2 btn btn-outline-light btn-lg rounded-pill">Register Today</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -217,6 +248,9 @@
             <div class="col-sm-6 col-md-4">{% include 'partials/_blog_card_grid.html' %}</div>
             <div class="col-sm-6 col-md-4">{% include 'partials/_blog_card_grid.html' %}</div>
             <div class="col-sm-6 col-md-4">{% include 'partials/_blog_card_grid.html' %}</div>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            <a href="" class="btn btn-outline-primary">{% trans 'View More' %}</a>
         </div>
     </div>
 </section>

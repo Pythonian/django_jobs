@@ -1,15 +1,19 @@
-<div class="card bg-white position-relative border border-primary border-3 border-start-0 border-end-0 border-top-0 shadow">
+{% load core_utils %}
+<div class="card bg-white position-relative border border-primary border-3 border-start-0 border-end-0 border-top-0 shadow h-100">
     <div class="card-body p-5">
         <div class="d-flex gap-1 position-absolute top-0 start-50 translate-middle">
+            {% for i in testimonial.rating|make_list %}
             <i class="fa-solid fa-star text-primary"></i>
-            <i class="fa-solid fa-star text-primary"></i>
-            <i class="fa-solid fa-star text-primary"></i>
-            <i class="fa-solid fa-star text-primary"></i>
-            <i class="fa-solid fa-star-half text-primary"></i>
+            {% endfor %}
         </div>
-        <p class="lead">I just got a job that I applied for via BlueJobs! I used the site all the time
-            during my job hunt.</p>
-        <span class="text-primary fw-bold">Chukwu Mercy Uzo</span>
-        <span class="text-muted">(Ui/Ux Designer)</span>
+        <i class="fa-solid fa-quote-left text-primary fw-bold fa-4x mb-3"></i>
+        <figure>
+            <blockquote class="blockquote mb-4">
+                <p>{{ testimonial.content }}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer text-primary">
+                <cite title="(Ui/Ux Designer)">{{ testimonial.user.get_full_name }}</cite>
+            </figcaption>
+        </figure>
     </div>
 </div>

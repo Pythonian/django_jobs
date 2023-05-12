@@ -13,7 +13,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         companies = Company.objects.all()
-        employees = Employee.objects.all()
         jobtypes = JobType.objects.all()
         states = State.objects.all()
         categories = Category.objects.all()
@@ -36,8 +35,6 @@ class Command(BaseCommand):
             company = random.choice(companies)
             address = fake.address()
             state = random.choice(states)
-            applicants = random.sample(list(employees), 1)
-            bookmarks = random.sample(list(employees), 1)
             impressions = fake.random_int(min=1, max=1000)
             sponsored = fake.boolean()
             created = fake.date_this_year()
@@ -64,6 +61,3 @@ class Command(BaseCommand):
                 sponsored=sponsored,
                 created=created
             )
-            job = Job.objects.get(slug=slug)
-            job.applicants.set(applicants)
-            job.bookmarks.set(bookmarks)

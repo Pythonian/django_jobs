@@ -74,4 +74,34 @@
     </div>
 </section>
 
+<section class="bg-light py-lg-5">
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h3 class="text-primary-emphasis mb-4">{% trans 'Financial Planning' %}</h3>
+                <h1 class="mb-4 display-4">{% trans "Let's plan your finances the right way" %}</h1>
+                <p class="lead mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste quasi perspiciatis
+                    illum consequuntur non quidem assumenda.</p>
+                <button class="px-4 py-3 btn btn-primary btn-lg rounded-pill">Register Today</button>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <div class="col-sm-6">
+                        {% include 'partials/_features_card.html' %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% include 'partials/_features_card.html' %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% include 'partials/_features_card.html' %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% include 'partials/_features_card.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock content %}

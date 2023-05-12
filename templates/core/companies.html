@@ -5,11 +5,11 @@
 
 {% block content %}
 
-<section class="bg-primary">
+<section class="text-bg-primary">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-end">
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-left.svg' %}" alt="company-left">
-            <div class="text-white text-center">
+            <div class="text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ companies.paginator.count }} {% trans 'Hiring Companies' %}</h1>
                 <p class="mb-5 lead">
                     {% if companies %}
@@ -35,7 +35,7 @@
                             <input type="text" name="name" class="form-control border-1" placeholder="Enter name of company" id="name" value="{{ request.GET.name }}">
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i> Location</label>
@@ -47,7 +47,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Active</label>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-users me-1"></i> Staff Strength</label>
@@ -108,7 +108,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted border-1">
+                        <hr class="text-body-secondary border-1">
 
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
                     </form>
@@ -117,7 +117,7 @@
             <div class="col-lg-8">
                 {% if companies %}
                 <div class="mb-3 border-bottom">
-                    <p class="text-muted">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
+                    <p class="text-body-secondary">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
                 </div>
                 <div class="row g-4">
                     {% for company in companies %}
@@ -130,7 +130,7 @@
                     <div class="d-block">
                         <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptycompanies">
                     </div>
-                    <p class="d-flex justify-content-center mt-5 text-muted">No Company Account Registered Yet.</p>
+                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Company Account Registered Yet.</p>
                 </div>
                 {% endif %}
             </div>

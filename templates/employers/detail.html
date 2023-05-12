@@ -16,7 +16,7 @@
                         </div>
                         <div class="ms-3">
                             <h5>{{ company.name }}</h5>
-                            <span class="text-muted">{{ company.address }}</span>
+                            <span class="text-body-secondary">{{ company.address }}</span>
                         </div>
                     </div>
                     <h6 class="fw-bold mb-3">About Us:</h6>
@@ -32,7 +32,7 @@
                         <div class="d-block mb-3">
                             <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="">
                         </div>
-                        <p class="text-muted">No available jobs from this company yet.</p>
+                        <p class="text-body-secondary">No available jobs from this company yet.</p>
                     </div>
                 {% endif %}
             </div>
@@ -47,7 +47,7 @@
                                 <i class="fa-solid fa-user text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Contact person</h6>
+                                <h6 class="mb-1 text-body-secondary">Contact person</h6>
                                 <p class="mb-0">{{ company.contact_person }} ({{ company.position_in_company }})</p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 <i class="fa-solid fa-envelope text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Email</h6>
+                                <h6 class="mb-1 text-body-secondary">Email</h6>
                                 <p class="mb-0">{{ company.user.email }}</p>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 <i class="fa-solid fa-phone text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Phone number</h6>
+                                <h6 class="mb-1 text-body-secondary">Phone number</h6>
                                 <p class="mb-0">{{ company.phone_number }}</p>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <i class="fa-solid fa-briefcase text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Job openings</h6>
+                                <h6 class="mb-1 text-body-secondary">Job openings</h6>
                                 <p class="mb-0">{{ company.jobs.count }}</p>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Total applicants</h6>
+                                <h6 class="mb-1 text-body-secondary">Total applicants</h6>
                                 <p class="mb-0">{{ company.total_applicants }}</p>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                 <i class="fa-solid fa-globe-africa text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Website</h6>
+                                <h6 class="mb-1 text-body-secondary">Website</h6>
                                 <p class="mb-0"><a href="{{ company.website }}" target="_blank">Visit our website</a></p>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                 <i class="fa-solid fa-users text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Staff strength</h6>
+                                <h6 class="mb-1 text-body-secondary">Staff strength</h6>
                                 <p class="mb-0">{{ company.get_staff_strength_display }}</p>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 <i class="fa-solid fa-calendar text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Date established</h6>
+                                <h6 class="mb-1 text-body-secondary">Date established</h6>
                                 <p class="mb-0">{{ company.established }}</p>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                                 <i class="fa-solid fa-business-time text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Last job posted</h6>
+                                <h6 class="mb-1 text-body-secondary">Last job posted</h6>
                                 <p class="mb-0">{{ company.last_job_date|timesince }} ago</p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                 <i class="fa-solid fa-clock-rotate-left text-primary"></i>
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-1 text-muted">Member since</h6>
+                                <h6 class="mb-1 text-body-secondary">Member since</h6>
                                 <p class="mb-0">{{ company.created|timesince }} ago.</p>
                             </div>
                         </div>

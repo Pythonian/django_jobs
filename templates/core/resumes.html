@@ -35,7 +35,7 @@
                             <input type="text" name="query" class="form-control" placeholder="Job Title or Keyword" id="id_query">
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-list me-1"></i> Category</label>
@@ -47,7 +47,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i>
@@ -60,7 +60,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-venus-mars me-1"></i> Gender</label>
@@ -71,7 +71,7 @@
                             </select>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-briefcase me-1"></i> Job
@@ -113,7 +113,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Job
@@ -148,7 +148,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <div class="form-group mb-4">
                             <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-filter-circle-dollar me-1"></i>
@@ -190,7 +190,7 @@
                             </div>
                         </div>
 
-                        <hr class="text-muted">
+                        <hr class="text-body-secondary">
 
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
                     </form>
@@ -199,7 +199,7 @@
             <div class="col-lg-8">
                 <div class="d-flex justify-content-between mb-3 border-bottom">
                     <div>
-                        <p class="text-muted">Showing <span class="fw-bold">{{ resumes.start_index }}-{{ resumes.end_index }}</span> of <span class="fw-bold">{{ resumes.paginator.count }}</span> resume{{ resumes.paginator.count|pluralize }}</p>
+                        <p class="text-body-secondary">Showing <span class="fw-bold">{{ resumes.start_index }}-{{ resumes.end_index }}</span> of <span class="fw-bold">{{ resumes.paginator.count }}</span> resume{{ resumes.paginator.count|pluralize }}</p>
                     </div>
                 </div>
                 <div class="row g-4">
@@ -214,7 +214,7 @@
                 <div class="d-block">
                     <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptyresume">
                 </div>
-                <p class="d-flex justify-content-center mt-5 text-muted">No Resumes Data Created Yet.</p>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Resumes Data Created Yet.</p>
             </div>
             {% endif %}
         </div>

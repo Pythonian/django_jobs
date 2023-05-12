@@ -15,7 +15,7 @@
                     <h6 class="text-primary">Manage Candidates</h6>
                     <h4>Manage Resumes of Job Applicants</h4>
                 </div>
-                
+
                 {% for candidate in candidates %}
                 <div class="col-lg-6">
                     <div class="card p-4 border-light shadow">
@@ -25,11 +25,11 @@
                             </div>
                             <div class="ms-3">
                                 <h5 class="text-primary">{{ candidate.applicant.user.get_full_name }}</h5>
-                                <span class="text-muted small">Applied for <strong>{{ candidate.job.title }}</strong> on: {{ candidate.created|date:"F j Y" }}</span>
+                                <span class="text-body-secondary small">Applied for <strong>{{ candidate.job.title }}</strong> on: {{ candidate.created|date:"F j Y" }}</span>
                             </div>
                         </div>
                         <div class="border px-2 py-1 mb-2">
-                            <p class="text-muted">Application Note:</p>
+                            <p class="text-body-secondary">Application Note:</p>
                             <p class="fw-bold">{{ candidate.note }}</p>
                         </div>
                         <a href="#" class="btn btn-primary w-100"><i class="fas fa-eye me-1"></i> View Resume</a>

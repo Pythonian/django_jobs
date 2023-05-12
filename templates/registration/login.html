@@ -23,7 +23,7 @@
                             </div>
                             <div class="ms-1">
                                 <h6 class="m-0 text-primary">{% trans 'Login and get productive' %}</h6>
-                                <small class="text-muted">{% trans 'Your personal data will be used to support your experience throughout this website.' %}</small>
+                                <small class="text-body-secondary">{% trans 'Your personal data will be used to support your experience throughout this website.' %}</small>
                             </div>
                         </div>
                         <form method="post" action="">
@@ -31,7 +31,7 @@
 
                             {% if form.non_field_errors %}
                             <div class="alert alert-danger border border-danger border-5 border-top-0 border-end-0 border-bottom-0" role="alert">
-                                <i class="fa-solid fa-warning me-1"></i> Incorrect login credentials provided. Please try again.
+                                <i class="fa-solid fa-warning me-1"></i> Error! Your login credentials is incorrect.
                             </div>
                             {% endif %}
 
@@ -56,7 +56,7 @@
                             </div>
                         </form>
                         <div class="text-center my-4">
-                            <small><span class="text-muted">Don't have an account?</span> <a href="{% url 'auth:signup_choice' %}">{% trans 'Signup now!' %}</a></small>
+                            <small><span class="text-body-secondary">Don't have an account?</span> <a href="{% url 'auth:signup_choice' %}">{% trans 'Signup now!' %}</a></small>
                         </div>
                     </div>
                 </div>
