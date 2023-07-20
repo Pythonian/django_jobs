@@ -1,9 +1,11 @@
 language: python
 python:
-  - "3.8"
+  - "3.10"
+  - "3.11"
 branches:
   only:
     - master
+# Start services.
 services:
   - redis-server
   - postgresql
@@ -15,40 +17,25 @@ before_script:
   - cp .env.example .env
   - psql -c "CREATE DATABASE snakeeyes;" -U postgres
   - psql -c "CREATE DATABASE snakeeyes_test;" -U postgres
-  - python manage.py makemigrations
   - python manage.py migrate
+  - python manage.py collectstatic --noinput
 script:
   - python manage.py test --settings=config.test_settings
 after_success:
   - coveralls
 sudo: false
 
-language: python
-python:
-  - "3.6"
-  - "3.7"
+
 env:
   - DJANGO_VERSION=2.2.9
   - DJANGO_VERSION=3.0.3
 branches:
   only:
     - master
-# Start services.
-services:
-  - redis-server
-  - postgresql
 # command to install dependencies
 install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install -r requirements/local.txt
-  - pip install coveralls
-before_script:
-  - psql -c "CREATE DATABASE bootcamp;" -U postgres
-  - cp .env.example .env
-  - python manage.py migrate
-  - python manage.py collectstatic --noinput
 # command to run tests
 script:
   - pytest
-after_success:
-  - coveralls

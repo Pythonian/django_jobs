@@ -179,7 +179,7 @@ def post(request):
 
 def contact(request):
 
-    template = '400.html'
+    template = 'core/contact.html'
     context = {
 
     }
