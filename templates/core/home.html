@@ -10,9 +10,15 @@
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="my-5">
-                    <h1 class="display-5 fw-bolder mb-2">{% trans 'Find the latest available' %}<br><u>Blue collar jobs</u> {% trans 'in Nigeria.' %}</h1>
-                    <p class="lead fw-normal mb-4">{% trans 'Find jobs that match your interests with us. Over here, we provide a place for you to find non-professional jobs.' %}</p>
-                    <a class="btn btn-outline-light btn-lg px-4" href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'auth:signup_choice' %}{% endif %}"><i class="fa-solid fa-paper-plane me-2"></i> {% trans 'Get Started' %}</a>
+                    <h1 class="display-5 fw-bolder mb-2">{% trans 'Find the latest available' %}<br><u>Blue collar
+                            jobs</u> {% trans 'in Nigeria.' %}</h1>
+                    <p class="lead fw-normal mb-4">
+                        {% trans 'Find jobs that match your interests with us. Over here, we provide a place for you to find non-professional jobs.' %}
+                    </p>
+                    <a href="{% if request.user.is_authenticated %}{% url 'jobs:list' %}{% else %}{% url 'auth:signup_choice' %}{% endif %}"
+                        class="btn py-2 px-4 btn-outline-light shadow-sm rounded-5">
+                        <i class="fa-solid fa-paper-plane me-1"></i> {% trans 'Get Started' %}
+                    </a>
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
@@ -33,9 +39,12 @@
                 <h5 class="text-primary">{% trans 'How It Works' %}</h5>
                 <h1 class="mb-5 display-3">{% trans 'Follow our Steps' %},<br> {% trans 'we will help you' %}!</h1>
                 <ul class="list-unstyled">
-                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> {% trans 'Trusted and Quality Jobs' %}</li>
-                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> {% trans 'No Hidden Fees' %}</li>
-                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i> {% trans 'Seamless User Experience' %}</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i>
+                        {% trans 'Trusted and Quality Jobs' %}</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i>
+                        {% trans 'No Hidden Fees' %}</li>
+                    <li class="mb-3"><i class="fa-solid fa-circle-check text-primary fs-5 me-2"></i>
+                        {% trans 'Seamless User Experience' %}</li>
                 </ul>
             </div>
             <div class="col-lg-6">
@@ -47,7 +56,9 @@
                                     <h5 class="mt-5">{% trans 'Register' %} <br>{% trans 'Your Account' %}</h5>
                                     <i class="fa-solid fa-1 fa-3x text-white"></i>
                                 </div>
-                                <p class="card-text mb-3">{% trans 'Setup an account with us to find the jobs that best suit your preference.' %}</p>
+                                <p class="card-text mb-3">
+                                    {% trans 'Setup an account with us to find the jobs that best suit your preference.' %}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +69,9 @@
                                     <h5 class="mt-5">{% trans 'Create' %} <br>{% trans 'Your Resume' %}</h5>
                                     <i class="fa-solid fa-2 fa-3x text-white"></i>
                                 </div>
-                                <p class="card-text mb-3">{% trans 'Create your first resume which you can customise as much as you wish.' %}</p>
+                                <p class="card-text mb-3">
+                                    {% trans 'Create your first resume which you can customise as much as you wish.' %}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -69,7 +82,9 @@
                                     <h5 class="mt-5">{% trans 'Search' %} <br>{% trans 'Available Jobs' %}</h5>
                                     <i class="fa-solid fa-3 fa-3x text-white"></i>
                                 </div>
-                                <p class="card-text mb-3">{% trans 'Use our advanced search filter to narrow down on jobs specific to you.' %}</p>
+                                <p class="card-text mb-3">
+                                    {% trans 'Use our advanced search filter to narrow down on jobs specific to you.' %}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +95,8 @@
                                     <h5 class="mt-5">{% trans 'Submit' %} <br>{% trans 'An Application' %}</h5>
                                     <i class="fa-solid fa-4 fa-3x text-white"></i>
                                 </div>
-                                <p class="card-text mb-3">{% trans 'Send your resume to the hiring company with a click of the button.' %}</p>
+                                <p class="card-text mb-3">
+                                    {% trans 'Send your resume to the hiring company with a click of the button.' %}</p>
                             </div>
                         </div>
                     </div>
@@ -100,12 +116,12 @@
             {% for job in jobs %}
             <div class="col-lg-6">{% include 'partials/_job_grid.html' %}</div>
             {% empty %}
-                <div class="text-center pt-5">
-                    <div class="d-block">
-                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
-                    </div>
-                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Created Yet.</p>
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
                 </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Created Yet.</p>
+            </div>
             {% endfor %}
         </div>
         {% if jobs_count > 4 %}
@@ -151,24 +167,24 @@
                 <h2 class="text-primary-emphasis">{% trans 'Featured Resumes' %}</h2>
             </div>
             {% for resume in resumes %}
-                <div class="col-lg-4 col-md-6">{% include 'partials/_resume_grid.html' %}</div>
-                {% if forloop.last %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card p-4 border-0 shadow h-100">
-                            <div class="card-body p-4">
-                                <p class="h2 my-5 text-primary-emphasis">Browse The Best Resumes Available Here</p>
-                                <a href="{% url 'core:resumes' %}" class="btn btn-primary">View All</a>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6">{% include 'partials/_resume_grid.html' %}</div>
+            {% if forloop.last %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card p-4 border-0 shadow h-100">
+                    <div class="card-body p-4">
+                        <p class="h2 my-5 text-primary-emphasis">Browse The Best Resumes Available Here</p>
+                        <a href="{% url 'core:resumes' %}" class="btn btn-primary">View All</a>
                     </div>
-                {% endif %}
-            {% empty %}
-                <div class="text-center pt-5">
-                    <div class="d-block">
-                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyresume">
-                    </div>
-                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Resumes Data Created Yet.</p>
                 </div>
+            </div>
+            {% endif %}
+            {% empty %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyresume">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Resumes Data Created Yet.</p>
+            </div>
             {% endfor %}
         </div>
     </div>
@@ -184,12 +200,12 @@
             {% for company in companies %}
             <div class="col-lg-4 col-md-6">{% include 'partials/_company_grid.html' %}</div>
             {% empty %}
-                <div class="text-center pt-5">
-                    <div class="d-block">
-                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
-                    </div>
-                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Company Account Registered Yet.</p>
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
                 </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Hiring Company Available Yet.</p>
+            </div>
             {% endfor %}
         </div>
         {% if companies_count > 6 %}
@@ -211,32 +227,43 @@
             <div class="col-lg-4 col-md-6">
                 {% include 'partials/_testimonial_grid.html' %}
             </div>
+            {% empty %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Testimonials Yet.</p>
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
+{% if not request.user.is_authenticated %}
 <section class="bg-primary py-lg-5">
     <div class="container my-5">
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="d-flex justify-content-center align-items-center text-white">
-                    <div>
+                    <div class="d-none d-lg-block">
                         <img class="img-fluid w-75" src="{% static 'img/interview.svg' %}" alt="interview">
                     </div>
                     <div>
-                        <h1 class="mb-3">Need a Personalized Solution?</h1>
+                        <h1 class="mb-3">{% trans 'Are you ready to Onboard?' %}</h1>
                         <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eos explicabo
                             iste ipsam vero!
                             Aspernatur.</p>
-                        <button class="px-4 py-2 btn btn-outline-light btn-lg rounded-pill">Register Today</button>
+                        <a href="{% url 'auth:signup_choice' %}"
+                            class="btn py-2 px-4 btn-outline-light shadow-sm rounded-5">
+                            <i class="fa-solid fa-paper-plane me-1"></i> {% trans 'Register Today' %}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
+{% endif %}
 
 <section class="bg-white py-lg-5">
     <div class="container my-5">

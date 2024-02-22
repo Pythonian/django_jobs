@@ -5,7 +5,6 @@ from apps.accounts.models import Company, Resume
 from apps.core.utils import mk_paginator
 from apps.jobs.models import Job, State, Category
 
-
 from .models import Testimonial
 
 
@@ -23,17 +22,17 @@ def home(request):
     categories = Category.objects.all()[:8]
     testimonials = Testimonial.objects.all()[:3]
 
-    template = 'core/home.html'
+    template = "core/home.html"
     context = {
-        'jobs': jobs,
-        'jobs_count': Job.active.all().count(),
-        'companies': companies,
-        'companies_count': Company.objects.all().count(),
-        'states_count': State.objects.all().count(),
-        'resumes': resumes,
-        'resumes_count': Resume.objects.all().count(),
-        'categories': categories,
-        'testimonials': testimonials,
+        "jobs": jobs,
+        "jobs_count": Job.active.all().count(),
+        "companies": companies,
+        "companies_count": Company.objects.all().count(),
+        "states_count": State.objects.all().count(),
+        "resumes": resumes,
+        "resumes_count": Resume.objects.all().count(),
+        "categories": categories,
+        "testimonials": testimonials,
     }
 
     return render(request, template, context)
@@ -42,11 +41,11 @@ def home(request):
 @login_required
 def dashboard(request):
     if request.user.is_company:
-        return redirect('employers:account')
+        return redirect("employers:account")
     elif request.user.is_employee:
-        return redirect('employees:dashboard')
+        return redirect("employees:dashboard")
     else:
-        return redirect('core:home')
+        return redirect("core:home")
 
 
 def companies(request):
@@ -65,9 +64,9 @@ def companies(request):
     companies = Company.objects.filter(jobs__isnull=False).distinct()
     companies = mk_paginator(request, companies, 12)
 
-    template = 'core/companies.html'
+    template = "core/companies.html"
     context = {
-        'companies': companies,
+        "companies": companies,
     }
 
     return render(request, template, context)
@@ -85,10 +84,10 @@ def company_detail(request, slug):
     company = get_object_or_404(Company, slug=slug)
     jobs = company.jobs.all()
 
-    template = 'employers/detail.html'
+    template = "employers/detail.html"
     context = {
-        'company': company,
-        'jobs': jobs,
+        "company": company,
+        "jobs": jobs,
         # 'last_seen': request.user.last_seen,
     }
 
@@ -99,9 +98,9 @@ def resumes(request):
     resumes = Resume.objects.all()
     resumes = mk_paginator(request, resumes, 12)
 
-    template = 'core/resumes.html'
+    template = "core/resumes.html"
     context = {
-        'resumes': resumes,
+        "resumes": resumes,
     }
 
     return render(request, template, context)
@@ -109,80 +108,64 @@ def resumes(request):
 
 def help_center(request):
 
-    template = 'core/help-center.html'
-    context = {
-
-    }
+    template = "core/help-center.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def help_article(request):
 
-    template = 'core/help-article.html'
-    context = {
-
-    }
+    template = "core/help-article.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def help_category(request):
 
-    template = 'core/help-category.html'
-    context = {
-
-    }
+    template = "core/help-category.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def faq(request):
 
-    template = 'core/faq.html'
-    context = {
-
-    }
+    template = "core/faq.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def about(request):
 
-    template = 'core/about.html'
-    context = {
-
-    }
+    template = "core/about.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def policy(request):
 
-    template = 'core/policy.html'
-    context = {
-
-    }
+    template = "core/policy.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def post(request):
 
-    template = 'core/post.html'
-    context = {
-
-    }
+    template = "core/post.html"
+    context = {}
 
     return render(request, template, context)
 
 
 def contact(request):
 
-    template = 'core/contact.html'
-    context = {
-
-    }
+    template = "core/contact.html"
+    context = {}
 
     return render(request, template, context)
 

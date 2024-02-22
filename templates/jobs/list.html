@@ -5,6 +5,7 @@
 
 {% block content %}
 
+{% if jobs %}
 <section class="bg-primary">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-end">
@@ -12,19 +13,19 @@
             <div class="text-white text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ jobs.paginator.count }} {% trans 'Jobs Available' %}</h1>
                 <p class="mb-5 lead">
-                    {% if jobs %}
                     {% trans 'We have curated below job openings by hiring companies on our platform. Use the advanced search filter to narrow down job searches.' %}
-                    {% endif %}
                 </p>
             </div>
             <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/job-right.svg' %}" alt="job-right">
         </div>
     </div>
 </section>
+{% endif %}
 
 <section class="bg-light">
     <div class="container my-5">
         <div class="row">
+            {% if jobs %}
             <aside class="col-lg-4 d-none d-lg-block">
                 <div class="card p-4 border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <form action="" method="get">
@@ -32,7 +33,8 @@
                         <div class="form-group mb-4">
                             <label for="title" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i>
                                 Job Title:</label>
-                            <input type="text" name="title" class="form-control border-1" placeholder="Job Title or Keyword" id="title" value="{{ request.GET.title }}">
+                            <input type="text" name="title" class="form-control border-1"
+                                placeholder="Job Title or Keyword" id="title" value="{{ request.GET.title }}">
                         </div>
 
                         <hr class="text-body-secondary border-1">
@@ -43,7 +45,9 @@
                             <select id="category" name="category" class="form-select border-1">
                                 <option value="" selected>---Choose a category---</option>
                                 {% for category in categories %}
-                                <option value="{{ category.name }}" {% if request.GET.category == category.name %}selected{% endif %}>{{ category.name }}</option>
+                                <option value="{{ category.name }}"
+                                    {% if request.GET.category == category.name %}selected{% endif %}>
+                                    {{ category.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -51,11 +55,14 @@
                         <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
-                            <label for="state" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i> State</label>
+                            <label for="state" class="form-label fw-bold mb-3"><i
+                                    class="fa-solid fa-location-dot me-1"></i> State</label>
                             <select id="state" name="state" class="form-select border-1">
                                 <option value="" selected>---Select a State---</option>
                                 {% for state in states %}
-                                <option value="{{ state.name }}" {% if request.GET.state == state.name %}selected{% endif %}>{{ state.name }}</option>
+                                <option value="{{ state.name }}"
+                                    {% if request.GET.state == state.name %}selected{% endif %}>{{ state.name }}
+                                </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -64,12 +71,14 @@
 
 
                         <div class="form-group mb-4">
-                            <label for="gender" class="form-label fw-bold mb-3"><i class="fa-solid fa-venus-mars me-1"></i>
+                            <label for="gender" class="form-label fw-bold mb-3"><i
+                                    class="fa-solid fa-venus-mars me-1"></i>
                                 Gender</label>
                             <select id="gender" name="gender" class="form-select border-1">
                                 <option value="" selected>--Select a gender---</option>
                                 {% for gender in genders %}
-                                <option value="{{ gender.0 }}" {% if request.GET.gender == gender.0 %}selected{% endif %}>{{ gender.1 }}</option>
+                                <option value="{{ gender.0 }}"
+                                    {% if request.GET.gender == gender.0 %}selected{% endif %}>{{ gender.1 }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -84,10 +93,13 @@
                             {% for job_type in job_types %}
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input border-1" name="job_type" type="checkbox" value="{{ job_type.name }}" id="{{ job_type.id }}" {% if request.GET.job_type == job_type.name %}checked{% endif %}>
+                                    <input class="form-check-input border-1" name="job_type" type="checkbox"
+                                        value="{{ job_type.name }}" id="{{ job_type.id }}"
+                                        {% if request.GET.job_type == job_type.name %}checked{% endif %}>
                                     <label class="form-check-label" for="job_type">{{ job_type.name }}</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ job_type.get_total_jobs }}</span>
+                                <span
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ job_type.get_total_jobs }}</span>
                             </div>
                             {% endfor %}
                         </div>
@@ -99,7 +111,8 @@
                                     class="fa-solid fa-clock-rotate-left me-1"></i> Job Posted</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input border-1" type="checkbox" name="posted" value="24h" {% if request.GET.posted == '24h' %}checked{% endif %}>
+                                    <input class="form-check-input border-1" type="checkbox" name="posted" value="24h"
+                                        {% if request.GET.posted == '24h' %}checked{% endif %}>
                                     <label class="form-check-label" for="">Last 24 hours</label>
                                 </div>
                                 <span
@@ -107,17 +120,21 @@
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input border-1" type="checkbox" name="posted" value="7d" {% if request.GET.posted == '7d' %}checked{% endif %}>
+                                    <input class="form-check-input border-1" type="checkbox" name="posted" value="7d"
+                                        {% if request.GET.posted == '7d' %}checked{% endif %}>
                                     <label class="form-check-label" for="">Last 7 days</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_7_days }}</span>
+                                <span
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_7_days }}</span>
                             </div>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
-                                    <input class="form-check-input border-1" name="posted" type="checkbox" value="30d" {% if request.GET.posted == '30d' %}checked{% endif %}>
+                                    <input class="form-check-input border-1" name="posted" type="checkbox" value="30d"
+                                        {% if request.GET.posted == '30d' %}checked{% endif %}>
                                     <label class="form-check-label" for="">Last 30 days</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_30_days }}</span>
+                                <span
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ jobs_last_30_days }}</span>
                             </div>
                         </div>
 
@@ -130,11 +147,15 @@
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     {% with salary_mode_display=salary_mode|get_salary_mode_display %}
-                                    <input class="form-check-input border-1" type="checkbox" name="salary_mode" value="{{ salary_mode }}" {% if request.GET.salary_mode == salary_mode %}checked{% endif %}>
+                                    <input class="form-check-input border-1" type="checkbox" name="salary_mode"
+                                        value="{{ salary_mode }}"
+                                        {% if request.GET.salary_mode == salary_mode %}checked{% endif %}>
                                     {% endwith %}
-                                    <label class="form-check-label" for="salary_mode">{{ salary_mode|get_salary_mode_display }}</label>
+                                    <label class="form-check-label"
+                                        for="salary_mode">{{ salary_mode|get_salary_mode_display }}</label>
                                 </div>
-                                <span class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ count }}</span>
+                                <span
+                                    class="small d-inline-flex px-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary-subtle rounded-5">{{ count }}</span>
                             </div>
                             {% endfor %}
                         </div>
@@ -145,12 +166,12 @@
 
                         <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced
                             Filter</button>
-                        <a href="{% url 'jobs:list' %}" class="btn btn-dark" type="submit"><i class="fa-solid fa-refresh"></i></a>
+                        <a href="{% url 'jobs:list' %}" class="btn btn-dark" type="submit"><i
+                                class="fa-solid fa-refresh"></i></a>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
-                {% if jobs %}
                 <div class="mb-3 border-bottom">
                     <p class="text-body-secondary">Showing <span
                             class="fw-bold">{{ jobs.start_index }}-{{ jobs.end_index }}</span> of <span
@@ -164,16 +185,15 @@
                     {% endfor %}
                 </div>
                 {% include 'partials/_pagination.html' with page_obj=jobs %}
-                {% else %}
-                <div class="text-center pt-5">
-                    <div class="d-block">
-                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptyjobs">
-                    </div>
-                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Found.</p>
-                </div>
-                {% endif %}
             </div>
-
+            {% else %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptyjobs">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Job Opening Found.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

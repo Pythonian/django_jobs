@@ -5,6 +5,7 @@
 
 {% block content %}
 
+{% if companies %}
 <section class="text-bg-primary">
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-end">
@@ -12,19 +13,20 @@
             <div class="text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{{ companies.paginator.count }} {% trans 'Hiring Companies' %}</h1>
                 <p class="mb-5 lead">
-                    {% if companies %}
                     {% trans 'We have curated below job openings by hiring companies on our platform. Use the advanced search filter to narrow down job searches.' %}
-                    {% endif %}
                 </p>
             </div>
-            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}" alt="company-right">
+            <img class="img-fluid w-25 d-none d-lg-block" src="{% static 'img/company-right.svg' %}"
+                alt="company-right">
         </div>
     </div>
 </section>
+{% endif %}
 
 <section class="bg-light">
     <div class="container my-5">
         <div class="row">
+            {% if companies %}
             <aside class="col-lg-4 d-none d-lg-block">
                 <div class="card p-4 border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <form action="" method="get">
@@ -32,13 +34,15 @@
                         <div class="form-group mb-4">
                             <label for="name" class="form-label fw-bold mb-3"><i class="fa-solid fa-search me-1"></i>
                                 Keyword:</label>
-                            <input type="text" name="name" class="form-control border-1" placeholder="Enter name of company" id="name" value="{{ request.GET.name }}">
+                            <input type="text" name="name" class="form-control border-1"
+                                placeholder="Enter name of company" id="name" value="{{ request.GET.name }}">
                         </div>
 
                         <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i> Location</label>
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-location-dot me-1"></i>
+                                Location</label>
                             <select class="form-select">
                                 <option selected>---Select a State---</option>
                                 <option value="1">Adamawa</option>
@@ -50,7 +54,8 @@
                         <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-1"></i> Active</label>
+                            <label for="" class="form-label fw-bold mb-3"><i
+                                    class="fa-solid fa-clock-rotate-left me-1"></i> Active</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
@@ -77,7 +82,8 @@
                         <hr class="text-body-secondary border-1">
 
                         <div class="form-group mb-4">
-                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-users me-1"></i> Staff Strength</label>
+                            <label for="" class="form-label fw-bold mb-3"><i class="fa-solid fa-users me-1"></i> Staff
+                                Strength</label>
                             <div class="form-check mb-3 d-flex justify-content-between">
                                 <div>
                                     <input class="form-check-input" type="checkbox" value="" id="">
@@ -110,30 +116,33 @@
 
                         <hr class="text-body-secondary border-1">
 
-                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced Filter</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-filter me-1"></i> Advanced
+                            Filter</button>
                     </form>
                 </div>
             </aside>
             <div class="col-lg-8">
-                {% if companies %}
                 <div class="mb-3 border-bottom">
-                    <p class="text-body-secondary">Showing <span class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
+                    <p class="text-body-secondary">Showing <span
+                            class="fw-bold">{{ companies.start_index }}-{{ companies.end_index }}</span> of <span
+                            class="fw-bold">{{ companies.paginator.count }}</span> companies</p>
                 </div>
                 <div class="row g-4">
                     {% for company in companies %}
-                    <div class="col-lg-6 {% if forloop.last %}mb-5{% endif %}">{% include 'partials/_company_grid.html' %}</div>
+                    <div class="col-lg-6 {% if forloop.last %}mb-5{% endif %}">
+                        {% include 'partials/_company_grid.html' %}</div>
                     {% endfor %}
                 </div>
                 {% include 'partials/_pagination.html' with page_obj=companies %}
-                {% else %}
-                <div class="text-center pt-5">
-                    <div class="d-block">
-                        <img src="{% static 'img/empty.svg' %}" class="img-fluid w-50" alt="emptycompanies">
-                    </div>
-                    <p class="d-flex justify-content-center mt-5 text-body-secondary">No Company Account Registered Yet.</p>
-                </div>
-                {% endif %}
             </div>
+            {% else %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="emptycompanies">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Hiring Company Available Yet.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

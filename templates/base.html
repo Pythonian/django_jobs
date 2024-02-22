@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,17 +14,20 @@
 
 <body class="d-flex flex-column min-vh-100">
     {% if request.user.is_authenticated and not user.email_verified %}
-        <div class="m-0 rounded-0 alert alert-warning" role="alert">
-            <div class="container">
-                <i class="fa-solid fa-warning me-1"></i> We sent an email confirmation link to <strong>{{ user.email }}</strong>. Please check your email address.
-            </div>
+    <div class="m-0 rounded-0 alert alert-warning" role="alert">
+        <div class="container">
+            <i class="fa-solid fa-warning me-1"></i> We sent an email confirmation link to
+            <strong>{{ user.email }}</strong>. Please check your email address.
         </div>
+    </div>
     {% endif %}
     {% if next %}
     <div class="m-0 rounded-0 alert alert-warning" role="alert">
         <div class="container">
-            <i class="fa-solid fa-warning me-1"></i> {% if request.user.is_authenticated %}Your account doesn't have access to the page. To proceed, please login with an
-            account that has access. {% else %} Please login with your correct credentials to access the page.{% endif %}
+            <i class="fa-solid fa-warning me-1"></i> {% if request.user.is_authenticated %}Your account doesn't have
+            access to the page. To proceed, please login with an
+            account that has access. {% else %} Please login with your correct credentials to access the
+            page.{% endif %}
 
         </div>
     </div>
@@ -46,25 +50,32 @@
                     </li>
                     <li class="nav-item me-lg-2">
                         <a class="nav-link {% url 'core:companies' as companies_url %}{% if request.get_full_path == companies_url %}active{% endif %}"
-                            href="{% url 'core:companies' %}"><i class="me-1 fa-solid fa-building"></i> Employers</a>
+                            href="{% url 'core:companies' %}"><i class="me-1 fa-solid fa-building"></i> Companies</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% url 'core:resumes' as resumes_url %}{% if request.get_full_path == resumes_url %}active{% endif %}"
-                            href="{% url 'core:resumes' %}"><i class="me-1 fa-solid fa-file-lines"></i> Resumes</a>
+                            href="{% url 'core:resumes' %}"><i class="me-1 fa-solid fa-user-tie"></i> Candidates</a>
                     </li>
                 </ul>
                 <div class="d-flex mb-3 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     <div class="dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {% if user.is_company %} {{ user.company.contact_person }} {% else %}{{ request.user.get_full_name }}{% endif %}
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.is_company %} {{ user.company.contact_person }}
+                            {% else %}{{ request.user.get_full_name }}{% endif %}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             {% if user.is_company %}
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:account' %}"><i class="fa-solid fa-user me-1"></i> My Account</a></li>
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:jobs' %}"><i class="fa-solid fa-briefcase me-1"></i> Manage Jobs</a></li>
-                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:candidates' %}"><i class="fa-solid fa-users me-1"></i> Manage Candidates</a>
-                            {% else %}
+                            <li class="mb-2"><a class="text-primary dropdown-item"
+                                    href="{% url 'employers:account' %}"><i class="fa-solid fa-user me-1"></i> My
+                                    Account</a></li>
+                            <li class="mb-2"><a class="text-primary dropdown-item" href="{% url 'employers:jobs' %}"><i
+                                        class="fa-solid fa-briefcase me-1"></i> Manage Jobs</a></li>
+                            <li class="mb-2"><a class="text-primary dropdown-item"
+                                    href="{% url 'employers:candidates' %}"><i class="fa-solid fa-users me-1"></i>
+                                    Manage Candidates</a>
+                                {% else %}
                             <li class="mb-2">
                                 <a class="text-primary dropdown-item" href="{% url 'employees:dashboard' %}">
                                     <i class="fa-solid fa-gauge me-1"></i> My Dashboard
@@ -100,15 +111,19 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                <a class="dropdown-item text-danger" data-bs-toggle="modal"
+                                    data-bs-target="#logoutModal">
                                     <i class="fa-solid fa-power-off me-1"></i> Logout
                                 </a>
                             </li>
                         </ul>
                     </div>
                     {% else %}
-                    <a href="{% url 'auth:login' %}" class="btn {% url 'auth:login' as login_url %}{% if request.get_full_path == login_url %}btn-light{% else %}btn-outline-light{% endif %} me-2"><i class="fa-solid fa-right-to-bracket me-1"></i> Login</a>
-                    <a href="{% url 'auth:signup_choice' %}" class="btn btn-primary"><i class="fa-solid fa-user-plus me-1"></i> Register</a>
+                    <a href="{% url 'auth:login' %}"
+                        class="btn {% url 'auth:login' as login_url %}{% if request.get_full_path == login_url %}btn-light{% else %}btn-outline-light{% endif %} me-2"><i
+                            class="fa-solid fa-right-to-bracket me-1"></i> Login</a>
+                    <a href="{% url 'auth:signup_choice' %}" class="btn btn-primary"><i
+                            class="fa-solid fa-user-plus me-1"></i> Register</a>
                     {% endif %}
                 </div>
             </div>
@@ -134,4 +149,5 @@
     {% block scripts %}{% endblock scripts %}
 
 </body>
+
 </html>

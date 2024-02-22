@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Command(BaseCommand):
-    help = 'Create a new superuser'
+    help = "Create a new superuser"
 
     def handle(self, *args, **options):
-        User.objects.create_superuser(username='admin', email='admin', password='admin')
+        User.objects.create_superuser(username="admin", email="admin@admin.com", password="admin")
 
-        self.stdout.write(self.style.SUCCESS('Superuser created successfully!'))
+        self.stdout.write(self.style.SUCCESS("Superuser created successfully!"))
