@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import TemplateView
 
 from apps.accounts.models import Company, Resume
 from apps.core.utils import mk_paginator
@@ -106,30 +107,6 @@ def resumes(request):
     return render(request, template, context)
 
 
-def help_center(request):
-
-    template = "core/help-center.html"
-    context = {}
-
-    return render(request, template, context)
-
-
-def help_article(request):
-
-    template = "core/help-article.html"
-    context = {}
-
-    return render(request, template, context)
-
-
-def help_category(request):
-
-    template = "core/help-category.html"
-    context = {}
-
-    return render(request, template, context)
-
-
 def faq(request):
 
     template = "core/faq.html"
@@ -138,20 +115,12 @@ def faq(request):
     return render(request, template, context)
 
 
-def about(request):
-
-    template = "core/about.html"
-    context = {}
-
-    return render(request, template, context)
+class AboutView(TemplateView):
+    template_name = "core/about.html"
 
 
-def policy(request):
-
-    template = "core/policy.html"
-    context = {}
-
-    return render(request, template, context)
+class PolicyView(TemplateView):
+    template_name = "core/policy.html"
 
 
 def post(request):

@@ -9,12 +9,11 @@
         <div class="d-flex justify-content-center align-items-end">
             <div class="text-center">
                 <h1 class="fw-bolder mt-5 mb-4">{% trans 'Help Center' %}</h1>
-                <p class="mb-5 lead px-1">
+                <p class="mb-3 lead px-1">
                     {% trans 'We are here to help you better use BlueJobs. First, let us figure out if we have a solution in our documentation.' %}
                 </p>
             </div>
         </div>
-    </div>
 </section>
 
 <section class="bg-white">
@@ -22,15 +21,18 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="row g-5">
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
+                    {% for category in categories %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        {% include 'partials/_help_card.html' %}
+                    </div>
+                    {% empty %}
+                    <div class="text-center pt-5">
+                        <div class="d-block">
+                            <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="empty">
+                        </div>
+                        <p class="d-flex justify-content-center mt-5 text-body-secondary">No Help Categories</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

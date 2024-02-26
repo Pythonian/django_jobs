@@ -1,9 +1,14 @@
 import os
 
+
 # Define a function to count the lines of code in a file with a given extension
 def count_lines(filename, extension):
-    with open(filename, encoding='ISO-8859-1') as f:
-        return sum(1 for line in f if line.strip() and line.strip()[0] != "#" and line.strip()[0] != "/" and filename.endswith(extension))
+    with open(filename, encoding="ISO-8859-1") as f:
+        return sum(
+            1
+            for line in f
+            if line.strip() and line.strip()[0] != "#" and line.strip()[0] != "/" and filename.endswith(extension)
+        )
 
 
 # Define a function to count the lines of code in a directory

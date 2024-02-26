@@ -2,14 +2,15 @@ from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from faker import Faker
 import random
+
 from ...models import Job, Category, JobType, State
-from apps.accounts.models import Company, Employee
+from ...models import Company
 
 fake = Faker()
 
 
 class Command(BaseCommand):
-    help = 'Populate the database with sample data for the Job model'
+    help = "Populate the database with sample data for the Job model"
 
     def handle(self, *args, **kwargs):
         companies = Company.objects.all()
@@ -26,7 +27,7 @@ class Command(BaseCommand):
             maximum_salary_amount = fake.random_int(min=100000, max=200000, step=1000)
             experience = fake.random_int(min=1, max=5)
             vacancy = fake.random_int(min=1, max=20)
-            application_deadline = fake.date_between(start_date='today', end_date='+1y')
+            application_deadline = fake.date_between(start_date="today", end_date="+1y")
             qualification_title = fake.job()
             gender = random.choice(Job.GenderStatus.choices)[0]
             status = random.choice(Job.JobStatus.choices)[0]
@@ -59,5 +60,5 @@ class Command(BaseCommand):
                 state=state,
                 impressions=impressions,
                 sponsored=sponsored,
-                created=created
+                created=created,
             )

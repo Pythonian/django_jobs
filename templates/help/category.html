@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n core_utils %}
 
-{% block title %}{% trans 'Help Center' %} | {% trans 'Account' %}{% endblock %}
+{% block title %}{% trans 'Help Center' %} | {{ category.name }}{% endblock %}
 
 {% block content %}
 
@@ -12,8 +12,9 @@
             <div class="col-lg-10 mx-auto">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'core:help_center' %}" class="text-decoration-none">Help Center</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Account</li>
+                        <li class="breadcrumb-item"><a href="{% url 'help:index' %}"
+                                class="text-decoration-none">{% trans 'Help Center' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
                     </ol>
                 </nav>
             </div>
@@ -29,32 +30,34 @@
                     <div class="flex-shrink-0">
                         <span class="fa-stack fa-2x text-primary">
                             <i class="fa-solid fa-circle fa-stack-2x"></i>
-                            <i class="fa-solid fa-user fa-stack-1x fa-inverse"></i>
+                            <i class="fa-solid fa-{{ category.icon }} fa-stack-1x fa-inverse"></i>
                         </span>
                     </div>
                     <div class="ms-3">
-                        <h4 class="m-0 text-primary">{% trans 'Account' %}</h4>
-                        <h6 class="fw-normal">{% trans 'Let us try and fix your account issues.' %}</h6>
+                        <h4 class="m-0 text-primary">{{ category.name }}</h4>
+                        <h6 class="fw-normal">{{ category.description }}</h6>
                     </div>
                 </div>
 
                 <hr class="my-5">
 
                 <div class="row g-3 mb-5">
-                    {% for article in 12|make_list %}
+                    {% for article in articles %}
                     <div class="col-lg-4 col-sm-6">
-                    {% include 'partials/_related_article.html' %}
+                        {% include 'partials/_related_article.html' %}
                     </div>
                     {% endfor %}
                 </div>
 
-                <h4>Related Help Center Categories</h4>
+                <h4>Other Helpful Categories</h4>
                 <p class="text-body-secondary mb-5">If you did not find what you needed, these could help!</p>
 
                 <div class="row g-5">
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
-                    {% include 'partials/_help_card.html' %}
+                    {% for category in random_categories %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        {% include 'partials/_help_card.html' %}
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

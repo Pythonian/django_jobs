@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %} | Blue Jobs</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/fontawesome/all.min.css' %}">
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
@@ -28,7 +29,6 @@
             access to the page. To proceed, please login with an
             account that has access. {% else %} Please login with your correct credentials to access the
             page.{% endif %}
-
         </div>
     </div>
     {% endif %}
@@ -137,13 +137,17 @@
     {% include 'partials/_footer.html' %}
     {% include 'modals/logout.html' %}
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
+        // Initialize Bootstrap Toast Component 
         window.onload = (event) => {
             let myAlert = document.querySelector('.toast');
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
         }
+        // Initialize AOS
+        AOS.init();
     </script>
 
     {% block scripts %}{% endblock scripts %}

@@ -23,14 +23,16 @@
                             </div>
                             <div class="ms-1">
                                 <h6 class="m-0 text-primary">{% trans 'Login and get productive' %}</h6>
-                                <small class="text-body-secondary">{% trans 'Your personal data will be used to support your experience throughout this website.' %}</small>
+                                <small
+                                    class="text-body-secondary">{% trans 'Your personal data will be used to support your experience throughout this website.' %}</small>
                             </div>
                         </div>
                         <form method="post" action="">
                             {% csrf_token %}
 
                             {% if form.non_field_errors %}
-                            <div class="alert alert-danger border border-danger border-5 border-top-0 border-end-0 border-bottom-0" role="alert">
+                            <div class="alert alert-danger border border-danger border-5 border-top-0 border-end-0 border-bottom-0"
+                                role="alert">
                                 <i class="fa-solid fa-warning me-1"></i> Error! Your login credentials is incorrect.
                             </div>
                             {% endif %}
@@ -50,13 +52,16 @@
                                 </div>
                             </div>
 
-                            <small class="fw-bold"><a href="{% url 'auth:password_reset' %}" class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
+                            <small class="fw-bold"><a href="{% url 'auth:password_reset' %}"
+                                    class="text-decoration-none">{% trans 'Forgot Password?' %}</a></small>
                             <div class="my-3">
-                                <button id="login" type="submit" class="btn btn-primary btn-lg rounded w-100">{% trans 'Login' %}</button>
+                                <button id="login" type="submit"
+                                    class="btn btn-primary btn-lg rounded w-100 fs-6">{% trans 'Login' %}</button>
                             </div>
                         </form>
                         <div class="text-center my-4">
-                            <small><span class="text-body-secondary">Don't have an account?</span> <a href="{% url 'auth:signup_choice' %}">{% trans 'Signup now!' %}</a></small>
+                            <small><span class="text-body-secondary">Don't have an account?</span> <a
+                                    href="{% url 'auth:signup_choice' %}">{% trans 'Signup now!' %}</a></small>
                         </div>
                     </div>
                 </div>

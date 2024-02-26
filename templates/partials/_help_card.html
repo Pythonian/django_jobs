@@ -1,18 +1,16 @@
-<div class="col-12 col-md-6 col-lg-4">
-    <div class="card bg-white border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow h-100">
-        <div class="card-body pb-4 pt-5 px-5 text-center">
-            <div class="mb-3">
-                <span class="fa-stack fa-2x text-primary">
-                    <i class="fa-solid fa-circle fa-stack-2x"></i>
-                    <i class="fa-solid fa-sitemap fa-stack-1x fa-inverse"></i>
-                </span>
-            </div>
-            <a href="{% url 'core:help_category' %}"
-                class="fs-5 d-block stretched-link text-decoration-none mb-2">Account</a>
-            <p class="text-body-secondary">Issues related to logging in, out, or about multiple devices.</p>
-            <p
-                class="small d-inline-flex px-2 py-1 fw-semibold text-primary font-monospace bg-primary bg-opacity-10 border border-primary-subtle rounded-5">
-                21 ARTICLES</p>
+<div class="card border-3 border-primary border-start-0 border-end-0 border-bottom-0 shadow h-100">
+    <div class="card-body pb-4 pt-5 px-5 text-center">
+        <div class="mb-3">
+            <span class="fa-stack fa-2x text-primary">
+                <i class="fa-solid fa-circle fa-stack-2x"></i>
+                <i class="fa-solid fa-{{ category.icon }} fa-stack-1x fa-inverse"></i>
+            </span>
         </div>
+        <a href="{{ category.get_absolute_url }}"
+            class="d-block stretched-link text-decoration-none mb-2">{{category.name }}</a>
+        <p class="text-body-secondary">{{ category.description }}</p>
+        <p
+            class="small d-inline-flex px-3 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border-primary-subtle rounded-5">
+            {{ category.get_article_count }} Article{{ category.get_article_count|pluralize }}</p>
     </div>
 </div>

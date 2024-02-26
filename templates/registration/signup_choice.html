@@ -7,37 +7,48 @@
 
 <section class="py-lg-5 bg-white">
     <div class="container my-4">
-        <div class="row mx-lg-5 g-4">
-            <div class="text-center text-primary">
-                <h2>{% trans 'Choose Your Account Type' %}</h2>
+        <div class="row mx-auto g-4 d-flex justify-content-center">
+            <div class="text-center mb-3">
+                <h5 class="text-primary mb-3">{% trans 'How do you plan to use BlueJobs today' %}?</h5>
+                <h3>{% trans 'Choose Your Account Type' %}</h3>
             </div>
-            <div class="col-lg-6">
-                <div class="card p-5 text-center border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
+            <div class="col-lg-5">
+                <div
+                    class="card p-5 text-center border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <div class="text-center mb-3">
                         <span class="fa-stack fa-4x text-primary">
                             <i class="fa-solid fa-circle fa-stack-2x"></i>
-                            <i class="fa-solid fa-user fa-stack-1x fa-inverse"></i>
+                            <i class="fa-solid fa-user-tie fa-stack-1x fa-inverse"></i>
                         </span>
                     </div>
-                    <h3>{% trans 'Job Seeker' %}</h3>
-                    <p class="text-body-secondary">{% trans 'Are you looking for your dream job?' %} <br>{% trans 'Create a unique career profile with' %} Blue Jobs.</p>
+                    <!-- <h3>{% trans 'Job Seeker' %}</h3> -->
+                    <!-- <p class="text-body-secondary">{% trans 'Are you looking for your dream job?' %}
+                        <br>{% trans 'Create a unique career profile with' %} Blue Jobs.
+                    </p> -->
+                    <p class="text-body-secondary">
+                        {% trans 'I am a Job Seeker. I want to create my resume and find personalised job openings' %}
+                    </p>
                     <div class="d-flex justify-content-center">
-                        <a href="{% url 'auth:signup_employee' %}" class="btn btn-primary">{% trans 'Signup as Seeker' %}</a>
+                        <a href="{% url 'auth:signup_employee' %}"
+                            class="btn btn-primary">{% trans 'Continue as a Job Seeker' %}</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="card p-5 text-center border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
+            <div class="col-lg-5">
+                <div
+                    class="card p-5 text-center border border-primary border-3 border-start-0 border-end-0 border-bottom-0 shadow">
                     <div class="text-center mb-3">
                         <span class="fa-stack fa-4x text-primary">
                             <i class="fa-solid fa-circle fa-stack-2x"></i>
                             <i class="fa-solid fa-building fa-stack-1x fa-inverse"></i>
                         </span>
                     </div>
-                    <h3>{% trans 'Employer' %}</h3>
-                    <p class="text-body-secondary">{% trans 'Are you looking for quality candidates? <br>Advertise and search with' %} Blue Jobs.</p>
+                    <p class="text-body-secondary">
+                        {% trans 'I am an Employer. I want to look for quality candidates for my company.' %}
+                    </p>
                     <div class="d-flex justify-content-center">
-                        <a href="{% url 'auth:signup_employer' %}" class="btn btn-primary">{% trans 'Signup as Employer' %}</a>
+                        <a href="{% url 'auth:signup_employer' %}"
+                            class="btn btn-primary">{% trans 'Continue as an Employer' %}</a>
                     </div>
                 </div>
             </div>
