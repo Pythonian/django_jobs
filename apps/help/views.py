@@ -17,8 +17,16 @@ def index(request):
 
 def article(request, category_slug, article_slug):
 
+    category = get_object_or_404(Category, slug=category_slug)
+    article = get_object_or_404(Article, category=category, slug=article_slug)
+    related_categories = Category.objects.exclude(articles__isnull=True).order_by("?")[:3]
+
     template = "help/article.html"
-    context = {}
+    context = {
+        "article": article,
+        "category": category,
+        "related_categories": related_categories,
+    }
 
     return render(request, template, context)
 
