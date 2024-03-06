@@ -1,38 +1,38 @@
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
-from faker import Faker
-from faker.providers import DynamicProvider
-
 from ...models import Category
 
-elements = [
-    "Getting Started",
-    "Your Account",
-    "General Settings",
-    "Technical Issues",
-    "Favourite Pages",
-    "Report Guidelines",
+categories = [
+    "Account Management",
+    "Job Search and Applications",
+    "Recruitment Guide",
+    "Technical Support",
+    "Privacy and Security",
+    "User Experience",
 ]
 
-helpcategory_provider = DynamicProvider(
-    provider_name="helpcategory",
-    elements=elements,
-)
+icons = ["user", "cog", "file", "question", "lock", "chart-bar"]
 
-fake = Faker()
-fake.add_provider(helpcategory_provider)
+descriptions = [
+    "Manage your account settings and security.",
+    "How to find and apply for jobs easily.",
+    "Guidance for recruiters and job posters.",
+    "Get technical assistance and troubleshooting tips.",
+    "Learn about our privacy measures and security policies.",
+    "Enhance your user experience with our platform.",
+]
 
 
 class Command(BaseCommand):
     help = "Populate the database with Help Categories data"
 
     def handle(self, *args, **kwargs):
-        for _ in range(len(elements)):
+        for i in range(len(categories)):
             Category.objects.get_or_create(
-                name=fake.helpcategory(),
-                slug=slugify(fake.helpcategory()),
-                description=fake.text(),
-                icon="user",
+                name=categories[i],
+                slug=slugify(categories[i]),
+                description=descriptions[i],
+                icon=icons[i],
             )
-        self.stdout.write(self.style.SUCCESS(f"Successfully added {len(elements)} Help Categories"))
+        self.stdout.write(self.style.SUCCESS(f"Successfully added {len(categories)} Help Categories"))

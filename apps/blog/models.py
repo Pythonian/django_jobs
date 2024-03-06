@@ -1,6 +1,6 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
-from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
@@ -50,7 +50,7 @@ class Post(models.Model):
         unique_for_date="publish",
     )
     author = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name=_("author"),
         related_name="posts",

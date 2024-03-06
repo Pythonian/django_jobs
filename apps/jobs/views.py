@@ -5,11 +5,24 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.db.models import Count
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 from .forms import JobForm, ApplicationForm
 from .models import Job, State, JobType, Category
 from apps.core.utils import mk_paginator
 from apps.accounts.decorators import employer_required
 import random
+
+
+class JobCreateView(LoginRequiredMixin, CreateView):
+    model = Job
+    template_name = "jobs/form.html"
+    fields = ("title", "description")
+
+    def form_valid(self, form):
+        form.instance.company = self.request.user.company
+        return super().form_valid(form)
 
 
 @login_required
@@ -25,7 +38,7 @@ def job_create(request):
         form (JobForm)
     """
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = JobForm(request.POST)
         if form.is_valid():
             job = form.save(commit=False)
@@ -38,9 +51,9 @@ def job_create(request):
     else:
         form = JobForm()
 
-    template = 'jobs/form.html'
+    template = "jobs/form.html"
     context = {
-        'form': form,
+        "form": form,
     }
 
     return render(request, template, context)
@@ -86,11 +99,10 @@ def job_list(request):
     # maps each salary mode to a count of 0 in the dictionary
     salary_mode_counts = {mode: 0 for mode in salary_modes}
     # counts the number of Job objects for each salary mode
-    salary_mode_counts_query = Job.active.values('salary_mode') \
-        .annotate(jobs_count=Count('id'))
+    salary_mode_counts_query = Job.active.values("salary_mode").annotate(jobs_count=Count("id"))
     # updates the count of the corresponding salary mode in the dictionary
     for smc in salary_mode_counts_query:
-        salary_mode_counts[smc.get('salary_mode')] = smc.get('jobs_count')
+        salary_mode_counts[smc.get("salary_mode")] = smc.get("jobs_count")
 
     last_24_hours = timezone.now() - timezone.timedelta(hours=24)
     jobs_last_24_hours = jobs.filter(created__gte=last_24_hours).count()
@@ -101,13 +113,13 @@ def job_list(request):
     last_30_days = timezone.now() - timezone.timedelta(days=30)
     jobs_last_30_days = jobs.filter(created__gte=last_30_days).count()
 
-    title = request.GET.get('title', None)
-    category = request.GET.get('category', None)
-    state = request.GET.get('state', None)
-    gender = request.GET.get('gender', None)
-    job_type = request.GET.get('job_type', None)
-    salary_mode = request.GET.get('salary_mode', None)
-    posted = request.GET.get('posted', None)
+    title = request.GET.get("title", None)
+    category = request.GET.get("category", None)
+    state = request.GET.get("state", None)
+    gender = request.GET.get("gender", None)
+    job_type = request.GET.get("job_type", None)
+    salary_mode = request.GET.get("salary_mode", None)
+    posted = request.GET.get("posted", None)
 
     if title:
         jobs = jobs.filter(title__icontains=title)
@@ -122,27 +134,27 @@ def job_list(request):
     if salary_mode:
         jobs = jobs.filter(salary_mode=salary_mode)
     if posted:
-        if posted == '24h':
+        if posted == "24h":
             jobs = jobs.filter(created__gte=timezone.now() - timedelta(hours=24))
-        elif posted == '7d':
+        elif posted == "7d":
             jobs = jobs.filter(created__gte=timezone.now() - timedelta(days=7))
-        elif posted == '30d':
+        elif posted == "30d":
             jobs = jobs.filter(created__gte=timezone.now() - timedelta(days=30))
 
     # Paginate the jobs queryset
     jobs = mk_paginator(request, jobs, 6)
 
-    template = 'jobs/list.html'
+    template = "jobs/list.html"
     context = {
-        'jobs': jobs,
-        'states': states,
-        'job_types': job_types,
-        'categories': categories,
-        'genders': genders,
-        'jobs_last_24_hours': jobs_last_24_hours,
-        'jobs_last_7_days': jobs_last_7_days,
-        'jobs_last_30_days': jobs_last_30_days,
-        'salary_mode_counts': salary_mode_counts,
+        "jobs": jobs,
+        "states": states,
+        "job_types": job_types,
+        "categories": categories,
+        "genders": genders,
+        "jobs_last_24_hours": jobs_last_24_hours,
+        "jobs_last_7_days": jobs_last_7_days,
+        "jobs_last_30_days": jobs_last_30_days,
+        "salary_mode_counts": salary_mode_counts,
     }
 
     return render(request, template, context)
@@ -178,7 +190,7 @@ def job_detail(request, slug):
     job = get_object_or_404(Job, slug=slug)
 
     # Create a session key for a user
-    session_key = 'viewed_job_{}'.format(job.pk)
+    session_key = "viewed_job_{}".format(job.pk)
     if not request.session.get(session_key, False):
         job.impressions += 1
         job.save()
@@ -194,7 +206,7 @@ def job_detail(request, slug):
 
     applicants = job.applicants.count()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ApplicationForm(request.POST)
         if form.is_valid():
             if is_employee:
@@ -210,19 +222,29 @@ def job_detail(request, slug):
     else:
         form = ApplicationForm()
 
-    template = 'jobs/detail.html'
+    template = "jobs/detail.html"
     context = {
-        'job': job,
-        'form': form,
-        'applicants': applicants,
-        'applied': applied,
-        'bookmarked': bookmarked,
-        'similar_jobs_by_category': similar_jobs_by_category,
-        'related_jobs_by_company': related_jobs_by_company,
-        'related_jobs_by_job_type': related_jobs_by_job_type,
+        "job": job,
+        "form": form,
+        "applicants": applicants,
+        "applied": applied,
+        "bookmarked": bookmarked,
+        "similar_jobs_by_category": similar_jobs_by_category,
+        "related_jobs_by_company": related_jobs_by_company,
+        "related_jobs_by_job_type": related_jobs_by_job_type,
     }
 
     return render(request, template, context)
+
+
+class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Job
+    fields = ("title", "description")
+    template_name = "jobs/form.html"
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.company == self.request.user.company
 
 
 @login_required
@@ -238,7 +260,7 @@ def job_update(request, pk):
             job object
     """
     job = get_object_or_404(Job, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = JobForm(request.POST, instance=job)
         if form.is_valid():
             form.save()
@@ -246,13 +268,23 @@ def job_update(request, pk):
     else:
         form = JobForm(instance=job)
 
-    template_name = 'jobs/form.html'
+    template_name = "jobs/form.html"
     context = {
-        'form': form,
-        'job': job,
+        "form": form,
+        "job": job,
     }
 
     return render(request, template_name, context)
+
+
+class JobDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Job
+    template_name = "jobs/delete_confirm.html"
+    success_url = reverse_lazy("jobs:list")
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.company == self.request.user.company
 
 
 @login_required
@@ -266,14 +298,14 @@ def job_delete(request, pk):
             job object
     """
     job = get_object_or_404(Job, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         # job.is_active = False
         job.save()
-        return redirect('employers:jobs')
+        return redirect("employers:jobs")
 
-    template_name = 'jobs/delete_confirm.html'
+    template_name = "jobs/delete_confirm.html"
     context = {
-        'job': job,
+        "job": job,
     }
 
     return render(request, template_name, context)
@@ -284,8 +316,8 @@ def add_bookmark(request, id):
     job = get_object_or_404(Job, id=id)
     if job.bookmarks.filter(id=request.user.employee.id).exists():
         job.bookmarks.remove(request.user.employee)
-        messages.success(request, 'Bookmark removed')
+        messages.success(request, "Bookmark removed")
     else:
         job.bookmarks.add(request.user.employee)
-        messages.success(request, 'Bookmark added')
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        messages.success(request, "Bookmark added")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
