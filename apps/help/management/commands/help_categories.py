@@ -12,7 +12,14 @@ categories = [
     "User Experience",
 ]
 
-icons = ["user", "cog", "file", "question", "lock", "chart-bar"]
+icons = [
+    "user",
+    "cog",
+    "file",
+    "question",
+    "lock",
+    "chart-bar",
+]
 
 descriptions = [
     "Manage your account settings and security.",

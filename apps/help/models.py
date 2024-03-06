@@ -43,6 +43,7 @@ class Article(models.Model):
         "Category",
         on_delete=models.PROTECT,
         verbose_name=_("category"),
+        related_name=_("articles"),
         help_text=_("Category linked to this Help Article."),
     )
     title = models.CharField(

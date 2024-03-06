@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n core_utils %}
+{% load i18n static %}
 
 {% block title %}{% trans 'Help Center' %} | {{ category.name }}{% endblock %}
 
@@ -13,7 +13,8 @@
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{% url 'help:index' %}"
-                                class="text-decoration-none">{% trans 'Help Center' %}</a></li>
+                                class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{% trans 'Help Center' %}</a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
                     </ol>
                 </nav>
@@ -46,9 +47,17 @@
                     <div class="col-lg-4 col-sm-6">
                         {% include 'partials/_related_article.html' %}
                     </div>
+                    {% empty %}
+                    <div class="text-center pt-5">
+                        <div class="d-block">
+                            <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="empty">
+                        </div>
+                        <p class="d-flex justify-content-center mt-5 text-body-secondary">No Help Articles Yet</p>
+                    </div>
                     {% endfor %}
                 </div>
 
+                {% if random_categories %}
                 <h4>Other Helpful Categories</h4>
                 <p class="text-body-secondary mb-5">If you did not find what you needed, these could help!</p>
 
@@ -59,6 +68,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
