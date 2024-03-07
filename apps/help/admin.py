@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Category, FrequentlyAskedQuestion
+from .models import Article, Category, FrequentlyAskedQuestion, Testimonial
 
 
 @admin.register(Article)
@@ -26,3 +26,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class FrequentlyAskedQuestionAdmin(admin.ModelAdmin):
     list_display = ["question"]
     search_fields = ["question", "answer"]
+
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ["fullname", "rating"]
+    search_fields = ["fullname", "content"]
+    list_filter = ["rating"]

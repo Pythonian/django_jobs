@@ -95,3 +95,24 @@ class FrequentlyAskedQuestion(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class Testimonial(models.Model):
+    fullname = models.CharField(
+        _("full name"),
+        max_length=30,
+    )
+    content = models.CharField(
+        _("content"),
+        max_length=100,
+    )
+    rating = models.PositiveSmallIntegerField(
+        _("rating"),
+    )
+
+    class Meta:
+        verbose_name = _("testimonial")
+        verbose_name_plural = _("testimonials")
+
+    def __str__(self):
+        return f"Testimony by {self.fullname}"

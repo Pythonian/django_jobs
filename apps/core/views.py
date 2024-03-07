@@ -6,7 +6,7 @@ from apps.accounts.models import Company, Resume
 from apps.core.utils import mk_paginator
 from apps.jobs.models import Job, State, Category
 
-from .models import Testimonial
+from apps.help.models import Testimonial
 
 
 def home(request):
@@ -21,7 +21,7 @@ def home(request):
     companies = Company.objects.filter(jobs__isnull=False).distinct()[:6]
     resumes = Resume.objects.all()[:5]
     categories = Category.objects.all()[:8]
-    testimonials = Testimonial.objects.all()[:3]
+    testimonials = Testimonial.objects.order_by("?")[:3]
 
     template = "core/home.html"
     context = {
