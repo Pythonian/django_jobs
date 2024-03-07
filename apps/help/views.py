@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Article, Category
+from .models import Article, Category, FrequentlyAskedQuestion
 
 
 def index(request):
@@ -41,6 +41,18 @@ def category(request, slug):
         "category": category,
         "articles": articles,
         "random_categories": random_categories,
+    }
+
+    return render(request, template, context)
+
+
+def faq(request):
+
+    questions = FrequentlyAskedQuestion.objects.all()
+
+    template = "help/faq.html"
+    context = {
+        "questions": questions,
     }
 
     return render(request, template, context)

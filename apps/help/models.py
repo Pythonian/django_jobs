@@ -77,3 +77,21 @@ class Article(models.Model):
                 "category_slug": self.category.slug,
             },
         )
+
+
+class FrequentlyAskedQuestion(models.Model):
+    question = models.CharField(
+        _("question"),
+        max_length=255,
+        unique=True,
+    )
+    answer = models.TextField(
+        _("answer"),
+    )
+
+    class Meta:
+        verbose_name = _("frequently asked question")
+        verbose_name_plural = _("frequently asked questions")
+
+    def __str__(self):
+        return self.question

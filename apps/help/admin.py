@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Category
+from .models import Article, Category, FrequentlyAskedQuestion
 
 
 @admin.register(Article)
@@ -20,3 +20,9 @@ class CategoryAdmin(admin.ModelAdmin):
         return obj.get_article_count()
 
     get_article_count.short_description = "No. of Articles"
+
+
+@admin.register(FrequentlyAskedQuestion)
+class FrequentlyAskedQuestionAdmin(admin.ModelAdmin):
+    list_display = ["question"]
+    search_fields = ["question", "answer"]

@@ -7,13 +7,12 @@
                 </div>
                 <div class="flex-grow ps-3">
                     <h5 class="mt-1"><a class="text-primary text-decoration-none" data-bs-toggle="collapse"
-                            href="#faq-{{ forloop.counter }}" role="button" aria-expanded="false"
-                            aria-controls="faq-{{ forloop.counter }}">
-                            What stack is your website portfolio built with?
+                            href="#faq-{{ question.pk }}" role="button" aria-expanded="false"
+                            aria-controls="faq-{{ question.pk }}">
+                            {{ question.question }}
                         </a></h5>
-                    <div class="collapse" id="faq-{{ forloop.counter }}">
-                        <p>It was built with Bootstrap; icons from Fontawesome; illustration images from undraw and
-                            animated with the AOS library. Netlify hosts this. View on github</p>
+                    <div class="collapse" id="faq-{{ question.pk }}">
+                        <p>{{ question.answer|safe }}</p>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load i18n core_utils %}
+{% load i18n static %}
 
-{% block title %}{% trans 'Frequently Asked Questions' %}{% endblock %}
+{% block title %}{% trans 'Frequently Asked Questions' %} | {% trans 'Help Center' %}{% endblock %}
 
 {% block content %}
 
@@ -21,9 +21,16 @@
 <section class="bg-white">
     <div class="container my-5">
         <div class="row g-3">
+            {% for question in questions %}
             {% include 'partials/_faq_grid.html' %}
-            {% include 'partials/_faq_grid.html' %}
-            {% include 'partials/_faq_grid.html' %}
+            {% empty %}
+            <div class="text-center pt-5">
+                <div class="d-block">
+                    <img src="{% static 'img/empty.svg' %}" class="img-fluid w-25" alt="empty">
+                </div>
+                <p class="d-flex justify-content-center mt-5 text-body-secondary">No Questions Yet</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

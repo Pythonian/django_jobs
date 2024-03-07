@@ -107,14 +107,6 @@ def resumes(request):
     return render(request, template, context)
 
 
-def faq(request):
-
-    template = "core/faq.html"
-    context = {}
-
-    return render(request, template, context)
-
-
 class AboutView(TemplateView):
     template_name = "core/about.html"
 
