@@ -13,3 +13,10 @@ class ArticleAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_display = ["name", "description", "get_article_count"]
+    search_fields = ["name", "description"]
+
+    def get_article_count(self, obj):
+        return obj.get_article_count()
+
+    get_article_count.short_description = "No. of Articles"
