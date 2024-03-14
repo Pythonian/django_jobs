@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Work with Us' %}{% endblock title %}
+
+{% block content %}
+
+<section class="text-bg-primary">
+    <div class="container my-4 py-4">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
+                <div class="text-center">
+                    <h1 class="fw-bolder my-4">{% trans 'Work with BlueJobs. Join Us.' %}</h1>
+                    <p class="mb-3 lead px-1">
+                        {% trans 'We are always on the lookout for passionate and inspired individuals looking to do impactful work and make positive change. Sound like you? You might belong at BlueJobs.' %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-lg-5">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="mb-4">
+                    <small class="text-uppercase fw-bold text-primary">Our culture</small>
+                    <p class="mb-0 lead mt-3">We base our philosophy on the principles of learning, collaboration,
+                        transparency, experimentation and passion.</p>
+                </div>
+            </div>
+            <div class="offset-xl-1 col-xl-4 col-md-6">
+                <ul class="mb-0 list-unstyled">
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary fs-6"></i>
+                        <span class="ms-2">
+                            We are
+                            <span class="text-primary fw-semibold">goal-driven</span>
+                            and
+                            <span class="text-primary fw-semibold">dedicated</span>
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary fs-6"></i>
+                        <span class="ms-2">
+                            We
+                            <span class="text-primary fw-semibold">use our own tools</span>
+                            every day
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary fs-6"></i>
+                        <span class="ms-2">
+                            We thrive together with our
+                            <span class="text-primary fw-semibold">community</span>
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary fs-6"></i>
+                        <span class="ms-2">
+                            We are
+                            <span class="text-primary fw-semibold">customer obsessed</span>
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary fs-6"></i>
+                        <span class="ms-2">
+                            We believe in
+                            <span class="text-primary fw-semibold">people's ability to grow</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-lg-5">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-xl-4 offset-xl-4 col-md-12">
+                <div class="text-center mb-xl-7 mb-5">
+                    <small class="text-uppercase ls-md fw-semibold text-primary">Our benefits</small>
+                    <h2 class="mt-3 mb-0">Work Happier With Us</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-warning text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-suitcase-medical fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Inclusive Health Package</h4>
+                        <p class="mb-0">We care about your well-being, and offer dental and vision benefits for you and
+                            your family. No stress on health expenses.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-danger text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-globe fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Flexible Working Style</h4>
+                        <p class="mb-0">We are 100% remote-friendly, work with team mates from different time zones
+                            across the globe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-primary text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-users fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Diversity and Inclusion</h4>
+                        <p class="mb-0">Our strength lies in team members from diverse backgrounds with a culture of
+                            inclusion where everyone feels respected.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-success text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-tv fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Learn And Grow</h4>
+                        <p class="mb-0">We help you grow in your career with ongoing mentorship, and send you to events
+                            so you can build your network.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-info text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-face-grin-hearts fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Balanced Working Life</h4>
+                        <p class="mb-0">We offer an open vacation policy with a recommended 4-weeks per year. Recharge
+                            whenever you need to.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <span class="fa-stack fa-2x rounded-circle text-dark text-opacity-75 flex-shrink-0">
+                        <i class="fa-solid fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-money-bill fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <div class="ms-2">
+                        <h4>Generous Perks Program</h4>
+                        <p class="mb-0">We offer several perk stipends to support healthy home office ergonomics,
+                            continuous learning, wellness and connectivity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-lg-5">
+    <div class="container my-5">
+        <div class="row mb-3">
+            <div class="col-lg-6 offset-lg-3 col-md-12">
+                <div class="text-center mb-5">
+                    <h2>Open Positions</h2>
+                    <p class="mb-0">We're currently looking for help in the following areas:</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="list-group list-group-flush">
+                    {% include "partials/_career_item.html" %}
+                    {% include "partials/_career_item.html" %}
+                    {% include "partials/_career_item.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

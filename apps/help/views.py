@@ -56,3 +56,11 @@ def faq(request):
     }
 
     return render(request, template, context)
+
+
+def search(request):
+
+    template = "help/search.html"
+    context = {}
+
+    return render(request, template, context)

@@ -115,6 +115,10 @@ class PolicyView(TemplateView):
     template_name = "core/policy.html"
 
 
+class CareersView(TemplateView):
+    template_name = "core/careers.html"
+
+
 def post(request):
 
     template = "core/post.html"

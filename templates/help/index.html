@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans 'Help Center' %}{% endblock %}
+{% block title %}{% trans 'Help Center' %}{% endblock title %}
 
 {% block content %}
 <section class="text-bg-primary">
     <div class="container mt-4">
-        <div class="d-flex justify-content-center align-items-end">
+        <div class="row">
             <div class="text-center">
-                <h1 class="fw-bolder mt-5 mb-4">{% trans 'Help Center' %}</h1>
+                <h1 class="fw-bolder my-4">{% trans 'Help Center' %}</h1>
                 <p class="mb-3 lead px-1">
                     {% trans 'We are here to help you better use BlueJobs. First, let us figure out if we have a solution in our documentation.' %}
                 </p>
+                <div class="w-100">
+                    <form class="form-floating mb-3" action="{# help:search #}" method="get">
+                        <input type="search" name="q" class="form-control" id="search">
+                        <label for="search">What do you need help with?</label>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
 </section>
 
 <section class="bg-white">

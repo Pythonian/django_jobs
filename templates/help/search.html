@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Search results for:' %} {# category.name #} | {% trans 'Help Center' %}{% endblock title %}
+
+{% block content %}
+
+<section class="text-bg-primary">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center align-items-end">
+            <div class="text-center">
+                <h3 class="fw-bolder my-5">{% trans 'Search Results' %}</h3>
+                <div class="mb-3">
+                    <form action="{# help:search #}" method="get">
+                        <input type="search" name="q" id="q" class="form-control form-control-lg"
+                            placeholder="Enter your search term">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
