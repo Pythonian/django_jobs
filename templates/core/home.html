@@ -10,6 +10,16 @@
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="my-5">
+                    <div class="d-flex mb-3" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                        <span
+                            class="bg-light bg-opacity-25 text-light border-light border p-2 fs-6 rounded-pill lh-1 d-flex align-items-center">
+                            <span class="badge bg-dark">New</span>
+                            <span class="mx-2">Introducing Resume Editor</span>
+                            <span class="me-1">
+                                <i class="fa-solid fa-arrow-right-long"></i>
+                            </span>
+                        </span>
+                    </div>
                     <h1 class="display-5 fw-bolder mb-2" data-aos="fade-up" data-aos-delay="200"
                         data-aos-duration="1000">{% trans 'Find the latest available' %}<br><u>Blue collar
                             jobs</u> {% trans 'in Nigeria.' %}</h1>
@@ -23,7 +33,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6 d-none d-lg-block">
+            <div class="col-lg-6 d-none d-lg-block" data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
                 <img src="{% static 'img/resume.svg' %}" class="d-block img-fluid" alt="illustration">
             </div>
         </div>
@@ -33,7 +43,7 @@
 <section class="bg-white py-lg-5">
     <div class="container my-5">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
                 <span class="fa-stack fa-2x text-primary mb-3">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-regular fa-lightbulb fa-stack-1x fa-inverse"></i>
@@ -53,7 +63,7 @@
                 <div class="row g-4">
                     <div class="col-sm-6">
                         <div class="card bg-primary text-light" data-aos="zoom-in" data-aos-delay="200"
-                            data-aos-duration="1000">
+                            data-aos-duration="3000">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5 class="mt-5">{% trans 'Register' %} <br>{% trans 'Your Account' %}</h5>
@@ -67,7 +77,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="card bg-primary text-light" data-aos="zoom-in" data-aos-delay="400"
-                            data-aos-duration="1000">
+                            data-aos-duration="3000">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5 class="mt-5">{% trans 'Create' %} <br>{% trans 'Your Resume' %}</h5>
@@ -81,7 +91,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="card bg-primary text-light" data-aos="zoom-in" data-aos-delay="600"
-                            data-aos-duration="1000">
+                            data-aos-duration="3000">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5 class="mt-5">{% trans 'Search' %} <br>{% trans 'Available Jobs' %}</h5>
@@ -95,7 +105,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="card bg-primary text-light" data-aos="zoom-in" data-aos-delay="800"
-                            data-aos-duration="1000">
+                            data-aos-duration="3000">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5 class="mt-5">{% trans 'Submit' %} <br>{% trans 'An Application' %}</h5>
@@ -112,11 +122,85 @@
     </div>
 </section>
 
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-md-10 col-lg-8" data-aos="fade-down" data-aos-duration="1000">
+                <h2 class="mb-4 display-5 text-center">Features</h2>
+                <p class="text-secondary mb-4 text-center">We are dedicated to delivering exceptional services that
+                    drive success and transform your business. With a commitment to excellence, we take pride in
+                    offering a comprehensive.</p>
+                <hr class="w-50 mx-auto mb-5 border-dark">
+            </div>
+        </div>
+    </div>
+
+    <div class="container overflow-hidden">
+        <div class="row g-5 justify-content-center">
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-circle-check fs-2"></i>
+                </div>
+                <h5 class="mb-3">Tailored Matches</h5>
+                <p class="mb-3 text-secondary">
+                    Find jobs that align perfectly with your skills and aspirations through our advanced matching
+                    algorithms.
+                </p>
+            </div>
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-users fs-2"></i>
+                </div>
+                <h5 class="mb-3">Effortless Networking</h5>
+                <p class="mb-3 text-secondary">
+                    We can help you to promote your business online through a variety of digital marketing channels.
+                </p>
+            </div>
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-lightbulb fs-2"></i>
+                </div>
+                <h5 class="mb-3">Resourceful Insights</h5>
+                <p class="mb-3 text-secondary">
+                    We can help you to promote your business online through a variety of digital marketing channels.
+                </p>
+            </div>
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-business-time fs-2"></i>
+                </div>
+                <h5 class="mb-3">Quality Recommends</h5>
+                <p class="mb-3 text-secondary">
+                    We can help you to promote your business online through a variety of digital marketing channels.
+                </p>
+            </div>
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-clipboard fs-2"></i>
+                </div>
+                <h5 class="mb-3">Resume Builder</h5>
+                <p class="mb-3 text-secondary">
+                    We can help you to promote your business online through a variety of digital marketing channels.
+                </p>
+            </div>
+            <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-duration="3000">
+                <div class="badge bg-primary p-3 mb-4">
+                    <i class="fa-solid fa-bullseye fs-2"></i>
+                </div>
+                <h5 class="mb-3">Rapt Attention</h5>
+                <p class="mb-3 text-secondary">
+                    We can help you to promote your business online through a variety of digital marketing channels.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="bg-light py-lg-5">
     <div class="container my-5">
         <div class="row g-4">
             <div class="text-center mb-lg-5">
-                <h5 class="text-primary mb-3">{% trans 'Latest Jobs' %}</h5>
+                <small class="text-primary text-uppercase fw-semibold">{% trans 'Featured Opportunities' %}</small>
                 <h2>{% trans 'Find Your Career Because You Deserve It' %}</h2>
             </div>
             {% for job in jobs %}
@@ -245,23 +329,27 @@
     </div>
 </section>
 
-{% if not request.user.is_authenticated %}
 <section class="bg-primary py-lg-5">
     <div class="container my-5">
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="d-flex justify-content-center align-items-center text-white">
-                    <div class="d-none d-lg-block">
+                    <div class="d-none d-lg-block" data-aos="fade-down" data-aos-duration="1000">
                         <img class="img-fluid w-75" src="{% static 'img/interview.svg' %}" alt="interview">
                     </div>
                     <div>
-                        <h1 class="mb-3">{% trans 'Are you ready to Onboard?' %}</h1>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eos explicabo
-                            iste ipsam vero!
-                            Aspernatur.</p>
-                        <a href="{% url 'auth:signup_choice' %}"
-                            class="btn py-2 px-4 btn-outline-light shadow-sm rounded-5">
-                            <i class="fa-solid fa-paper-plane me-1"></i> {% trans 'Register Today' %}
+                        <h6 class="mb-0" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                            {% trans 'For Companies' %}</h6>
+                        <h1 class=" mb-3" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                            {% trans 'Grow your team today!' %}</h1>
+                        <p class="mb-4" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">Access a
+                            diverse talent pool effortlessly with our advanced matching
+                            algorithms,
+                            ensuring efficient and customized connections tailored to your specific hiring needs.
+                        </p>
+                        <a href="{% url 'core:resumes' %}" class="btn py-2 px-4 btn-outline-light shadow-sm rounded-5"
+                            data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+                            <i class="fa-solid fa-paper-plane me-1"></i> {% trans 'Start Hiring' %}
                         </a>
                     </div>
                 </div>
@@ -269,7 +357,6 @@
         </div>
     </div>
 </section>
-{% endif %}
 
 <section class="bg-white py-lg-5">
     <div class="container my-5">

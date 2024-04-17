@@ -12,8 +12,14 @@
                 </h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                <a href="{% url 'auth:logout' %}" class="btn btn-outline-danger">Logout</a>
+                <form method="post" action="{% url 'auth:logout' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="/" />
+                    <button class="btn btn-sm btn-outline-dark" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-danger"><i
+                            class="fa-solid me-1 fa-right-from-bracket"></i>
+                        Logout</button>
+                </form>
             </div>
         </div>
     </div>
